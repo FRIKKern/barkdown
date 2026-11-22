@@ -1,4 +1,7 @@
 {
+  "redaction": [
+    "Redacted copy: a user folder, name or email is replaced by <user>, <name> or <email> in text, or covered by a box in a picture; nothing else changed."
+  ],
   "at": "2026-10-16T21:10:15.949Z",
   "status": "reviewed_prepared_not_executed",
   "reference": ".git/C108-http-storage-release1151/result.json",
@@ -42,15 +45,15 @@
       "prepared": ".git/C108-controller-backend1166",
       "runnerPath": ".git/media-controller-backend1169.mjs",
       "output": ".git/C108-controller-backend1169",
-      "runnerSha256": "8c07fe066b75e6dea53629371eaea07a11c5e0f0bd1cd2643c57588e7b7adaf2",
+      "runnerSha256": "c83659b60b119c6e8182abf5975a7d97752e02988e5d4db74a5fa8436cb1a264",
       "fixtureSha256": "8108c70c54e27d694b9f1c561bf6e13af539a39adea80707d05a3d7bbccd57ca",
-      "bootSha256": "e5614cfba444d83a58a7d6f871c565c0970d6ce733c3132c8dc2950d8139f4e0",
-      "hostSha256": "b166cd9f8e07eef0de363e8818abd925316f2898084a72dcc8e2a1b28a874db1",
+      "bootSha256": "c45a67dc065ae2626e0a77252461089f8a3a0a6775a7fc318e19157fb8dff851",
+      "hostSha256": "9d1bda7672df013329cffc0d907d38dc67e2568c6dcd88ea387d155c2e94abbd",
       "traceSha256": "50b6060f6a6edfb189a1b024d1ea98aedb140fb95534f46f112f7316f5966778",
       "fixtureCompile": {
         "module": "Barkdown.PrivateCheckoutContractsCompileOnly",
         "status": "compiled_not_executed",
-        "fixture": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-controller-backend1166/fixture.exs",
+        "fixture": "C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\.git/C108-controller-backend1166/fixture.exs",
         "source_sha256": "8108c70c54e27d694b9f1c561bf6e13af539a39adea80707d05a3d7bbccd57ca",
         "binary_sha256": "b2ac121c4e559ffa8bc8f46093fbdc853497d471a1902f13ebfed9e4ad6ceda4",
         "loaded_md5": "7a33804a7ee001928c71f39ccc2012e9",
@@ -59,8 +62,8 @@
       "fixtureCompileMs": 2136,
       "bootParse": {
         "status": "boot_parsed_not_executed",
-        "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-controller-backend1166/boot.exs",
-        "source_sha256": "e5614cfba444d83a58a7d6f871c565c0970d6ce733c3132c8dc2950d8139f4e0",
+        "source": "C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\.git/C108-controller-backend1166/boot.exs",
+        "source_sha256": "c45a67dc065ae2626e0a77252461089f8a3a0a6775a7fc318e19157fb8dff851",
         "limits": "Whole private boot syntax only; no compile_file/Application/Repo/fixture/monitor execution."
       },
       "bootParseMs": 1163
@@ -78,15 +81,15 @@
       "prepared": ".git/C108-controller-held1170",
       "runnerPath": ".git/media-controller-held1173.mjs",
       "output": ".git/C108-controller-held1173",
-      "runnerSha256": "3bab97451707ffe09c3988be5763ad711cb28da177ad1dcce44a61acacf5df28",
+      "runnerSha256": "29f984599bee3c15c88b0e3d21f180bf3eb1473b822ce8466ca5ab263babb5b6",
       "fixtureSha256": "a2096b55303097b2a38bcd93efe66e0d099baaff0e2192804e5b5c9f685cd637",
-      "bootSha256": "50cc113df4f65a4796055fdd33c345927afce38d0597ab876cae83dbe57d01a9",
-      "hostSha256": "20c5b4ae899fad331b0ee271e7c7cb9ccb60e155a31fa8d6ea5b80aa3bdb7cee",
+      "bootSha256": "53bb89d3fbeedf37742f28c46d3085dc28d121569f0fcd1ecbb57b9918882dd2",
+      "hostSha256": "d491e7ea7fb3c0ca7c327af323497b2637074f7fe0bfdde479137c112671918a",
       "traceSha256": "50b6060f6a6edfb189a1b024d1ea98aedb140fb95534f46f112f7316f5966778",
       "fixtureCompile": {
         "module": "Barkdown.PrivateCheckoutContractsCompileOnly",
         "status": "compiled_not_executed",
-        "fixture": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-controller-held1170/fixture.exs",
+        "fixture": "C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\.git/C108-controller-held1170/fixture.exs",
         "source_sha256": "a2096b55303097b2a38bcd93efe66e0d099baaff0e2192804e5b5c9f685cd637",
         "binary_sha256": "5950e2a9415b36f3f1709944a32545a4bc3efb1fa1e32c656ee82c8d68811212",
         "loaded_md5": "b558b52707d9ba8dbd96221bf7fccc96",
@@ -95,8 +98,8 @@
       "fixtureCompileMs": 2204,
       "bootParse": {
         "status": "boot_parsed_not_executed",
-        "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-controller-held1170/boot.exs",
-        "source_sha256": "50cc113df4f65a4796055fdd33c345927afce38d0597ab876cae83dbe57d01a9",
+        "source": "C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\.git/C108-controller-held1170/boot.exs",
+        "source_sha256": "53bb89d3fbeedf37742f28c46d3085dc28d121569f0fcd1ecbb57b9918882dd2",
         "limits": "Whole private boot syntax only; no compile_file/Application/Repo/fixture/monitor execution."
       },
       "bootParseMs": 1530
@@ -112,28 +115,28 @@
     "bindings": [
       {
         "module": "Barkpark.Media.ImageBackend.Magick",
-        "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
+        "source": "C:\\Users\\<user>\\Documents\\GitHub\\barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
         "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
-        "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863",
+        "binary_sha256": "f7e0b346aa252ba966c9bf17644d765e8bb994f06d60847fa39465801176b95a",
         "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
       },
       {
         "module": "Barkpark.Media.Renditions",
-        "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown/.git/C108-renderer-preflight1011/renditions-candidate.exs",
+        "source": "C:\\Users\\<user>\\Documents\\GitHub\\barkdown/.git/C108-renderer-preflight1011/renditions-candidate.exs",
         "source_sha256": "f140b4a437061052a82f2af404d7d8cd841f896dfb5ed1e98ba638b62ec6965d",
         "binary_sha256": "a8189832be7f965bec036c68d58919c7a9174ae4eb11a73ea7ad3e499a768feb",
         "loaded_md5": "3e0004d3d9a98628f76a219b3a58f0f6"
       },
       {
         "module": "BarkparkWeb.MediaController",
-        "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown/.git/C108-http-storage-controller1150/media-controller-candidate.exs",
+        "source": "C:\\Users\\<user>\\Documents\\GitHub\\barkdown/.git/C108-http-storage-controller1150/media-controller-candidate.exs",
         "source_sha256": "29e41ad2b41a34c8bfeda1114271d0b10f7aeb069e1c06a38e65056695312369",
         "binary_sha256": "c347e443959275931d5506fb2ff827b00f44dabe5026a5d65ef3f8fe4055a78d",
         "loaded_md5": "484ea74ce94dc550201efab2bdcd3daf"
       }
     ],
     "compiler_options": "%{debug_info: true, tracers: [], docs: true, ignore_already_consolidated: false, ignore_module_conflict: false, infer_signatures: [:elixir], module_definition: :compiled, no_warn_undefined: [], on_undefined_variable: :raise, parser_options: [columns: true], relative_paths: true}",
-    "cwd": "c:/Users/Frikk/Documents/GitHub/barkdown",
+    "cwd": "c:/Users/<user>/Documents/GitHub/barkdown",
     "limits": "Three private modules compiled/loaded in actual carried release eval context only. No application/Repo/PG/upload/renderer functions executed; actual full runtime equality and behavior remain unproved."
   },
   "plan": ".git/C108-controller-regression-plan1175.json",

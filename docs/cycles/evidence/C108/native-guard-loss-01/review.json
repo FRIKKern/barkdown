@@ -1,4 +1,7 @@
 {
+  "redaction": [
+    "Redacted copy: a user folder, name or email is replaced by <user>, <name> or <email> in text, or covered by a box in a picture; nothing else changed."
+  ],
   "at": "2026-10-16T17:52:26.467Z",
   "status": "Actual private physical intent/owned loss/hold refusal/coordinator restart author reviewed",
   "reviewer": "Codex author only; independent policy/adoption remain",
@@ -50,7 +53,7 @@
     "exit_code": 0,
     "os_pid": 31080,
     "no_kill_or_suspend": true,
-    "image": "C:\\Users\\Frikk\\scoop\\apps\\imagemagick\\7.1.2-25\\magick.exe",
+    "image": "C:\\Users\\<user>\\scoop\\apps\\imagemagick\\7.1.2-25\\magick.exe",
     "status": "actual_retained_handle_exit",
     "started_at": "2026-10-16T17:49:41.8019613Z"
   },
@@ -76,7 +79,7 @@
       "writers": 0,
       "dead_writers": 0
     },
-    "journal": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-7d4Sej\\data\\write-admission.dets",
+    "journal": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-7d4Sej\\data\\write-admission.dets",
     "initialize": false,
     "old_reason": ":shutdown",
     "old_pid": "#PID<0.340.0>",
@@ -145,23 +148,23 @@
     },
     {
       "file": "boot.exs",
-      "sha256": "23a63ba8580d69628e8f3bce5b0ae31b33e06af2c1f789688bcc217f17299420"
+      "sha256": "795a021d2ce52ebb7f6458dd3e538ebf8813e5611eab7d9cf7a45ba1a9de1599"
     },
     {
       "file": "caller-ready.json",
-      "sha256": "6b99a541d81d29b3e4889a80ba67dcda0a25e1e0ad69699b667a57dffd82ff5e"
+      "sha256": "8b5fdcc8745c4dd6e2ec86b427b5605c97d1d384770b615bf2b030147c2d3217"
     },
     {
       "file": "caller-result.json",
-      "sha256": "8a75469c6ce5e86e72d4bce5c94c0b05f9a382378967b7dbbf5380f242ee6668"
+      "sha256": "3a0940687e2dff8c6cad7d1aa00594d5a7662061def878df3036bb0e02333871"
     },
     {
       "file": "candidate-bindings.json",
-      "sha256": "32c27cdd76cea84e63b346b1af269685a85ab3c96dcfd288e7e75e5e9edc0f69"
+      "sha256": "7c450ac7042318a0d982a9669711fe846e758f99d0992f53b0ee3c0570d6088e"
     },
     {
       "file": "coordinator-restart.json",
-      "sha256": "c63025768dc63c8627a58208d0797b7b96179a582f68183438b860bf142a2e93"
+      "sha256": "a6a3fb95a0a39bff4e559dd5667e702d1e7f75f7aa0d11e210fe47e695aa9b58"
     },
     {
       "file": "entry-producer.cjs",
@@ -169,7 +172,7 @@
     },
     {
       "file": "entry.json",
-      "sha256": "bdd6649665bbaf322d08479ab8cedb6f2252c5581f0c7a5be8c476aad8a13308"
+      "sha256": "6d2b0a1462d86ab5f23350ac146b220eba4516c6ee13a5775b4cde0de0997bf1"
     },
     {
       "file": "fixture-compile-process.json",
@@ -177,7 +180,7 @@
     },
     {
       "file": "fixture-compile.json",
-      "sha256": "58634958b6fc37d27d3bf114d327bea87a6f5405722782b3b14594c4174fa405"
+      "sha256": "2bddde3f3d9a7d1ad9ae14d0d35d783d806bd5fe456ef57708279a912f3b73e3"
     },
     {
       "file": "fixture.exs",
@@ -185,11 +188,11 @@
     },
     {
       "file": "guard-module-compile.json",
-      "sha256": "23c84d272b72c0b7dcdcc5b147269577cff5f6a393585c8978a81c8f094251e2"
+      "sha256": "bcb53fa4a094f7c58a584d02098f380f41149f0fae312a3fdc9244fb673dd691"
     },
     {
       "file": "host.cjs",
-      "sha256": "9b9b1f8b88b08829e59894861cef4110dd57d600ac49a498a324d4e8cfed59b1"
+      "sha256": "a94e6715d0962973926449c512d5fc4894f394c5f47b41b463625cc344b3debb"
     },
     {
       "file": "input-review.json",
@@ -201,7 +204,7 @@
     },
     {
       "file": "native-active.json",
-      "sha256": "6ead63f4276216814f40740b04ba83731795ab7fc47600d349c5661b041799a7"
+      "sha256": "162f671d2d6db009c9a2021008cccfac8186d3f7984d9f920404b23e2b4a14bd"
     },
     {
       "file": "native-at-owner-down.json",
@@ -209,7 +212,7 @@
     },
     {
       "file": "native-exit.json",
-      "sha256": "46d39515f6c7348e96cc0684f7abda1c1dd672b0cf862691b0e0b250527a4d89"
+      "sha256": "92991c96978bb12d735cd2d8d08360ea64337b1e342bf28f97de4b0a78974a9f"
     },
     {
       "file": "native-observer-ready.json",
@@ -233,7 +236,7 @@
     },
     {
       "file": "native-port-open.json",
-      "sha256": "2df7eaba723ba9ec8007e7f554157671aec0ce477809b5f6f5463d6419103de2"
+      "sha256": "a5c207b95fa8b5a73be5c541b76bb71ed4cbabcc942e28715b6d8590fd725c85"
     },
     {
       "file": "native-trace.exs",
@@ -261,19 +264,19 @@
     },
     {
       "file": "plan.json",
-      "sha256": "7985cb29f64483a16b62e44110d8407fd69aeed681d1a660ee7da65e8c36fa8b"
+      "sha256": "a21252b4674f6a80b75b2f1143e3cb368f6953250a066a8470d6f91e09dc190e"
     },
     {
       "file": "process.json",
-      "sha256": "81126745ebc12a676918b349714a94cc1fd177719be88220d05f9c1b5c482cb3"
+      "sha256": "2a45fc9cf50b64bb4a7fc7ef68dbd0fe997719388b9da16581181132d841cd94"
     },
     {
       "file": "producer.mjs",
-      "sha256": "ef262e0a6f2c4e45f08daf1e7fb213b94bfe55ab426278b991a8e6998e8613bc"
+      "sha256": "058f60228d852894788d128013713eaa882d1f1b8ece92e1dab65a5f867dc2a5"
     },
     {
       "file": "readiness.json",
-      "sha256": "3b798528a5be9ce6e25d7a106777a59f2a9e8ff9e94350f892675ebde97a4ad0"
+      "sha256": "6c95bc541435646baa6aaf4da6148fac2dfb5b6de8f82ba92413f90534b14fba"
     },
     {
       "file": "README.md",
@@ -281,7 +284,7 @@
     },
     {
       "file": "release-compiler-reference.json",
-      "sha256": "5f2573541d1559f19526d26d9ae4be46c2ca6d24531838b8b6fbec4e2f22b324"
+      "sha256": "346e1e914b14ccc62fdf9162c9a6b85d62ff10b71c21394a5151840afbbe8fb1"
     },
     {
       "file": "renditions-candidate.exs",
@@ -289,7 +292,7 @@
     },
     {
       "file": "result.json",
-      "sha256": "2d3fa2a724d1e281bdbfcc4b4a68ac4f56c19ad599d12ea01f7eddb8099d8bc1"
+      "sha256": "7aa7fee3741d4d3748982238e97662b5208feb33ba5521c1126f56592a012f83"
     },
     {
       "file": "retained-temporary.jpg",
@@ -317,7 +320,7 @@
     },
     {
       "file": "trace-compile.json",
-      "sha256": "e917bf5a78ff14e562ff93af3b226cc98add98be18d732c173c8af6a5208cba7"
+      "sha256": "d20ad8f409ea858c294af1937eab7e3b17f7bc4b8ea7a4d6685e4b5b18effd10"
     },
     {
       "file": "trace-ready.json",

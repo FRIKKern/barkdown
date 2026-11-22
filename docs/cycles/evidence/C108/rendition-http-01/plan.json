@@ -1,4 +1,7 @@
 {
+  "redaction": [
+    "Redacted copy: a user folder, name or email is replaced by <user>, <name> or <email> in text, or covered by a box in a picture; nothing else changed."
+  ],
   "at": "2026-10-16T20:20:48.861Z",
   "status": "driver_fixture_prepared_not_executed",
   "prepared": ".git/C108-rendition-http1101",
@@ -30,8 +33,8 @@
     }
   ],
   "fixtureSha256": "5613dbcfa9143f1cbef6a90b5e8d9d0e2b2b93969f86c01f0593b4f3d2e06f7d",
-  "bootSha256": "25915482e2b59f0a9f1c0281af6ca9e96a51aa33eb57878f4e6aee2909723dc2",
-  "hostSha256": "bc9fd6b4c8b505cb243a1e76686bf2c8debedb219f30fc920bee5bb914259e94",
+  "bootSha256": "4abcaa7b10215c1201f04117bbd19c1e1aea17026c04f2338a79aa35a5fe8dd5",
+  "hostSha256": "358538a5364b5bc87bbc56b7ea39eafcd7daa5452a5ead40bf9104e20853591d",
   "traceSha256": "50b6060f6a6edfb189a1b024d1ea98aedb140fb95534f46f112f7316f5966778",
   "route": "/w/:workspace_slug/p/:project_slug/media/renditions/:id/:preset",
   "staticTrace": "Stock MediaController serve_rendition_file maps write_admission tuple through Errors to503, unknown_preset400; generic storage_unavailable/imagemagick_not_found falls through404. Source trace only; actual new-candidate HTTP NOT executed.",

@@ -1,10 +1,10 @@
 TAP version 13
-# {"mode":"environment-remote","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-admission-WObCWI","quit":1,"runtimeStops":0,"dialogs":[],"loginStops":0,"dispatched":1,"lateRunLive":true,"lateRunCancelled":false,"draft":"Retained human draft"}
+# {"mode":"environment-remote","root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-admission-WObCWI","quit":1,"runtimeStops":0,"dialogs":[],"loginStops":0,"dispatched":1,"lateRunLive":true,"lateRunCancelled":false,"draft":"Retained human draft"}
 # Subtest: environment-remote
 not ok 1 - environment-remote
   ---
   duration_ms: 366.0028
-  location: 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C097\\quit-admission-probe.mjs:22:84'
+  location: 'C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C097\\quit-admission-probe.mjs:22:84'
   failureType: 'testCodeFailure'
   error: |-
     Quit must not complete while the late owned run is live
@@ -17,19 +17,19 @@ not ok 1 - environment-remote
   actual: 1
   operator: 'strictEqual'
   stack: |-
-    TestContext.<anonymous> (file:///C:/Users/Frikk/Documents/GitHub/barkdown/docs/cycles/evidence/C097/quit-admission-probe.mjs:68:70)
+    TestContext.<anonymous> (file:///C:/Users/<user>/Documents/GitHub/barkdown/docs/cycles/evidence/C097/quit-admission-probe.mjs:68:70)
     async Test.run (node:internal/test_runner/test:932:9)
     async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
-    async file:///C:/Users/Frikk/Documents/GitHub/barkdown/docs/cycles/evidence/C097/quit-admission-probe.mjs:22:78
+    async file:///C:/Users/<user>/Documents/GitHub/barkdown/docs/cycles/evidence/C097/quit-admission-probe.mjs:22:78
   ...
 # Owned profile shutdown: Runtime shutdown is waiting for active run leases; cancel and await provider cleanup first
-# {"mode":"environment-local","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-admission-0Dvj2S","quit":0,"runtimeStops":0,"dialogs":["Runtime shutdown is waiting for active run leases; cancel and await provider cleanup first\\nWait for shutdown, then try quitting again."],"loginStops":0,"dispatched":1,"lateRunLive":true,"lateRunCancelled":false,"draft":"Retained human draft"}
+# {"mode":"environment-local","root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-admission-0Dvj2S","quit":0,"runtimeStops":0,"dialogs":["Runtime shutdown is waiting for active run leases; cancel and await provider cleanup first\\nWait for shutdown, then try quitting again."],"loginStops":0,"dispatched":1,"lateRunLive":true,"lateRunCancelled":false,"draft":"Retained human draft"}
 # Subtest: environment-local
 ok 2 - environment-local
   ---
   duration_ms: 422.8853
   ...
-# {"mode":"device-login","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-admission-mlCoCU","quit":1,"runtimeStops":0,"dialogs":[],"loginStops":2,"dispatched":0,"lateRunLive":false,"lateRunCancelled":false,"draft":"Retained human draft"}
+# {"mode":"device-login","root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-admission-mlCoCU","quit":1,"runtimeStops":0,"dialogs":[],"loginStops":2,"dispatched":0,"lateRunLive":false,"lateRunCancelled":false,"draft":"Retained human draft"}
 # Subtest: device-login
 ok 3 - device-login
   ---

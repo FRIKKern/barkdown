@@ -7,7 +7,7 @@ Application.put_env(:barkpark, BarkparkWeb.Endpoint,
     http: [ip: {127, 0, 0, 1}, port: String.to_integer(System.fetch_env!("PORT"))]),
   persistent: true)
 # Private known-system-path refusal candidate, before full application start.
-bindings = for file <- ["C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-positive768/magick-candidate.exs"], {mod, binary} <- Code.compile_file(file) do
+bindings = for file <- ["C:/Users/<user>/Documents/GitHub/barkdown/.git/C108-renderer-positive768/magick-candidate.exs"], {mod, binary} <- Code.compile_file(file) do
   {:ok, {^mod, md5}} = :beam_lib.md5(binary)
   ^md5 = mod.module_info(:md5)
   %{module: inspect(mod), source: file, source_sha256: Base.encode16(:crypto.hash(:sha256, File.read!(file)), case: :lower), binary_sha256: Base.encode16(:crypto.hash(:sha256, binary), case: :lower), loaded_md5: Base.encode16(md5, case: :lower)}
@@ -19,14 +19,14 @@ Code.ensure_loaded!(mod)
 {^mod, binary, object_path} = :code.get_object_code(mod)
 {:ok, {^mod, md5}} = :beam_lib.md5(binary)
 ^md5 = mod.module_info(:md5)
-source = "C:/Users/Frikk/Documents/GitHub/barkpark-windows-media-settlement/api/lib/barkpark/media/renditions.ex"
+source = "C:/Users/<user>/Documents/GitHub/barkpark-windows-media-settlement/api/lib/barkpark/media/renditions.ex"
 File.write!(Path.join(System.fetch_env!("C108_CHECKOUT_OUTPUT"), "stock-renditions-binding.json"), JSON.encode!(%{module: inspect(mod), code_path: List.to_string(:code.which(mod)), object_path: List.to_string(object_path), source: source, source_sha256: Base.encode16(:crypto.hash(:sha256, File.read!(source)), case: :lower), binary_sha256: Base.encode16(:crypto.hash(:sha256, binary), case: :lower), loaded_md5: Base.encode16(mod.module_info(:md5), case: :lower), decoded_binary_md5: Base.encode16(md5, case: :lower), compiled_or_replaced: false}))
-[{trace_mod, trace_binary}] = Code.compile_file("C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-rendition-stock996/native-trace.exs")
+[{trace_mod, trace_binary}] = Code.compile_file("C:/Users/<user>/Documents/GitHub/barkdown/.git/C108-rendition-stock996/native-trace.exs")
 {:ok, {^trace_mod, trace_md5}} = :beam_lib.md5(trace_binary)
 ^trace_md5 = trace_mod.module_info(:md5)
-File.write!(Path.join(System.fetch_env!("C108_CHECKOUT_OUTPUT"), "trace-binding.json"), JSON.encode!(%{module: inspect(trace_mod), source_sha256: Base.encode16(:crypto.hash(:sha256, File.read!("C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-rendition-stock996/native-trace.exs")), case: :lower), binary_sha256: Base.encode16(:crypto.hash(:sha256, trace_binary), case: :lower), loaded_md5: Base.encode16(trace_md5, case: :lower), beam_os_pid: System.pid()}))
+File.write!(Path.join(System.fetch_env!("C108_CHECKOUT_OUTPUT"), "trace-binding.json"), JSON.encode!(%{module: inspect(trace_mod), source_sha256: Base.encode16(:crypto.hash(:sha256, File.read!("C:/Users/<user>/Documents/GitHub/barkdown/.git/C108-rendition-stock996/native-trace.exs")), case: :lower), binary_sha256: Base.encode16(:crypto.hash(:sha256, trace_binary), case: :lower), loaded_md5: Base.encode16(trace_md5, case: :lower), beam_os_pid: System.pid()}))
 {:ok, _} = Application.ensure_all_started(:barkpark)
-{:ok, fixture} = Task.start(fn -> Code.require_file("C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-rendition-stock996/fixture.exs") end)
+{:ok, fixture} = Task.start(fn -> Code.require_file("C:/Users/<user>/Documents/GitHub/barkdown/.git/C108-rendition-stock996/fixture.exs") end)
 File.write!(Path.join(System.fetch_env!("C108_CHECKOUT_OUTPUT"), "fixture-pid.txt"), inspect(fixture))
 spawn(fn ->
   monitor = Process.monitor(fixture)

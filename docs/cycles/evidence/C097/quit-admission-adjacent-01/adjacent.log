@@ -173,7 +173,7 @@ ok 34 - native ordinary preparation drains A child/grandchild and preserves the 
   ---
   duration_ms: 2583.7261
   ...
-# {"fixture":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-launch-admission-cjpafK","aReceipt":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-launch-admission-cjpafK\\\\profiles\\\\29e3aa11-c207-4ba9-9418-4e5977a5feac\\\\goal-processes\\\\fc6b7b58-fde5-4f8d-b69f-3d1b6a670025.receipt.json","aTree":{"root":49588,"pid":50848,"leaf":21872},"bTree":{"root":50464,"pid":49452,"leaf":50612},"retained":true}
+# {"fixture":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-launch-admission-cjpafK","aReceipt":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-launch-admission-cjpafK\\\\profiles\\\\29e3aa11-c207-4ba9-9418-4e5977a5feac\\\\goal-processes\\\\fc6b7b58-fde5-4f8d-b69f-3d1b6a670025.receipt.json","aTree":{"root":49588,"pid":50848,"leaf":21872},"bTree":{"root":50464,"pid":49452,"leaf":50612},"retained":true}
 # Subtest: goal drain waits for delayed runtime, persists settlement, freezes journal and permits B
 ok 35 - goal drain waits for delayed runtime, persists settlement, freezes journal and permits B
   ---
@@ -219,13 +219,13 @@ ok 43 - native goal drain stops all three owned trees, settles their journal and
   ---
   duration_ms: 3091.18
   ...
-# {"fixture":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-launch-admission-zczh61","goalReceipts":[{"version":1,"containment":"job-list-v1","nonce":"65d7a915-388c-4d38-8d9d-745edcf45888","profileId":"28ff45d3-d3eb-46d7-af96-39a7ab36b5df","attemptId":"da3356c2-22a8-455a-92b1-49f81fe3e20f","jobName":"Local\\\\BarkdownGoal-65d7a915-388c-4d38-8d9d-745edcf45888","helperPid":33732,"helperStarted":"639269851850139778","phase":"stopped","childPid":22796,"activeProcesses":0},{"version":1,"containment":"job-list-v1","nonce":"9fd0a2c5-3d2c-4fe3-9a20-6c106b0e913a","profileId":"28ff45d3-d3eb-46d7-af96-39a7ab36b5df","attemptId":"6eb97c8b-e2ad-4c1f-b642-e6a06f741066","jobName":"Local\\\\BarkdownGoal-9fd0a2c5-3d2c-4fe3-9a20-6c106b0e913a","helperPid":39112,"helperStarted":"639269851850233413","phase":"stopped","childPid":50616,"activeProcesses":0},{"version":1,"containment":"job-list-v1","nonce":"ab4e6dc9-55e4-4ba8-b629-24c9df7da9c7","profileId":"28ff45d3-d3eb-46d7-af96-39a7ab36b5df","attemptId":"f0dae155-68ce-44f5-9e84-b17bbc98da00","jobName":"Local\\\\BarkdownGoal-ab4e6dc9-55e4-4ba8-b629-24c9df7da9c7","helperPid":38436,"helperStarted":"639269851850348994","phase":"stopped","childPid":50488,"activeProcesses":0}],"trees":{"45909523-8fee-4010-a712-08d50e502886":{"root":50616,"pid":49544,"leaf":50848},"4cfd61c8-9b18-43f0-8b79-856f86646124":{"root":22796,"pid":49552,"leaf":46032},"ea1fbc38-3b87-4f4d-b569-60e98d05da40":{"root":50488,"pid":28412,"leaf":50528},"same":{"root":40064,"pid":51112,"leaf":26040}},"retained":true}
+# {"fixture":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-launch-admission-zczh61","goalReceipts":[{"version":1,"containment":"job-list-v1","nonce":"65d7a915-388c-4d38-8d9d-745edcf45888","profileId":"28ff45d3-d3eb-46d7-af96-39a7ab36b5df","attemptId":"da3356c2-22a8-455a-92b1-49f81fe3e20f","jobName":"Local\\\\BarkdownGoal-65d7a915-388c-4d38-8d9d-745edcf45888","helperPid":33732,"helperStarted":"639269851850139778","phase":"stopped","childPid":22796,"activeProcesses":0},{"version":1,"containment":"job-list-v1","nonce":"9fd0a2c5-3d2c-4fe3-9a20-6c106b0e913a","profileId":"28ff45d3-d3eb-46d7-af96-39a7ab36b5df","attemptId":"6eb97c8b-e2ad-4c1f-b642-e6a06f741066","jobName":"Local\\\\BarkdownGoal-9fd0a2c5-3d2c-4fe3-9a20-6c106b0e913a","helperPid":39112,"helperStarted":"639269851850233413","phase":"stopped","childPid":50616,"activeProcesses":0},{"version":1,"containment":"job-list-v1","nonce":"ab4e6dc9-55e4-4ba8-b629-24c9df7da9c7","profileId":"28ff45d3-d3eb-46d7-af96-39a7ab36b5df","attemptId":"f0dae155-68ce-44f5-9e84-b17bbc98da00","jobName":"Local\\\\BarkdownGoal-ab4e6dc9-55e4-4ba8-b629-24c9df7da9c7","helperPid":38436,"helperStarted":"639269851850348994","phase":"stopped","childPid":50488,"activeProcesses":0}],"trees":{"45909523-8fee-4010-a712-08d50e502886":{"root":50616,"pid":49544,"leaf":50848},"4cfd61c8-9b18-43f0-8b79-856f86646124":{"root":22796,"pid":49552,"leaf":46032},"ea1fbc38-3b87-4f4d-b569-60e98d05da40":{"root":50488,"pid":28412,"leaf":50528},"same":{"root":40064,"pid":51112,"leaf":26040}},"retained":true}
 # Subtest: native restart goal drain reconciles the crashed journal once for concurrent callers
 ok 44 - native restart goal drain reconciles the crashed journal once for concurrent callers
   ---
   duration_ms: 2389.6343
   ...
-# {"fixture":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-goal-drain-crash-L91p5x","owner":{"profileId":"638b709c-2976-4efe-9b94-8d9abe1f6c38","goalId":"7b7edb1e-de69-4f39-872a-181689be55a1"},"attemptId":"c8ed4348-c862-4b1e-b13c-3db10d3d67b2","retained":true}
+# {"fixture":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-goal-drain-crash-L91p5x","owner":{"profileId":"638b709c-2976-4efe-9b94-8d9abe1f6c38","goalId":"7b7edb1e-de69-4f39-872a-181689be55a1"},"attemptId":"c8ed4348-c862-4b1e-b13c-3db10d3d67b2","retained":true}
 # PASS A run retains A while B selected, with independent descriptors, stores and credentials
 # PASS parallel acquire starts each profile only once and allocator sees prior reservations
 # PASS restart reuses descriptor and selection without rebinding source or ports
@@ -240,13 +240,13 @@ ok 44 - native restart goal drain reconciles the crashed journal once for concur
 # PASS invalid/foreign/colliding descriptors fail before runtime creation
 # PASS descriptor lease refuses another writer and does not change its ownership
 # PASS a profile follows a carried runtime to its new folder; a checkout or a folder that still exists is never swapped
-# 14 runtime-pool checks passed; fixtures retained at C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-profile-runtime-pdD8fp
+# 14 runtime-pool checks passed; fixtures retained at C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-profile-runtime-pdD8fp
 # Subtest: tests\\profile-runtime.test.mjs
 ok 4 - tests\\profile-runtime.test.mjs
   ---
   duration_ms: 4267.9953
   ...
-# {"passed":["generation saves","trusted scope","durable approvals","cross-profile controls","late A transcript with B draft","driver finalization","foreign image rejection","dispatch input snapshot"],"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-profile-service-kw3ayd","retained":true}
+# {"passed":["generation saves","trusted scope","durable approvals","cross-profile controls","late A transcript with B draft","driver finalization","foreign image rejection","dispatch input snapshot"],"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-profile-service-kw3ayd","retained":true}
 # Subtest: tests\\profile-service.test.mjs
 ok 5 - tests\\profile-service.test.mjs
   ---

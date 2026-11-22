@@ -1,7 +1,7 @@
 const fs=require('node:fs'),os=require('node:os'),path=require('node:path'),crypto=require('node:crypto'),assert=require('node:assert/strict'),{execFileSync}=require('node:child_process'),{createRequire}=require('node:module');
-const root='C:/Users/Frikk/.codex/worktrees/windows-installer/barkdown',base=__dirname,appRoot=root+'/app',req=createRequire(appRoot+'/package.json'),{_electron:electron}=req('playwright');
+const root='C:/Users/<user>/.codex/worktrees/windows-installer/barkdown',base=__dirname,appRoot=root+'/app',req=createRequire(appRoot+'/package.json'),{_electron:electron}=req('playwright');
 const {createProfileRegistry}=req('./main/profile-registry'),{createStore}=req('./main/store');
-const source=process.argv[2];assert(/^[a-f0-9]{40}$/.test(source));const runtime='C:/Users/Frikk/Documents/GitHub/barkdown/runtime/C105-full-current-08',native='C:/Users/Frikk/AppData/Local/OpenAI/Codex/bin/2e5e00daee91c61d/codex.exe';
+const source=process.argv[2];assert(/^[a-f0-9]{40}$/.test(source));const runtime='C:/Users/<user>/Documents/GitHub/barkdown/runtime/C105-full-current-08',native='C:/Users/<user>/AppData/Local/OpenAI/Codex/bin/2e5e00daee91c61d/codex.exe';
 const git=args=>execFileSync('git',args,{cwd:root,encoding:'utf8',windowsHide:true}).trim();assert.equal(git(['rev-parse','HEAD']),source);assert.equal(git(['status','--porcelain']),'');
 const hash=b=>crypto.createHash('sha256').update(b).digest('hex');assert.equal(hash(fs.readFileSync(native)),'d13914ced6c7af174d8d638db938284231227312104b06a25e9608c632a7daec');
 const upstream=req('./main/local-barkpark-source').releaseOf(runtime)?.upstream;assert.equal(upstream,'2ff67c882cf0951676c8322bbcc15e19f2f98545');

@@ -3,13 +3,13 @@ const fs = require('fs');
 const assert = require('assert/strict');
 const cp = require('child_process');
 const actualSpawn = cp.spawn;
-const root = 'C:/Users/Frikk/Documents/GitHub/barkdown';
+const root = 'C:/Users/<user>/Documents/GitHub/barkdown';
 let serverInjections = 0;
 cp.spawn = (command, args, options) => {
   if (options?.env?.BARKDOWN_RELEASE_MODE === 'server') {
     serverInjections++;
     options = { ...options, env: { ...options.env,
-      BARKDOWN_RELEASE_BOOT_SCRIPT: "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-project-ordinary1326/boot.exs", C108_CHECKOUT_OUTPUT: process.env.C108_CHECKOUT_OUTPUT, C108_IMAGE_BIN: process.env.C108_IMAGE_BIN, C108_CHECKOUT_MODE: process.env.C108_CHECKOUT_MODE, C108_HTTP_TOKEN_FILE: process.env.C108_HTTP_TOKEN_FILE
+      BARKDOWN_RELEASE_BOOT_SCRIPT: "C:/Users/<user>/Documents/GitHub/barkdown/.git/C108-project-ordinary1326/boot.exs", C108_CHECKOUT_OUTPUT: process.env.C108_CHECKOUT_OUTPUT, C108_IMAGE_BIN: process.env.C108_IMAGE_BIN, C108_CHECKOUT_MODE: process.env.C108_CHECKOUT_MODE, C108_HTTP_TOKEN_FILE: process.env.C108_HTTP_TOKEN_FILE
     } };
   }
   return actualSpawn(command, args, options);

@@ -3,7 +3,7 @@ TAP version 13
 not ok 1 - a linked export subtree root refuses rather than copying outside-profile bytes
   ---
   duration_ms: 29.8291
-  location: 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\tests\\profile-export.test.mjs:55:1'
+  location: 'C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\tests\\profile-export.test.mjs:55:1'
   failureType: 'testCodeFailure'
   error: 'Missing expected rejection.'
   code: 'ERR_ASSERTION'
@@ -12,7 +12,7 @@ not ok 1 - a linked export subtree root refuses rather than copying outside-prof
     code: 'export_link'
   operator: 'rejects'
   stack: |-
-    async TestContext.<anonymous> (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/profile-export.test.mjs:57:3)
+    async TestContext.<anonymous> (file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/profile-export.test.mjs:57:3)
     async Test.run (node:internal/test_runner/test:932:9)
     async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
   ...

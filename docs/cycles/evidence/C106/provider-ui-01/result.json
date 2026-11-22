@@ -1,4 +1,7 @@
 {
+  "redaction": [
+    "Redacted copy: a user folder, name or email is replaced by <user>, <name> or <email> in text, or covered by a box in a picture; nothing else changed."
+  ],
   "at": "2026-10-14T22:46:50.847Z",
   "source": "4f513da34112f8df3d024390f828cffd3b40ba68",
   "appTree": "cc67ea18df7983c3649a6fc0246389aa4d90c8ce",
@@ -27,7 +30,7 @@
     "ok": true,
     "fit": "newer",
     "tested": "0.155.0",
-    "answer": "WARNING: proceeding, even though we could not create PATH aliases: CODEX_HOME points to \"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-cli-ui-PLqRFE\\\\home\\\\.",
+    "answer": "WARNING: proceeding, even though we could not create PATH aliases: CODEX_HOME points to \"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-cli-ui-PLqRFE\\\\home\\\\.",
     "problem": null
   },
   "restored": {
@@ -37,7 +40,7 @@
     "ok": true,
     "fit": "newer",
     "tested": "0.155.0",
-    "answer": "WARNING: proceeding, even though we could not create PATH aliases: CODEX_HOME points to \"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-cli-ui-PLqRFE\\\\home\\\\.",
+    "answer": "WARNING: proceeding, even though we could not create PATH aliases: CODEX_HOME points to \"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-cli-ui-PLqRFE\\\\home\\\\.",
     "problem": null
   },
   "checks": [
@@ -59,7 +62,7 @@
   "frames": [
     {
       "name": "01-before-selection.png",
-      "sha256": "c14183a474c19b034ffad444e45e13f855b04b95bbeda56ac39d89b37a123910",
+      "sha256": "2611369ffb167221cac084fd8a57d46a3d9a991d033d5356e0b90a4cded5049c",
       "geometry": {
         "viewport": {
           "width": 1164,
@@ -87,7 +90,7 @@
     },
     {
       "name": "02-selected.png",
-      "sha256": "d3f6c8cbba30943ca439bbcf8f05ca6812ed12784649b20f64914ef22d72e513",
+      "sha256": "1a124b65a1daefddf88fc58bcc5a188b14a2f01919c123bb602a8280dc74f993",
       "geometry": {
         "viewport": {
           "width": 1164,
@@ -115,7 +118,7 @@
     },
     {
       "name": "03-relative-refused.png",
-      "sha256": "074a943464348b6eb9166ae1aff87bbbe4c856e0b1b6726142e265649bc37e07",
+      "sha256": "75d43705d215224465dec1669967386be73e9b205c336d00798cf0ee997dbfed",
       "geometry": {
         "viewport": {
           "width": 1164,
@@ -143,7 +146,7 @@
     },
     {
       "name": "04-narrow.png",
-      "sha256": "cd37c32a7de0632936d8bc11e094f41bf8286a21a591fcedb0a76295a1a90d00",
+      "sha256": "bb444005546a1504def58af639aa05265de1b25f9e94f06daae4991a0859a38f",
       "geometry": {
         "viewport": {
           "width": 884,
@@ -171,7 +174,7 @@
     },
     {
       "name": "05-restarted.png",
-      "sha256": "d2c1eff9976254eeac40044a712f59ff929348df7cecb2e1b6de303904257774",
+      "sha256": "03cfc6998a669d765fdd9e7fb6321dc73ed0b5f66115dc782ab4040ea205b4a6",
       "geometry": {
         "viewport": {
           "width": 1164,

@@ -5,7 +5,7 @@ const assert = require('assert/strict');
 const { createRequire } = require('module');
 const { execFileSync } = require('child_process');
 const base = __dirname;
-const repository = 'C:/Users/Frikk/.codex/worktrees/windows-installer/barkdown';
+const repository = 'C:/Users/<user>/.codex/worktrees/windows-installer/barkdown';
 const archive = base + '/C106-extract-05/payload/resources/app.asar';
 const out = base + '/C106-package-source-338';
 const sha = data => crypto.createHash('sha256').update(data).digest('hex');

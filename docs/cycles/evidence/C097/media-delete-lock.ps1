@@ -18,8 +18,8 @@ foreach ($name in @('normal.bin','locked.bin')) { [IO.File]::WriteAllBytes((Join
 $ebin = Join-Path $source 'api/_build/dev/lib/barkpark/ebin'
 $jason = Join-Path $source 'api/_build/dev/lib/jason/ebin'
 $script = Join-Path $PSScriptRoot 'media-delete-lock.exs'
-$env:PATH = 'C:\Users\Frikk\scoop\apps\elixir\current\bin;C:\Users\Frikk\scoop\apps\erlang\current\bin;' + $env:PATH
-$elixir = 'C:\Users\Frikk\scoop\apps\elixir\current\bin\elixir.bat'
+$env:PATH = 'C:\Users\<user>\scoop\apps\elixir\current\bin;C:\Users\<user>\scoop\apps\erlang\current\bin;' + $env:PATH
+$elixir = 'C:\Users\<user>\scoop\apps\elixir\current\bin\elixir.bat'
 $report = [ordered]@{startedAt=[DateTime]::UtcNow.ToString('o');source=(& git -C $repo rev-parse HEAD).Trim();upstream=$pin;status='running';fixture=$fixture;files=@{};steps=@();limits='New disposable files; real compiled local storage modules, no database/server/admission protocol, media row, deferred queue or remote effects. Characterizes an ignored OS error; does not fix it.'}
 foreach ($file in @($script,$PSCommandPath,(Join-Path $ebin 'Elixir.Barkpark.Media.Blobstore.Local.beam'),(Join-Path $ebin 'Elixir.Barkpark.Media.beam'),(Join-Path $source 'api/lib/barkpark/media/blobstore/local.ex'),(Join-Path $source 'api/lib/barkpark/media.ex'))) { $report.files[$file] = (Get-FileHash -LiteralPath $file -Algorithm SHA256).Hash.ToLowerInvariant() }
 function Save-Report { [IO.File]::WriteAllText((Join-Path $output 'result.json'),($report | ConvertTo-Json -Depth 12) + [char]10) }

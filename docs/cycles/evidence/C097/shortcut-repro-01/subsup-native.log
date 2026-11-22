@@ -1,4 +1,4 @@
-Isolated capture data: C:\Users\Frikk\AppData\Local\Temp\barkdown-C097-shortcut-f40c6bd1ae3b449ba80c361e1a610229\barkdown-shots-runtime-MY7w5y
+Isolated capture data: C:\Users\<user>\AppData\Local\Temp\barkdown-C097-shortcut-f40c6bd1ae3b449ba80c361e1a610229\barkdown-shots-runtime-MY7w5y
 Capture runtime: starting 
 Capture runtime: ready 
 bp: published to http://127.0.0.1:51968 (POST /v1/plugins/bulldocs/papers)
@@ -72,19 +72,19 @@ bp: published to http://127.0.0.1:51968 (POST /v1/plugins/bulldocs/papers)
 }
 Capture runtime: stopping 
 Capture runtime: stopped 
-file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/helpers/capture-lifecycle.mjs:120
+file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/helpers/capture-lifecycle.mjs:120
     throw new AggregateError(errors, errors.map(error => error.message).join('\n'));
           ^
 
 AggregateError: Live screenshot capture failed with exit 1
-    at captureWithCleanup (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/helpers/capture-lifecycle.mjs:120:11)
+    at captureWithCleanup (file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/helpers/capture-lifecycle.mjs:120:11)
     at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/status-shots-isolated.mjs:38:1 {
+    at async file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/status-shots-isolated.mjs:38:1 {
   [errors]: [
     Error: Live screenshot capture failed with exit 1
-        at captureWithCleanup (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/helpers/capture-lifecycle.mjs:104:51)
+        at captureWithCleanup (file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/helpers/capture-lifecycle.mjs:104:51)
         at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
-        at async file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/status-shots-isolated.mjs:38:1
+        at async file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/status-shots-isolated.mjs:38:1
   ]
 }
 

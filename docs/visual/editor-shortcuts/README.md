@@ -4,9 +4,9 @@ Control+, applies Paper subscript while keeping editor focus and Settings closed
 
 ![Subscript saved with editor focus; dark mode](../../cycles/evidence/C097/shortcut-final-01/40-subsup-shortcut.png)
 
-[Behavior receipt](../../cycles/evidence/C097/shortcut-final-01/result.json) · [Raw recording](../../cycles/evidence/C097/shortcut-final-01/40-subsup.webm) · [Sampling record](../../cycles/evidence/C097/shortcut-final-01/motion-review.json)
+[Behavior receipt](../../cycles/evidence/C097/shortcut-final-01/result.json)
 
-Codex inspected all four stills and 37 samples at 2 fps. Source 368108c5, runtime944a57a1e, Electron 44.5.1, 1400×900 native window. Eight checks pass, including saved sub/sup wrappers and a real renderer reload. Settings controls remain readable/reachable; Paper's selection toolbar floats above the selected text. The raw video begins with light startup and switches to dark through Settings; the website reader uses its own light styling. No Mac/Linux keyboard execution is claimed.
+Codex inspected all four stills. Source 368108c5, runtime944a57a1e, Electron 44.5.1, 1400×900 native window. Eight checks pass, including saved sub/sup wrappers and a real renderer reload. Settings controls remain readable/reachable; Paper's selection toolbar floats above the selected text. The website reader uses its own light styling. No Mac/Linux keyboard execution is claimed.
 
 The [original failing receipt](../../cycles/evidence/C097/shortcut-repro-01/result.json) preserves the unintended sheet and lost focus. The [first rerun](../../cycles/evidence/C097/shortcut-fix-01/result.json) stopped on a hidden setup button. The [second](../../cycles/evidence/C097/shortcut-fix-02/result.json) passed behavior, but image review caught invalid test navigation; final proof uses an actual reload and returns to Paper.
 

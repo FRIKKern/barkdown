@@ -1,5 +1,5 @@
 const fs=require('fs');
-const root='C:/Users/Frikk/Documents/GitHub/barkdown';
+const root='C:/Users/<user>/Documents/GitHub/barkdown';
 fs.writeFileSync(root+'/.git/C108-checkout526/preparation-failure.json',JSON.stringify({at:new Date().toISOString(),status:'failed before host/boot creation; no process launched',reason:'Exact CRLF string replacement did not match normalized host source',retained:true},null,2));
 let s=fs.readFileSync(root+'/.git/media-checkout-prepare526.cjs','utf8').replaceAll('C108-checkout526','C108-checkout528');
 const a=s.indexOf("let host="),b=s.indexOf('\nconst from=',a);

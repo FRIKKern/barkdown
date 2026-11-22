@@ -27,10 +27,10 @@ Agent entry routing, current handoff and tracked completion evidence checks pass
 CI effort: overlapping/failed/cancelled/unfinished/missing/negative timings and duplicate-event candidates passed.
 Offline replay, retained-snapshot overwrite refusal and bounded live input passed.
 Review bundle: self-contained media/provenance, extraction, hashes, stale capture, escapes, missing media, approval changes, overwrite refusal and diagnostics passed.
-Running cwd-and-argv in C:\Users\Frikk\AppData\Local\Temp\barkdown-steps-apRnxp\app
-cwd-and-argv: passed (59 ms); C:\Users\Frikk\AppData\Local\Temp\barkdown-steps-apRnxp\success\cwd-and-argv.log
-Running fail in C:\Users\Frikk\AppData\Local\Temp\barkdown-steps-apRnxp
-fail: failed (52 ms); C:\Users\Frikk\AppData\Local\Temp\barkdown-steps-apRnxp\failed\fail.log
+Running cwd-and-argv in C:\Users\<user>\AppData\Local\Temp\barkdown-steps-apRnxp\app
+cwd-and-argv: passed (59 ms); C:\Users\<user>\AppData\Local\Temp\barkdown-steps-apRnxp\success\cwd-and-argv.log
+Running fail in C:\Users\<user>\AppData\Local\Temp\barkdown-steps-apRnxp
+fail: failed (52 ms); C:\Users\<user>\AppData\Local\Temp\barkdown-steps-apRnxp\failed\fail.log
 Checked steps: cwd, literal arguments, fail-fast, retained diagnostics, no overwrite and full preflight passed.
 
 > barkdown-workspace@0.5.0 check:visual
@@ -40,7 +40,7 @@ Visual diff: identical images, low color noise, localized deletion and resize ch
 Visual step matching: insertion, reordering, deletion and duplicate identities checked.
 Per-platform approval: darwin recorded beside win32; check passes while either is current.
 Future live fixtures and capture helpers invalidate existing approval.
-Actual approval CLI: same candidate retains original and both reviewers; latest pointer and tamper refusal pass. Fixture retained: C:\Users\Frikk\AppData\Local\Temp\barkdown-review-history-c7SpzK
+Actual approval CLI: same candidate retains original and both reviewers; latest pointer and tamper refusal pass. Fixture retained: C:\Users\<user>\AppData\Local\Temp\barkdown-review-history-c7SpzK
 Visual evidence hashes, source coverage and agent review are current on win32; stale on darwin (captured 2026-10-05), recapture there before relying on those pictures. External/live coverage limits remain in docs/visual/README.md.
 Picture retention: 4 visual runs and 6 status screenshots kept.
 

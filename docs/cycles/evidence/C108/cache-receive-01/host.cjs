@@ -3,7 +3,7 @@ const fs = require('fs');
 const assert = require('assert/strict');
 const cp = require('child_process');
 const actualSpawn = cp.spawn;
-const root = 'C:/Users/Frikk/Documents/GitHub/barkdown';
+const root = 'C:/Users/<user>/Documents/GitHub/barkdown';
 const endpoint = process.env.C108_S3_ENDPOINT;
 assert.match(endpoint, /^http:\/\/127\.0\.0\.1:\d+$/);
 let serverInjections = 0;

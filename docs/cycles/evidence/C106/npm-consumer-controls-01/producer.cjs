@@ -1,5 +1,5 @@
 const fs=require('fs'),path=require('path'),assert=require('assert/strict'),{pathToFileURL}=require('url'),{spawnSync}=require('child_process');
-const root='C:/Users/Frikk/.codex/worktrees/windows-installer/barkdown',base='C:/Users/Frikk/Documents/GitHub/barkdown/.git',out=base+'/C106-npm-adapters-158';fs.mkdirSync(out);
+const root='C:/Users/<user>/.codex/worktrees/windows-installer/barkdown',base='C:/Users/<user>/Documents/GitHub/barkdown/.git',out=base+'/C106-npm-adapters-158';fs.mkdirSync(out);
 (async()=>{
  const start=Date.now(),mod=await import(pathToFileURL(root+'/scripts/npm-notices-windows.mjs')),pin=JSON.parse(fs.readFileSync(root+'/scripts/windows-npm-notices-pin.json'));
  const source=mod.readNpmNoticeInputs(root);assert.equal(source.notices.length,3);

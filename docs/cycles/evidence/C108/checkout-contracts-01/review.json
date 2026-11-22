@@ -1,4 +1,7 @@
 {
+  "redaction": [
+    "Redacted copy: a user folder, name or email is replaced by <user>, <name> or <email> in text, or covered by a box in a picture; nothing else changed."
+  ],
   "at": "2026-10-16T12:56:53.290Z",
   "reviewer": "Codex Windows delivery author review, not independent integration approval",
   "status": "reviewed original contracts; no repair",
@@ -41,7 +44,7 @@
   "files": [
     {
       "file": "boot.exs",
-      "sha256": "06e786f1672c91ec7f5450c87cd18d5a5f97693074cdc6ead870d8c5a40525e6"
+      "sha256": "e600e42634125172ccbaaa6d2f47bd5eb389a5169083090677e292b6d07f574c"
     },
     {
       "file": "checkout-observed.exs",
@@ -53,7 +56,7 @@
     },
     {
       "file": "compile-result.json",
-      "sha256": "71570ff13990ea18cbcb0c4194cf45cd65c40e88a2f5b68a7af1629c38b112f5"
+      "sha256": "cf3cfdc66c06b3675934ea3ca2867d8791e8adadb8937b20078ca0ec18f4b841"
     },
     {
       "file": "compile.exs",
@@ -69,11 +72,11 @@
     },
     {
       "file": "derive.cjs",
-      "sha256": "a7135a8c087c633b1c15892d0fd61f804a26000c0a115c79df4aa6b1b107b0d0"
+      "sha256": "0c3e424109f0c81ae1f4cd1f0ec125cbda3ea372790c6bb1f9e84389ae97a878"
     },
     {
       "file": "entry.json",
-      "sha256": "0a4b33d1f1aa17aa2456b2329df6d48c7bb1f890ea6f6d4d206801046b62c73d"
+      "sha256": "b24bba59d57b03f32168bef1aae5baa7133137f06ca02767a84635063ce9c91d"
     },
     {
       "file": "fixture.exs",
@@ -81,7 +84,7 @@
     },
     {
       "file": "host.cjs",
-      "sha256": "0e95a1b50a3b1da96b4351f710d1eb3d8a6131fcb76d5e56232eaf3cd5bb8d14"
+      "sha256": "979d59a6b412ced919236a8057b192464d9d975b2da0642ea1b144f4c45b2710"
     },
     {
       "file": "lock.ps1",
@@ -89,31 +92,31 @@
     },
     {
       "file": "managed/bindings.json",
-      "sha256": "9b59dbebd958abf8f693b992b74072e182cdcee95114e896db549f8c3275e552"
+      "sha256": "a49cd62e776a696d81c1b9386f95af5eab8c3b5fc52635dbb862239b3e8c5eff"
     },
     {
       "file": "managed/case-3-lock-ready.json",
-      "sha256": "d17b03ae89ece5b74d418dfba45cf25523f6dd321125ab04a3631de3d8a535ad"
+      "sha256": "5357bcdfca27378d778f8fb603331a52fc8134d359e9523cc37b89383e1bf3b5"
     },
     {
       "file": "managed/case-6-lock-ready.json",
-      "sha256": "ba59ba510aee9deb9e931b7437f3028c781e5c2a3eac1d9dbd75196d94eaa410"
+      "sha256": "1b7e525d6948436a7760b8d84d650e20c03bdff0255474752695ee96132c1ce5"
     },
     {
       "file": "managed/case-9-lock-ready.json",
-      "sha256": "a58d18124b5a660338ec0666e3c9417dd79ddf4e019ef5ef8f6090c0bb7b41fa"
+      "sha256": "b133f56762e7d81beb2c8d840988d5d9c38b5c7f7c4050e1172fed561d61f75b"
     },
     {
       "file": "managed/process.json",
-      "sha256": "d6af79a6b1582ec7b4cf0eef72334c66f929fecb8e012ad281cd1879ee437f75"
+      "sha256": "d93974d253c349a78a96592c0e0c193e316ca2909ef5258ae2eb5f2f32563353"
     },
     {
       "file": "managed/producer.mjs",
-      "sha256": "187e120af5989ae444b22c34268ff0b604f0897f71e089813564d12625c37c3e"
+      "sha256": "2a2bbdf6715fb750b60a50fe4954b0c94a7d4afe64a1c15ff4886230099981b3"
     },
     {
       "file": "managed/result.json",
-      "sha256": "d1407002a39e857e399beea9312b4d8026a2e605cceaa0f940a6198a3a2a67fc"
+      "sha256": "b5b4a81713adecdba61973f9d6349c1bfea473783fa0b5b874b035341bbd431a"
     },
     {
       "file": "managed/runner.log",
@@ -125,35 +128,35 @@
     },
     {
       "file": "matrix.json",
-      "sha256": "bd5e6561c6ab09a94c59f4d1c65d1c28e1c974b2edf2bcbf7966ed7268d0e6a3"
+      "sha256": "2e0ad67a39bb0f42d7ec8d0757fcab251d85c2f1455f953e21dfe02978aa2840"
     },
     {
       "file": "ordinary/bindings.json",
-      "sha256": "9b59dbebd958abf8f693b992b74072e182cdcee95114e896db549f8c3275e552"
+      "sha256": "a49cd62e776a696d81c1b9386f95af5eab8c3b5fc52635dbb862239b3e8c5eff"
     },
     {
       "file": "ordinary/case-3-lock-ready.json",
-      "sha256": "815bf1199440098f30e8cd4c6070f31f10dfc47f89d36697f5742aacae6e7990"
+      "sha256": "dd331aa6b4c9a9624dc0f1b1f60da56238fdec5603ec08d00a96e802340d192f"
     },
     {
       "file": "ordinary/case-6-lock-ready.json",
-      "sha256": "67939e10cbe5418b5f33927694eb6f20fcfa6abca6dcfd77edfe6f1b628ec64c"
+      "sha256": "d5a586f54c60af9e94da4260d485cbacac25d3fa1948968c28a00c2b53b7cae4"
     },
     {
       "file": "ordinary/case-9-lock-ready.json",
-      "sha256": "89fb945078c6a5456c9e9e4b1e804ec0dd39a35cc4698f467b6af65b616f62bf"
+      "sha256": "fe24a42d9b058c05cf743295b9f8e83f8cbcc9411f30a6ea085584ae4e258138"
     },
     {
       "file": "ordinary/process.json",
-      "sha256": "f978e1cf8b5bb315bae4ed66422ebe7fe7b09c5c7932383d2faaf2d78dbef19a"
+      "sha256": "28fbbffe035adf9da3bd7064c189e9887e62de5884655cd8a7bc006477484c28"
     },
     {
       "file": "ordinary/producer.mjs",
-      "sha256": "187e120af5989ae444b22c34268ff0b604f0897f71e089813564d12625c37c3e"
+      "sha256": "2a2bbdf6715fb750b60a50fe4954b0c94a7d4afe64a1c15ff4886230099981b3"
     },
     {
       "file": "ordinary/result.json",
-      "sha256": "135e1a4785b228fef0f1ff440adf530ec476689d0c2cb2289075ef257660a015"
+      "sha256": "96f015072c13001dcaf746282035125f0bca348247e65381d3ad4aaa80ce1efa"
     },
     {
       "file": "ordinary/runner.log",
@@ -177,11 +180,11 @@
     },
     {
       "file": "preparation.json",
-      "sha256": "2f02de58613fb915b0cc522cc01c3294331bde258d457a941120856f9615556a"
+      "sha256": "d77d8d04e0b4fb53ead0c62f39481ccd7bbf029cbb44484ba7c4efdea185ef19"
     },
     {
       "file": "prepare.cjs",
-      "sha256": "4b21e908644468f4fa02ccbda077c4a600269f752d90f7e3c8f42446284ff5b3"
+      "sha256": "2f7749367d5a81323b331cb62901fd82c29aee5795548ff9f9d0a7c61da7b49f"
     },
     {
       "file": "README.md",
@@ -197,7 +200,7 @@
     },
     {
       "file": "runner-result.json",
-      "sha256": "d14ef47b62b6c6ba44d8cef12afc9d823c7b9cfa7bbad2e26ec35e045e132055"
+      "sha256": "79f3723c14768feea6f12ff1f0c2885e2672044c69f63f4cb75071199285b420"
     },
     {
       "file": "SOURCE-LICENSE.txt",

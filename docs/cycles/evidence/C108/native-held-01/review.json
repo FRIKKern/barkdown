@@ -1,4 +1,7 @@
 {
+  "redaction": [
+    "Redacted copy: a user folder, name or email is replaced by <user>, <name> or <email> in text, or covered by a box in a picture; nothing else changed."
+  ],
   "at": "2026-10-16T17:15:46.535Z",
   "status": "Actual native active AFTER completed held0 author reviewed",
   "reviewer": "Codex author only; independent adoption remains",
@@ -45,7 +48,7 @@
     "exit_code": 0,
     "os_pid": 46504,
     "no_kill_or_suspend": true,
-    "image": "C:\\Users\\Frikk\\scoop\\apps\\imagemagick\\7.1.2-25\\magick.exe",
+    "image": "C:\\Users\\<user>\\scoop\\apps\\imagemagick\\7.1.2-25\\magick.exe",
     "status": "actual_retained_handle_exit",
     "started_at": "2026-10-16T17:12:46.6314965Z"
   },
@@ -71,7 +74,7 @@
     "native": {
       "request": {
         "version": 1,
-        "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-Kxt07F\\data\\media",
+        "root": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-Kxt07F\\data\\media",
         "rootIdentity": {
           "volume": "4238067767",
           "inode": "2251799825288083"
@@ -105,13 +108,13 @@
             "inode": "1688849871870903",
             "links": 1
           },
-          "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-Kxt07F\\data\\media\\_renditions\\c64b38d3-075b-4acc-90c4-f8c74c1b7159\\.tmp-2822-thumb.jpg"
+          "finalPath": "\\\\?\\C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-Kxt07F\\data\\media\\_renditions\\c64b38d3-075b-4acc-90c4-f8c74c1b7159\\.tmp-2822-thumb.jpg"
         },
         "rootDeclaration": {
           "volume": "4238067767",
           "inode": "2251799825288083"
         },
-        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation 6KaJXA",
+        "executionRoot": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown file observation 6KaJXA",
         "collectionComplete": false,
         "reconciled": false,
         "deletionAllowed": false,
@@ -172,23 +175,23 @@
     },
     {
       "file": "boot.exs",
-      "sha256": "3aeb6d181cf4e4795dc54f189fc9ffc1bae99ee18efc6c7690e8b2711c9909da"
+      "sha256": "dd1fe8a9e410c0281fe5c529a746a7327931cb7f71e28b32f28384be3de281bf"
     },
     {
       "file": "caller-ready.json",
-      "sha256": "de2ce980fde34a67f9e4c8ea079bc69e00586d5c9f75e71a39cfc6590ed98ded"
+      "sha256": "debac30b2526575d0df88b43972901db3cb55c8959c3ba6d3f7756be3f66c81e"
     },
     {
       "file": "caller-result.json",
-      "sha256": "ab61889ad045b4f749bcf841311d218e528bc4ed345c56b4834885bf4214a23e"
+      "sha256": "2e89f00529ba1f36a639e43ad50e45431b9d37fe67d179489aed29bbebd1aa96"
     },
     {
       "file": "candidate-bindings.json",
-      "sha256": "f3ab7364d07f9e470afc9794bad9bce21174f5b73cdc7150ee6113292927d394"
+      "sha256": "25fc7cc0cbbce562385d7c0b48e86604628e484256ce708702ee4a44251e7d13"
     },
     {
       "file": "candidate-module-compile.json",
-      "sha256": "23c84d272b72c0b7dcdcc5b147269577cff5f6a393585c8978a81c8f094251e2"
+      "sha256": "bcb53fa4a094f7c58a584d02098f380f41149f0fae312a3fdc9244fb673dd691"
     },
     {
       "file": "candidate-module-process.json",
@@ -204,7 +207,7 @@
     },
     {
       "file": "entry.json",
-      "sha256": "67e7af91a546c213bc4c27c17f12f7389396b812dfa02ae579cb1d8a16e5f38b"
+      "sha256": "5ae6e07fde57f196959a358a0a3a05ba52fd92d04267e18edbfb5f25b7acc163"
     },
     {
       "file": "fixture-compile-process.json",
@@ -212,7 +215,7 @@
     },
     {
       "file": "fixture-compile.json",
-      "sha256": "73e38e9f85a3e5005f4eb35ec88f92b8bec531b20df587063f7edb68ba973c99"
+      "sha256": "84b403160037e19583711de660376c2af36a16594618d988eabf1118cda09a5e"
     },
     {
       "file": "fixture.exs",
@@ -220,7 +223,7 @@
     },
     {
       "file": "host.cjs",
-      "sha256": "efa91dcef8822c0095c33f6d7bc23cb087e01d1d89c512f5f00d08ced2c8ac3b"
+      "sha256": "0aa5d0b9d2d41a225a9c5c60e25f427649e222c546ce998db1e68a69498b72cd"
     },
     {
       "file": "input-review.json",
@@ -232,11 +235,11 @@
     },
     {
       "file": "module-compile.json",
-      "sha256": "cf3b27b1e2ee3721ad9a06db628607e5da52335bbfd34de0689c781dce16241e"
+      "sha256": "76ec0785abe71a22850c347a293265af3ba0f2d822d00ce7c349f3777e130891"
     },
     {
       "file": "native-active.json",
-      "sha256": "28cddcaac32a1d4b4b1483750351a46a536be91a5512965dd7cea09156c0a64c"
+      "sha256": "6f2ad1e0ffb647fd4757eace32b6c2ccb061b35007d6e34e1ad2872ad26442a3"
     },
     {
       "file": "native-after-hold.json",
@@ -244,7 +247,7 @@
     },
     {
       "file": "native-exit.json",
-      "sha256": "dc3a32bdc7183591d0c922a8d9ffc50b4dc751839c4b81e9be781648a4343b16"
+      "sha256": "67ba96036003947e24d2f95d43a86e4018500f932129fa4cc3294543329a0666"
     },
     {
       "file": "native-hold-complete.json",
@@ -272,7 +275,7 @@
     },
     {
       "file": "native-port-open.json",
-      "sha256": "592039a32295ec7677745673d4b5adb9de8a0f1660b51e8dea430a88fe1ccc7c"
+      "sha256": "66859fb000da93b91f16fd5a78e505172cec99c4aa01a50a1ee2072ca8ed2384"
     },
     {
       "file": "native-trace.exs",
@@ -296,7 +299,7 @@
     },
     {
       "file": "plan.json",
-      "sha256": "527965c695f4fd8a0411120a8a41786964c6ffeaf069bf5f91359f903052f5d3"
+      "sha256": "09882c9ea923bf351277f1de586374f4ea885ef8a8a3527ac89d52aee7dba571"
     },
     {
       "file": "pre-execution-review.json",
@@ -304,15 +307,15 @@
     },
     {
       "file": "prepared-bindings.json",
-      "sha256": "e81c67867dc951bf6b4e49b7e3e66efde142ffda981684d4b869b9067be21a70"
+      "sha256": "4a37fa00a5ae7d01606820edd6c52261666a4e73e917014fbe1bf945dcfd72e2"
     },
     {
       "file": "process.json",
-      "sha256": "9f4ab63b04cc66eb3749d7df80838a906e00acffbe8e09457e848cc21e508293"
+      "sha256": "b280f14b01c616a9efa66bb1c824c8bff049ec2a663c2bca54b7fc7a1548591f"
     },
     {
       "file": "producer.mjs",
-      "sha256": "94d21b4d2c69286d33868d6c0c2eb12f54ff07c583520eac5108ff11cb77e34c"
+      "sha256": "69e28053bbe34dcef979b2597ff0100d9fee5e9fe479a3f93cd761a572c9c3f5"
     },
     {
       "file": "README.md",
@@ -360,7 +363,7 @@
     },
     {
       "file": "trace-compile.json",
-      "sha256": "e917bf5a78ff14e562ff93af3b226cc98add98be18d732c173c8af6a5208cba7"
+      "sha256": "d20ad8f409ea858c294af1937eab7e3b17f7bc4b8ea7a4d6685e4b5b18effd10"
     },
     {
       "file": "trace-ready.json",

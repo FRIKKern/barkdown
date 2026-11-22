@@ -13,16 +13,16 @@
   renderer\dist\app.css.map  10.4kb
 
 Done in 284ms
-file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/helpers/capture-lifecycle.mjs:21
+file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/helpers/capture-lifecycle.mjs:21
   if (dirty.length) throw Error(`Evidence capture requires clean source: ${directory}\n${dirty.join('\n')}`);
                           ^
 
-Error: Evidence capture requires clean source: C:\Users\Frikk\Documents\GitHub\barkdown
+Error: Evidence capture requires clean source: C:\Users\<user>\Documents\GitHub\barkdown
  M docs/cycle.json
  M docs/cycles/C097-windows-return.md
 MM docs/cycles/evidence/C097/recovery-findings.md
-    at cleanSource (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/helpers/capture-lifecycle.mjs:21:27)
-    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/status-shots-isolated.mjs:18:14
+    at cleanSource (file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/helpers/capture-lifecycle.mjs:21:27)
+    at file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/status-shots-isolated.mjs:18:14
     at ModuleJob.run (node:internal/modules/esm/module_job:271:25)
     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:547:26)
     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:116:5)

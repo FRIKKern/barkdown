@@ -1,5 +1,5 @@
 import fs from 'node:fs';import path from 'node:path';import assert from 'node:assert/strict';import {execFileSync} from 'node:child_process';import {inventory,sha256} from '../scripts/runtime-postgres-bundle.mjs';
-const original=process.cwd(),root='C:/Users/Frikk/.codex/worktrees/windows-installer/barkdown',built=original+'/.git/C106 NSIS Chø 02',extracted=original+'/.git/C106-extract-02';
+const original=process.cwd(),root='C:/Users/<user>/.codex/worktrees/windows-installer/barkdown',built=original+'/.git/C106 NSIS Chø 02',extracted=original+'/.git/C106-extract-02';
 const out=root+'/docs/cycles/evidence/C106/installer-02';assert.equal(fs.existsSync(out),false);fs.mkdirSync(out,{recursive:true});
 const report=JSON.parse(fs.readFileSync(built+'/engineering-proof/result.json'));assert.equal(report.status,'passed');
 const started=Date.now(),packed=inventory(built+'/win-unpacked'),unpacked=inventory(extracted+'/payload');assert.deepEqual(unpacked,packed);

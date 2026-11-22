@@ -83,9 +83,9 @@ ok 13 - renderer refusal leaves open writers editable and preserves the original
   ---
   duration_ms: 1.1561
   ...
-# (node:10296) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/profile-preparation.js is not specified and it doesn't parse as CommonJS.
+# (node:10296) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/<user>/Documents/GitHub/barkdown/app/renderer/src/profile-preparation.js is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\package.json.
+# To eliminate this warning, add "type": "module" to C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: capture persists main/side drafts and images then detects late human navigation
 ok 14 - capture persists main/side drafts and images then detects late human navigation
@@ -201,7 +201,7 @@ ok 35 - native ordinary preparation drains A child/grandchild and preserves the 
   ---
   duration_ms: 3059.0519
   ...
-# {"fixture":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\\\barkdown-launch-admission-8pYBwy","aReceipt":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\\\barkdown-launch-admission-8pYBwy\\\\profiles\\\\2cc201a8-51e1-4b29-9f5e-920c25f3de98\\\\goal-processes\\\\324d4d53-2f10-4369-b2a5-a58959ba5f9b.receipt.json","aTree":{"root":24440,"pid":39464,"leaf":324},"bTree":{"root":24332,"pid":23644,"leaf":17632},"retained":true}
+# {"fixture":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\\\barkdown-launch-admission-8pYBwy","aReceipt":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\\\barkdown-launch-admission-8pYBwy\\\\profiles\\\\2cc201a8-51e1-4b29-9f5e-920c25f3de98\\\\goal-processes\\\\324d4d53-2f10-4369-b2a5-a58959ba5f9b.receipt.json","aTree":{"root":24440,"pid":39464,"leaf":324},"bTree":{"root":24332,"pid":23644,"leaf":17632},"retained":true}
 # Subtest: goal drain waits for delayed runtime, persists settlement, freezes journal and permits B
 ok 36 - goal drain waits for delayed runtime, persists settlement, freezes journal and permits B
   ---
@@ -247,13 +247,13 @@ ok 44 - native goal drain stops all three owned trees, settles their journal and
   ---
   duration_ms: 3427.9929
   ...
-# {"fixture":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\\\barkdown-launch-admission-s8NvD5","goalReceipts":[{"version":1,"containment":"job-list-v1","nonce":"99ad5ff8-bdd3-44e5-8fc6-e16a728e8753","profileId":"76458930-a1a0-4b64-91cb-4fea7250392a","attemptId":"aac54136-164f-46ac-965d-660506867ec5","jobName":"Local\\\\BarkdownGoal-99ad5ff8-bdd3-44e5-8fc6-e16a728e8753","helperPid":29928,"helperStarted":"639269441608849917","phase":"stopped","childPid":21800,"activeProcesses":0},{"version":1,"containment":"job-list-v1","nonce":"f7eecfbd-fe7c-459d-89ac-c7cbe9133d7f","profileId":"76458930-a1a0-4b64-91cb-4fea7250392a","attemptId":"dd1e4dfa-753e-455a-866f-c65e14ef49a2","jobName":"Local\\\\BarkdownGoal-f7eecfbd-fe7c-459d-89ac-c7cbe9133d7f","helperPid":37320,"helperStarted":"639269441608971975","phase":"stopped","childPid":5200,"activeProcesses":0},{"version":1,"containment":"job-list-v1","nonce":"cf8e407a-1788-45ed-9961-b9b9e460ddc1","profileId":"76458930-a1a0-4b64-91cb-4fea7250392a","attemptId":"96d854b7-3c2e-4ce8-bcb1-159d731d5f92","jobName":"Local\\\\BarkdownGoal-cf8e407a-1788-45ed-9961-b9b9e460ddc1","helperPid":38192,"helperStarted":"639269441609052476","phase":"stopped","childPid":32836,"activeProcesses":0}],"trees":{"1b1a22cc-6929-4c26-9220-3397c234d244":{"root":21800,"pid":37488,"leaf":18300},"6bc883d8-d22e-4d0d-9cac-76c58b90adb3":{"root":5200,"pid":6864,"leaf":38976},"2b4caa63-f6e9-426f-9b97-5690d16b6833":{"root":32836,"pid":41348,"leaf":39308},"same":{"root":30052,"pid":2960,"leaf":27012}},"retained":true}
+# {"fixture":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\\\barkdown-launch-admission-s8NvD5","goalReceipts":[{"version":1,"containment":"job-list-v1","nonce":"99ad5ff8-bdd3-44e5-8fc6-e16a728e8753","profileId":"76458930-a1a0-4b64-91cb-4fea7250392a","attemptId":"aac54136-164f-46ac-965d-660506867ec5","jobName":"Local\\\\BarkdownGoal-99ad5ff8-bdd3-44e5-8fc6-e16a728e8753","helperPid":29928,"helperStarted":"639269441608849917","phase":"stopped","childPid":21800,"activeProcesses":0},{"version":1,"containment":"job-list-v1","nonce":"f7eecfbd-fe7c-459d-89ac-c7cbe9133d7f","profileId":"76458930-a1a0-4b64-91cb-4fea7250392a","attemptId":"dd1e4dfa-753e-455a-866f-c65e14ef49a2","jobName":"Local\\\\BarkdownGoal-f7eecfbd-fe7c-459d-89ac-c7cbe9133d7f","helperPid":37320,"helperStarted":"639269441608971975","phase":"stopped","childPid":5200,"activeProcesses":0},{"version":1,"containment":"job-list-v1","nonce":"cf8e407a-1788-45ed-9961-b9b9e460ddc1","profileId":"76458930-a1a0-4b64-91cb-4fea7250392a","attemptId":"96d854b7-3c2e-4ce8-bcb1-159d731d5f92","jobName":"Local\\\\BarkdownGoal-cf8e407a-1788-45ed-9961-b9b9e460ddc1","helperPid":38192,"helperStarted":"639269441609052476","phase":"stopped","childPid":32836,"activeProcesses":0}],"trees":{"1b1a22cc-6929-4c26-9220-3397c234d244":{"root":21800,"pid":37488,"leaf":18300},"6bc883d8-d22e-4d0d-9cac-76c58b90adb3":{"root":5200,"pid":6864,"leaf":38976},"2b4caa63-f6e9-426f-9b97-5690d16b6833":{"root":32836,"pid":41348,"leaf":39308},"same":{"root":30052,"pid":2960,"leaf":27012}},"retained":true}
 # Subtest: native restart goal drain reconciles the crashed journal once for concurrent callers
 ok 45 - native restart goal drain reconciles the crashed journal once for concurrent callers
   ---
   duration_ms: 2024.0937
   ...
-# {"fixture":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\\\barkdown-goal-drain-crash-YKwvv9","owner":{"profileId":"58a5e69f-e020-4a46-9364-b1c4521e3e36","goalId":"45b9d6ed-a9f7-4910-b983-c1bf0c03f23c"},"attemptId":"a59240ea-b979-407d-9ce5-1c71253af7b5","retained":true}
+# {"fixture":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\\\barkdown-goal-drain-crash-YKwvv9","owner":{"profileId":"58a5e69f-e020-4a46-9364-b1c4521e3e36","goalId":"45b9d6ed-a9f7-4910-b983-c1bf0c03f23c"},"attemptId":"a59240ea-b979-407d-9ce5-1c71253af7b5","retained":true}
 # Subtest: abort preserves drafts, retires both old generations and requires fresh host adapters
 ok 46 - abort preserves drafts, retires both old generations and requires fresh host adapters
   ---
@@ -389,64 +389,64 @@ ok 72 - native coordinator drains A ordinary and three goal trees while B contin
   ---
   duration_ms: 3860.8223
   ...
-# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\\\bd-profile-preparation-8jsCCo","preparationId":"3a7c1c88-6c99-40ae-88f8-37940cbff545","nativeReceipts":[{"attemptId":"68619038-60a6-4908-bb99-7399ee7519a1","stopped":"stopped"},{"attemptId":"1fdd6402-c130-4d6f-8774-79b4b85703bc","stopped":"stopped"},{"attemptId":"d4dfd5a0-6d65-4096-bfe8-0f4a642f0d89","stopped":"stopped"},{"attemptId":"30d48c36-0fd6-4777-82b7-18b59eed619b","stopped":"stopped"}],"trees":{"9ad73243-1f8d-4ed2-a3e4-25e42952293f/20d71005-2367-4e2d-9d8a-ef19825a6d98":{"root":37832,"pid":28980,"leaf":15532},"9ad73243-1f8d-4ed2-a3e4-25e42952293f/main":{"root":15896,"pid":29028,"leaf":24844},"9ad73243-1f8d-4ed2-a3e4-25e42952293f/cd9b2f82-f182-4efc-a757-5143ab30063f":{"root":37920,"pid":37964,"leaf":17384},"9ad73243-1f8d-4ed2-a3e4-25e42952293f/1fbaafad-7399-4445-8e36-464cd5269e6d":{"root":25076,"pid":31940,"leaf":24284},"25e4f924-8664-48b2-8c16-8ef729282775/main":{"root":14736,"pid":27968,"leaf":25696}},"scope":"Actual services, draft files and Windows jobs; foreground/terminal adapters supplied, not Electron preparation UI proof."}
+# {"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\\\bd-profile-preparation-8jsCCo","preparationId":"3a7c1c88-6c99-40ae-88f8-37940cbff545","nativeReceipts":[{"attemptId":"68619038-60a6-4908-bb99-7399ee7519a1","stopped":"stopped"},{"attemptId":"1fdd6402-c130-4d6f-8774-79b4b85703bc","stopped":"stopped"},{"attemptId":"d4dfd5a0-6d65-4096-bfe8-0f4a642f0d89","stopped":"stopped"},{"attemptId":"30d48c36-0fd6-4777-82b7-18b59eed619b","stopped":"stopped"}],"trees":{"9ad73243-1f8d-4ed2-a3e4-25e42952293f/20d71005-2367-4e2d-9d8a-ef19825a6d98":{"root":37832,"pid":28980,"leaf":15532},"9ad73243-1f8d-4ed2-a3e4-25e42952293f/main":{"root":15896,"pid":29028,"leaf":24844},"9ad73243-1f8d-4ed2-a3e4-25e42952293f/cd9b2f82-f182-4efc-a757-5143ab30063f":{"root":37920,"pid":37964,"leaf":17384},"9ad73243-1f8d-4ed2-a3e4-25e42952293f/1fbaafad-7399-4445-8e36-464cd5269e6d":{"root":25076,"pid":31940,"leaf":24284},"25e4f924-8664-48b2-8c16-8ef729282775/main":{"root":14736,"pid":27968,"leaf":25696}},"scope":"Actual services, draft files and Windows jobs; foreground/terminal adapters supplied, not Electron preparation UI proof."}
 # Subtest: abrupt process death after-collecting recovers its retained lease and exact generation
 ok 73 - abrupt process death after-collecting recovers its retained lease and exact generation
   ---
   duration_ms: 404.8819
   ...
-# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\\\bd-preparation-crash-4Olj8M","boundary":"after-collecting","profileId":"2aa97edf-7f35-437a-ab23-1bbe4e240fe3","preparationId":"85e89b0d-4eeb-4d6f-bc3a-8c72f3903905"}
+# {"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\\\bd-preparation-crash-4Olj8M","boundary":"after-collecting","profileId":"2aa97edf-7f35-437a-ab23-1bbe4e240fe3","preparationId":"85e89b0d-4eeb-4d6f-bc3a-8c72f3903905"}
 # Subtest: abrupt process death after-draining recovers its retained lease and exact generation
 ok 74 - abrupt process death after-draining recovers its retained lease and exact generation
   ---
   duration_ms: 520.7722
   ...
-# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\\\bd-preparation-crash-LVRGWm","boundary":"after-draining","profileId":"bbdd33f9-d649-40ac-b3b9-16883af2480c","preparationId":"4eaf7f80-01b0-492c-8463-2c33661280ac"}
+# {"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\\\bd-preparation-crash-LVRGWm","boundary":"after-draining","profileId":"bbdd33f9-d649-40ac-b3b9-16883af2480c","preparationId":"4eaf7f80-01b0-492c-8463-2c33661280ac"}
 # Subtest: abrupt process death after-quiescing recovers its retained lease and exact generation
 ok 75 - abrupt process death after-quiescing recovers its retained lease and exact generation
   ---
   duration_ms: 690.9928
   ...
-# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\\\bd-preparation-crash-IIjRo0","boundary":"after-quiescing","profileId":"7324720d-22e5-41b0-9e68-cd01674c9b4a","preparationId":"87747ade-cce0-49d9-b61a-9b85f99caaba"}
+# {"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\\\bd-preparation-crash-IIjRo0","boundary":"after-quiescing","profileId":"7324720d-22e5-41b0-9e68-cd01674c9b4a","preparationId":"87747ade-cce0-49d9-b61a-9b85f99caaba"}
 # Subtest: abrupt process death after-writer-closure recovers its retained lease and exact generation
 ok 76 - abrupt process death after-writer-closure recovers its retained lease and exact generation
   ---
   duration_ms: 516.8961
   ...
-# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\\\bd-preparation-crash-zGyL9G","boundary":"after-writer-closure","profileId":"ba913447-ba61-4d90-b1a3-4077468df83f","preparationId":"8e600fef-0cef-410c-bbec-72c5c60d0305"}
+# {"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\\\bd-preparation-crash-zGyL9G","boundary":"after-writer-closure","profileId":"ba913447-ba61-4d90-b1a3-4077468df83f","preparationId":"8e600fef-0cef-410c-bbec-72c5c60d0305"}
 # Subtest: abrupt process death after-prepared recovers its retained lease and exact generation
 ok 77 - abrupt process death after-prepared recovers its retained lease and exact generation
   ---
   duration_ms: 547.4639
   ...
-# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\\\bd-preparation-crash-GjHdHJ","boundary":"after-prepared","profileId":"cc436803-6495-4943-8d71-f21cc3d39bca","preparationId":"3e9f9576-d4b3-4939-842e-ffe8de3ffeed"}
+# {"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\\\bd-preparation-crash-GjHdHJ","boundary":"after-prepared","profileId":"cc436803-6495-4943-8d71-f21cc3d39bca","preparationId":"3e9f9576-d4b3-4939-842e-ffe8de3ffeed"}
 # Subtest: abrupt process death after-reopening recovers its retained lease and exact generation
 ok 78 - abrupt process death after-reopening recovers its retained lease and exact generation
   ---
   duration_ms: 731.1663
   ...
-# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\\\bd-preparation-crash-RFySVt","boundary":"after-reopening","profileId":"a77ae047-ea4c-49a7-af68-d083ef5a5dd0","preparationId":"7b3e21cd-c432-4e03-969f-a9e75c95ace9"}
+# {"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\\\bd-preparation-crash-RFySVt","boundary":"after-reopening","profileId":"a77ae047-ea4c-49a7-af68-d083ef5a5dd0","preparationId":"7b3e21cd-c432-4e03-969f-a9e75c95ace9"}
 # Subtest: abrupt process death after-reopened-writer recovers its retained lease and exact generation
 ok 79 - abrupt process death after-reopened-writer recovers its retained lease and exact generation
   ---
   duration_ms: 734.8826
   ...
-# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\\\bd-preparation-crash-PXFPWd","boundary":"after-reopened-writer","profileId":"dc57bb22-df86-43af-9f23-79f0af0e56ad","preparationId":"613bb75e-275d-4f8f-ab1d-d7939c9e171d"}
+# {"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\\\bd-preparation-crash-PXFPWd","boundary":"after-reopened-writer","profileId":"dc57bb22-df86-43af-9f23-79f0af0e56ad","preparationId":"613bb75e-275d-4f8f-ab1d-d7939c9e171d"}
 # Subtest: abrupt process death after-aborted recovers its retained lease and exact generation
 ok 80 - abrupt process death after-aborted recovers its retained lease and exact generation
   ---
   duration_ms: 725.8604
   ...
-# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\\\bd-preparation-crash-2g4w6Q","boundary":"after-aborted","profileId":"8d5ae774-3115-42de-b201-3106ef843350","preparationId":"3d99bb59-0f25-456a-abba-59a60f07eae0"}
+# {"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\\\bd-preparation-crash-2g4w6Q","boundary":"after-aborted","profileId":"8d5ae774-3115-42de-b201-3106ef843350","preparationId":"3d99bb59-0f25-456a-abba-59a60f07eae0"}
 # Subtest: abrupt process death after-reopened-launches recovers its retained lease and exact generation
 ok 81 - abrupt process death after-reopened-launches recovers its retained lease and exact generation
   ---
   duration_ms: 655.827
   ...
-# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\\\bd-preparation-crash-daMGWg","boundary":"after-reopened-launches","profileId":"0a8013d2-774f-4f24-ac48-5f5da544a931","preparationId":"21c1ee61-fe8f-43f6-bcd5-447f3a099443"}
-# (node:36556) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/retained-drafts.js is not specified and it doesn't parse as CommonJS.
+# {"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\\\bd-preparation-crash-daMGWg","boundary":"after-reopened-launches","profileId":"0a8013d2-774f-4f24-ac48-5f5da544a931","preparationId":"21c1ee61-fe8f-43f6-bcd5-447f3a099443"}
+# (node:36556) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/<user>/Documents/GitHub/barkdown/app/renderer/src/retained-drafts.js is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\package.json.
+# To eliminate this warning, add "type": "module" to C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: reader treats retained markup as text and copies only a verified owned key
 ok 82 - reader treats retained markup as text and copies only a verified owned key
@@ -612,7 +612,7 @@ ok 112 - a new read-only MCP child can list a quiescent empty legacy store witho
 # skipped 0
 # todo 0
 # duration_ms 31409.041
-{"out":"C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\test-results\\preparation\\2026-10-07T04-29-26-339Z","status":"passed","checks":["Real CodeMirror dirty file refuses preparation; text stays visible and file bytes change only on explicit Save (the legacy editor is retired, R4)eases.","Chromium IME refuses preparation without ending active composition or writing launch closure.","Production preparation verifies owned terminal root/child/grandchild shutdown and rejects a new terminal launch (a half-typed line lives in the shell since C090, not in the tab).","Production IPC retains exact raw Paper source and unsent chat draft, verifies preparation and blocks native keyboard/menu/new mutations.","Abrupt actual main-process exit and restart retain drafts byte-for-byte; repeat preparation verifies the same record while the profile stays read-only.","Actual Cancel preparation action creates a fresh writer generation; the current host stays read-only and its captured writer refuses.","Actual notice profile selector switches to B; its composer and owned settings remain writable with no A recovery records.","Fresh host writes with new authority; the actual recovery reader copies the exact retained record, and a second preparation archives the first while preserving its draft."]}
+{"out":"C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\test-results\\preparation\\2026-10-07T04-29-26-339Z","status":"passed","checks":["Real CodeMirror dirty file refuses preparation; text stays visible and file bytes change only on explicit Save (the legacy editor is retired, R4)eases.","Chromium IME refuses preparation without ending active composition or writing launch closure.","Production preparation verifies owned terminal root/child/grandchild shutdown and rejects a new terminal launch (a half-typed line lives in the shell since C090, not in the tab).","Production IPC retains exact raw Paper source and unsent chat draft, verifies preparation and blocks native keyboard/menu/new mutations.","Abrupt actual main-process exit and restart retain drafts byte-for-byte; repeat preparation verifies the same record while the profile stays read-only.","Actual Cancel preparation action creates a fresh writer generation; the current host stays read-only and its captured writer refuses.","Actual notice profile selector switches to B; its composer and owned settings remain writable with no A recovery records.","Fresh host writes with new authority; the actual recovery reader copies the exact retained record, and a second preparation archives the first while preserving its draft."]}
 TAP version 13
 # Subtest: complete mixed library exceeds one page, preserves variants and never repairs or mutates
 ok 1 - complete mixed library exceeds one page, preserves variants and never repairs or mutates
@@ -789,9 +789,9 @@ ok 1 - specific provider authentication signals are distinguished from quota, tr
   ---
   duration_ms: 3.3721
   ...
-# (node:12508) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/submission-state.js is not specified and it doesn't parse as CommonJS.
+# (node:12508) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/<user>/Documents/GitHub/barkdown/app/renderer/src/submission-state.js is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\package.json.
+# To eliminate this warning, add "type": "module" to C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: explicit recovery copies text and images, protects newer drafts and never alters the saved request
 ok 2 - explicit recovery copies text and images, protects newer drafts and never alters the saved request
@@ -1113,7 +1113,7 @@ ok  a tracker script is blocked and counted; the shield allows the site and bloc
 ok  a session set in a tab survives a restart of Barkdown
 ok  the remembered permission survives the restart too
 {
-  "out": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C089\\live\\2026-10-07T04-30-50-438Z-browser",
+  "out": "C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C089\\live\\2026-10-07T04-30-50-438Z-browser",
   "checks": [
     "the tab names Chrome and not Electron",
     "a popup opens as a child window, reports back to its opener and closes itself",
@@ -1145,7 +1145,7 @@ ok  a site off the allow-list pauses and can be refused
 ok  a page dialog is dismissed and reported; the run is not stranded
 ok  in logged-out mode the agent's tab has none of the person's sessions
 {
-  "out": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C089\\live\\2026-10-07T04-31-33-467Z-agent-browser",
+  "out": "C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C089\\live\\2026-10-07T04-31-33-467Z-agent-browser",
   "checks": [
     "the run receives the browser as an MCP server with the Claude in Chrome vocabulary",
     "tabs_context lists the chat's tabs: the person's tab, not opened by the agent",
@@ -1470,8 +1470,8 @@ ok 4 - codex refuses file before reservation
   ---
   duration_ms: 260.52
   ...
-# Subtest: api C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-folder-preflight-r5whtA\\missing remains dispatchable
-ok 5 - api C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-folder-preflight-r5whtA\\missing remains dispatchable
+# Subtest: api C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-folder-preflight-r5whtA\\missing remains dispatchable
+ok 5 - api C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-folder-preflight-r5whtA\\missing remains dispatchable
   ---
   duration_ms: 394.8271
   ...
@@ -1480,8 +1480,8 @@ ok 6 - claude no folder remains dispatchable
   ---
   duration_ms: 502.5304
   ...
-# Subtest: codex C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-folder-preflight-r5whtA\\valid remains dispatchable
-ok 7 - codex C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-folder-preflight-r5whtA\\valid remains dispatchable
+# Subtest: codex C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-folder-preflight-r5whtA\\valid remains dispatchable
+ok 7 - codex C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-folder-preflight-r5whtA\\valid remains dispatchable
   ---
   duration_ms: 379.5923
   ...
@@ -1514,9 +1514,9 @@ ok 11 - legacy actual handler and preload expose known refusal, unknown errors s
 # skipped 0
 # todo 0
 # duration_ms 3545.2814
-(node:27556) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/state.js is not specified and it doesn't parse as CommonJS.
+(node:27556) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/<user>/Documents/GitHub/barkdown/app/renderer/src/state.js is not specified and it doesn't parse as CommonJS.
 Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-To eliminate this warning, add "type": "module" to C:\Users\Frikk\Documents\GitHub\barkdown\app\package.json.
+To eliminate this warning, add "type": "module" to C:\Users\<user>\Documents\GitHub\barkdown\app\package.json.
 (Use `node --trace-warnings ...` to show where the warning was created)
 PASS actual main/side shared composer: missing-folder refusal retains draft/no attempt; restored folder retry dispatches original intent exactly once
 TAP version 13
@@ -1810,19 +1810,19 @@ ok 20 - fsync failure retains prior bytes without any rename attempt
   ---
   duration_ms: 8.4716
   ...
-{"kind":"workspace","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-iBCtcd","crashBeforeRename":true,"orphanRetained":true}
+{"kind":"workspace","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-iBCtcd","crashBeforeRename":true,"orphanRetained":true}
 # Subtest: workspace: host death before rename keeps authority and never promotes orphan
 ok 21 - workspace: host death before rename keeps authority and never promotes orphan
   ---
   duration_ms: 256.127
   ...
-{"kind":"journal","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-mNFIJM","crashBeforeRename":true,"orphanRetained":true}
+{"kind":"journal","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-mNFIJM","crashBeforeRename":true,"orphanRetained":true}
 # Subtest: journal: host death before rename keeps authority and never promotes orphan
 ok 22 - journal: host death before rename keeps authority and never promotes orphan
   ---
   duration_ms: 107.1166
   ...
-{"boundary":"after-rename","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-HM2NTc","restart":"committed bytes read, valid dead lease recovered, distinct explicit write succeeds"}
+{"boundary":"after-rename","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-HM2NTc","restart":"committed bytes read, valid dead lease recovered, distinct explicit write succeeds"}
 # Subtest: workspace: process exit after rename retains committed authority before acknowledgement
 ok 23 - workspace: process exit after rename retains committed authority before acknowledgement
   ---
@@ -1843,55 +1843,55 @@ ok 26 - existing malformed per-write lease refuses without changing evidence: "{
   ---
   duration_ms: 147.4874
   ...
-{"boundary":"private-empty","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-2Hgnbt","restartWrites":"usable","priorAuthorityRetained":true}
+{"boundary":"private-empty","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-2Hgnbt","restartWrites":"usable","priorAuthorityRetained":true}
 # Subtest: workspace complete-owner publication: real exit at private-empty
 ok 27 - workspace complete-owner publication: real exit at private-empty
   ---
   duration_ms: 176.0986
   ...
-{"boundary":"private-fsynced","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-12k30k","restartWrites":"usable","priorAuthorityRetained":true}
+{"boundary":"private-fsynced","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-12k30k","restartWrites":"usable","priorAuthorityRetained":true}
 # Subtest: workspace complete-owner publication: real exit at private-fsynced
 ok 28 - workspace complete-owner publication: real exit at private-fsynced
   ---
   duration_ms: 187.3927
   ...
-{"boundary":"published","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-gAJXHV","restartWrites":"usable","priorAuthorityRetained":true}
+{"boundary":"published","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-gAJXHV","restartWrites":"usable","priorAuthorityRetained":true}
 # Subtest: workspace complete-owner publication: real exit at published
 ok 29 - workspace complete-owner publication: real exit at published
   ---
   duration_ms: 280.7648
   ...
-{"boundary":"guard-private-empty","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-ZVrRye","restartWrites":"usable","priorAuthorityRetained":true}
+{"boundary":"guard-private-empty","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-ZVrRye","restartWrites":"usable","priorAuthorityRetained":true}
 # Subtest: workspace complete-owner publication: real exit at guard-private-empty
 ok 30 - workspace complete-owner publication: real exit at guard-private-empty
   ---
   duration_ms: 209.7926
   ...
-{"boundary":"guard-private-fsynced","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-AQAgvA","restartWrites":"usable","priorAuthorityRetained":true}
+{"boundary":"guard-private-fsynced","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-AQAgvA","restartWrites":"usable","priorAuthorityRetained":true}
 # Subtest: workspace complete-owner publication: real exit at guard-private-fsynced
 ok 31 - workspace complete-owner publication: real exit at guard-private-fsynced
   ---
   duration_ms: 232.4779
   ...
-{"boundary":"recovery-published","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-maLmFK","restartWrites":"usable","priorAuthorityRetained":true}
+{"boundary":"recovery-published","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-maLmFK","restartWrites":"usable","priorAuthorityRetained":true}
 # Subtest: workspace complete-owner publication: real exit at recovery-published
 ok 32 - workspace complete-owner publication: real exit at recovery-published
   ---
   duration_ms: 210.4885
   ...
-{"boundary":"guard-archived","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-MH54K6","restartWrites":"usable","priorAuthorityRetained":true}
+{"boundary":"guard-archived","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-MH54K6","restartWrites":"usable","priorAuthorityRetained":true}
 # Subtest: workspace complete-owner publication: real exit at guard-archived
 ok 33 - workspace complete-owner publication: real exit at guard-archived
   ---
   duration_ms: 261.3775
   ...
-{"boundary":"stale-archived","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-L5XnCe","restartWrites":"usable","priorAuthorityRetained":true}
+{"boundary":"stale-archived","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-L5XnCe","restartWrites":"usable","priorAuthorityRetained":true}
 # Subtest: workspace complete-owner publication: real exit at stale-archived
 ok 34 - workspace complete-owner publication: real exit at stale-archived
   ---
   duration_ms: 194.4823
   ...
-{"boundary":"stale-republished","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-6W9gXb","restartWrites":"usable","priorAuthorityRetained":true}
+{"boundary":"stale-republished","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-6W9gXb","restartWrites":"usable","priorAuthorityRetained":true}
 # Subtest: workspace complete-owner publication: real exit at stale-republished
 ok 35 - workspace complete-owner publication: real exit at stale-republished
   ---
@@ -1902,10 +1902,10 @@ ok 36 - unsupported hardlink fails without publishing empty owner or changing ta
   ---
   duration_ms: 47.2514
   ...
-{"root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-rZXQUG","results":[{"status":"refused","pid":36376,"error":"Storage is owned by another writer"},{"status":"wrote","pid":41180}],"exactlyOneWriter":true,"stopped":true}
-{"mode":"malformed","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-O01WSG","recovery":"explicit inspection required, all authority retained"}
-{"mode":"depth","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-BDCPRe","recovery":"explicit inspection required, all authority retained"}
-{"root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-1VJcVF","error":"EBUSY: resource busy or locked, unlink 'C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-1VJcVF\\profiles\\2f547065-568a-4216-8dfb-4a13bb401299\\workspace.json.write-lease.recovery'","writerLeaseLeft":false,"writerDescriptorOpen":false}
+{"root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-rZXQUG","results":[{"status":"refused","pid":36376,"error":"Storage is owned by another writer"},{"status":"wrote","pid":41180}],"exactlyOneWriter":true,"stopped":true}
+{"mode":"malformed","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-O01WSG","recovery":"explicit inspection required, all authority retained"}
+{"mode":"depth","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-BDCPRe","recovery":"explicit inspection required, all authority retained"}
+{"root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-1VJcVF","error":"EBUSY: resource busy or locked, unlink 'C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-atomic-guard-1VJcVF\\profiles\\2f547065-568a-4216-8dfb-4a13bb401299\\workspace.json.write-lease.recovery'","writerLeaseLeft":false,"writerDescriptorOpen":false}
 # Subtest: independent contenders recover a dead guard without replacing a live owner
 ok 37 - independent contenders recover a dead guard without replacing a live owner
   ---
@@ -2061,13 +2061,13 @@ ok 21 - truncated or malformed tagged blobs fail closed, including an existing f
   ---
   duration_ms: 7.1852
   ...
-# Native review proof retained: C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-coordinator-native-review-AbHsJo
+# Native review proof retained: C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-coordinator-native-review-AbHsJo
 # Subtest: native host death during coordinator review requires shutdown and explicit retry without replaying workers
 ok 22 - native host death during coordinator review requires shutdown and explicit retry without replaying workers
   ---
   duration_ms: 16896.3058
   ...
-# Native summary proof retained: C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-coordinator-native-summary-kiwR2A
+# Native summary proof retained: C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-C097-ci-a99a091e19e6415d802b944f18c3c6f1\\bd-coordinator-native-summary-kiwR2A
 # Subtest: native host death during coordinator summary requires shutdown and explicit retry without replaying workers
 ok 23 - native host death during coordinator summary requires shutdown and explicit retry without replaying workers
   ---
@@ -2182,7 +2182,7 @@ ok 44 - owned cancellation stops a real child/grandchild tree before acknowledgi
 not ok 45 - forced supervisor death closes job and restart verifier proves the entire owned tree stopped
   ---
   duration_ms: 2492.5104
-  location: 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\tests\\goal-process.test.mjs:40:1'
+  location: 'C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\tests\\goal-process.test.mjs:40:1'
   failureType: 'testCodeFailure'
   error: |-
     The expression evaluated to a falsy value:
@@ -2195,9 +2195,9 @@ not ok 45 - forced supervisor death closes job and restart verifier proves the e
   actual: false
   operator: '=='
   stack: |-
-    stopped (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/goal-process.test.mjs:32:10)
+    stopped (file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/goal-process.test.mjs:32:10)
     process.processTicksAndRejections (node:internal/process/task_queues:105:5)
-    async TestContext.<anonymous> (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/goal-process.test.mjs:41:76)
+    async TestContext.<anonymous> (file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/goal-process.test.mjs:41:76)
     async Test.run (node:internal/test_runner/test:932:9)
     async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
   ...
@@ -2466,9 +2466,9 @@ ok 98 - uncertain shutdown keeps session blocked, trusted verification permits r
   ---
   duration_ms: 8.1646
   ...
-# (node:10472) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/tabs/terminal.js is not specified and it doesn't parse as CommonJS.
+# (node:10472) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/<user>/Documents/GitHub/barkdown/app/renderer/src/tabs/terminal.js is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\package.json.
+# To eliminate this warning, add "type": "module" to C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # [terminal] paste: 11 characters, session live
 # Subtest: terminal UI distinguishes fresh/restored shells, keeps launch cwd and rejects stale output

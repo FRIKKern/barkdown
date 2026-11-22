@@ -1,12 +1,15 @@
 {
+  "redaction": [
+    "Redacted copy: a user folder, name or email is replaced by <user>, <name> or <email> in text, or covered by a box in a picture; nothing else changed."
+  ],
   "at": "2026-10-16T13:59:20.266Z",
   "stage": 614,
   "status": "failed before root validation launch",
   "reason": "Git text normalization changed CRLF helper bytes after filesystem manifest creation. Staged blob hash guard refused derive.cjs; prepare.cjs had the same transport difference.",
   "originalError": {
     "file": "derive.cjs",
-    "actualGitBlobSha256": "2905cb3f4c6127240e58f9869b00fb649954ad0e0b35132d7506d0bda112c906",
-    "expectedFilesystemSha256": "a3de4412647e40a5362d01200cb23b74fdf28f4c8f562ba2f5aca465a9bc237f"
+    "actualGitBlobSha256": "a13f2bb45ed169a8fb8906305aad925d40bad4e48c657ed16a7a3744202c0bdb",
+    "expectedFilesystemSha256": "90788439ea5a2259ecfd8beba818c91128e836d65077cfea0b4aeaa2f291c816"
   },
   "nativeProofRerun": false,
   "rootCheckStarted": false,
@@ -15,9 +18,9 @@
     {
       "file": "derive.cjs",
       "originalBytes": 6662,
-      "originalSha256": "a3de4412647e40a5362d01200cb23b74fdf28f4c8f562ba2f5aca465a9bc237f",
+      "originalSha256": "90788439ea5a2259ecfd8beba818c91128e836d65077cfea0b4aeaa2f291c816",
       "publishedBytes": 6661,
-      "publishedSha256": "2905cb3f4c6127240e58f9869b00fb649954ad0e0b35132d7506d0bda112c906",
+      "publishedSha256": "a13f2bb45ed169a8fb8906305aad925d40bad4e48c657ed16a7a3744202c0bdb",
       "base64RoundtripExact": true
     },
     {

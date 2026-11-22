@@ -1,8 +1,8 @@
 {
   "status": "passed",
   "platform": "win32",
-  "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-workspace-quit-HHR0tm",
-  "out": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\test-results\\workspace-quit\\2026-10-07T16-09-56-220Z-workspace-quit",
+  "root": "C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-workspace-quit-HHR0tm",
+  "out": "C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\test-results\\workspace-quit\\2026-10-07T16-09-56-220Z-workspace-quit",
   "profileId": "777795d9-1854-4ea0-bf74-d0117a1a2aee",
   "assertions": [
     "Immediate draft acknowledged and restored after real quit/restart",
@@ -22,7 +22,7 @@
       "type": "error",
       "title": "Shutdown not verified",
       "message": "Barkdown is still open because owned work has not been verified stopped.",
-      "detail": "Cannot read profile workspace: EISDIR: illegal operation on a directory, read at C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-workspace-quit-HHR0tm\\profile-data\\profiles\\777795d9-1854-4ea0-bf74-d0117a1a2aee/workspace.json. Close Barkdown and restore the original file or a verified backup. No replacement was created.\nWait for shutdown, then try quitting again.",
+      "detail": "Cannot read profile workspace: EISDIR: illegal operation on a directory, read at C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-workspace-quit-HHR0tm\\profile-data\\profiles\\777795d9-1854-4ea0-bf74-d0117a1a2aee/workspace.json. Close Barkdown and restore the original file or a verified backup. No replacement was created.\nWait for shutdown, then try quitting again.",
       "buttons": [
         "Keep open"
       ]

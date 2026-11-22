@@ -5,15 +5,15 @@ node:internal/modules/run_main:122
 AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
 + actual - expected
 
-+ 'C:\\Users\\Frikk\\AppData\\Local\\Temp\\BAE3C0~1\\barkdown-authority-d1MOKY\\full\\barkdown\\attachments\\picture.png'
-- 'C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-short-path-a6b9e37a33d647c092efa2165cf6b3ea\\barkdown-authority-d1MOKY\\full\\profile-data\\profiles\\965ab504-1fe1-43d2-b9ef-efd227a10e55\\attachments\\picture.png'
++ 'C:\\Users\\<user>\\AppData\\Local\\Temp\\BAE3C0~1\\barkdown-authority-d1MOKY\\full\\barkdown\\attachments\\picture.png'
+- 'C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-C097-short-path-a6b9e37a33d647c092efa2165cf6b3ea\\barkdown-authority-d1MOKY\\full\\profile-data\\profiles\\965ab504-1fe1-43d2-b9ef-efd227a10e55\\attachments\\picture.png'
 
-    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/legacy-authority-adoption.test.mjs:62:8
+    at file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/legacy-authority-adoption.test.mjs:62:8
     at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
   generatedMessage: true,
   code: 'ERR_ASSERTION',
-  actual: 'C:\\Users\\Frikk\\AppData\\Local\\Temp\\BAE3C0~1\\barkdown-authority-d1MOKY\\full\\barkdown\\attachments\\picture.png',
-  expected: 'C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-short-path-a6b9e37a33d647c092efa2165cf6b3ea\\barkdown-authority-d1MOKY\\full\\profile-data\\profiles\\965ab504-1fe1-43d2-b9ef-efd227a10e55\\attachments\\picture.png',
+  actual: 'C:\\Users\\<user>\\AppData\\Local\\Temp\\BAE3C0~1\\barkdown-authority-d1MOKY\\full\\barkdown\\attachments\\picture.png',
+  expected: 'C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-C097-short-path-a6b9e37a33d647c092efa2165cf6b3ea\\barkdown-authority-d1MOKY\\full\\profile-data\\profiles\\965ab504-1fe1-43d2-b9ef-efd227a10e55\\attachments\\picture.png',
   operator: 'strictEqual'
 }
 

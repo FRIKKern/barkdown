@@ -1,4 +1,7 @@
 {
+  "redaction": [
+    "Redacted copy: a user folder, name or email is replaced by <user>, <name> or <email> in text, or covered by a box in a picture; nothing else changed."
+  ],
   "at": "2026-10-16T15:17:26.645Z",
   "status": "Actual locked-cache HTTP storage error and request-owner DOWN reviewed",
   "reviewer": "Codex author only; independent reader/owner adoption remain",
@@ -27,7 +30,7 @@
   "checks": 4,
   "loadedPrivateModules": 2,
   "originalHttpOwnerModules": 7,
-  "actualRmError": "{:error, :eexist, \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-5SWu4R/data/media/_renditions/e74ab89d-af5b-4934-952a-d874545883e7\"}",
+  "actualRmError": "{:error, :eexist, \"c:/Users/<user>/AppData/Local/Temp/Barkdown-checkout-5SWu4R/data/media/_renditions/e74ab89d-af5b-4934-952a-d874545883e7\"}",
   "actualOwnerDown": {
     "alive": false,
     "owner": "#PID<0.863.0>",
@@ -77,8 +80,8 @@
     },
     {
       "file": "producer.mjs",
-      "actualOriginalSha256": "21e730af441a04ea7165c4025e37f8601ca8328e9f79ac103f5cceecb5c8c755",
-      "publicLfSha256": "200d5db39698695800ffe0e28939f24f710810b64553bce8e750648b112fc2b3",
+      "actualOriginalSha256": "a8f525dc8bf9b5b45bf20041939e7eb75396d5eab14ed23d26be8ffc9d45368d",
+      "publicLfSha256": "1bc83d562d347ed70f9ff02ab27129069086c1c4559f618d09414d437e7c0496",
       "rawBase64": "producer.mjs.original.raw.b64",
       "roundtripExact": true
     }
@@ -99,11 +102,11 @@
   "files": [
     {
       "file": "bindings.json",
-      "sha256": "6e2d5ec06e45d6acdd9e789e2ab1122a0d86334d804242a14a99879d74bb543d"
+      "sha256": "680d4a8d4a1ca7a88f6fa76d3a9e5edf84a74a5465e8529f362c2b64a07e1f80"
     },
     {
       "file": "boot.exs",
-      "sha256": "6b5360a434919b3da851ddc987988b1e82edf349cb1d97cf1cb614ece40198d5"
+      "sha256": "7adbe2af7d00bdaef12ddce57a2bdf84599f50d3fc035e97f6e05bdaa15bdde4"
     },
     {
       "file": "checkout-candidate.exs",
@@ -115,7 +118,7 @@
     },
     {
       "file": "entry.json",
-      "sha256": "cdd0880631a94fbe3dd732761b694dad2c85ae1e0dfd07668fb11ebb3f68a4fb"
+      "sha256": "28706649880d1fa16575acedd1b78f1c103222fc783048c5bdbbf4a6a5c5297b"
     },
     {
       "file": "fixture-compile-process.json",
@@ -123,7 +126,7 @@
     },
     {
       "file": "fixture-compile.json",
-      "sha256": "cbf392796fbe2a0c41ccb3769e08f9012b0cb08fef5e69602318a99587b6eb3d"
+      "sha256": "1598a03fee5d3470da61f2d5225f7ebaa23412f5f88b9bfdcffe55f5793b6da7"
     },
     {
       "file": "fixture.exs",
@@ -135,7 +138,7 @@
     },
     {
       "file": "host.cjs",
-      "sha256": "e6cd13e7d6f457e158ff05231da08be19c26bc984dbf0faeb7257be123e0d7d0"
+      "sha256": "39c704a538caf153dc831d9f0cc537ea47859c1017c9a7e18e387c6aa096bae0"
     },
     {
       "file": "intent-owner.json",
@@ -143,7 +146,7 @@
     },
     {
       "file": "lock-ready.json",
-      "sha256": "16dc70f08810011626417cfae712c196b9dc98a4892c762724a8f600e1568e81"
+      "sha256": "88f965acfaf4d39fee0d9b21183a94651c089c8dd75b678f040275e9fef6cef1"
     },
     {
       "file": "lock.ps1",
@@ -151,7 +154,7 @@
     },
     {
       "file": "original-bindings.json",
-      "sha256": "d0c3c2a0e678248be807cf09eb3dac9a7054889c240348a1e828cf7b5d352b90"
+      "sha256": "0180b6b6ba18d04a43865188ee6f6360b91b4bb955e29775c6588eaef346ccca"
     },
     {
       "file": "owner-down.json",
@@ -163,7 +166,7 @@
     },
     {
       "file": "preparation.json",
-      "sha256": "4f63df86cef60f21899207309c3a2139df8765cbf57ae0614ff62f5a34926ecd"
+      "sha256": "12bfbc43ac162b30e4e0bc2f871a691827487f6f3db5c694201aadc7f40e7f7f"
     },
     {
       "file": "prepare.cjs",
@@ -175,19 +178,19 @@
     },
     {
       "file": "process.json",
-      "sha256": "c4ecb35bd15a7a07388da5f62e36f1501d63fac5a1309a4bf3427af332bc0d23"
+      "sha256": "00892616547efa0b60c49c93a1c43c5734048b35768a4391088899ed798ffd28"
     },
     {
       "file": "producer-review.json",
-      "sha256": "f2920e217abd6d8aee7edfe182182cc68b2aae3a52d16367bc51123800ae3d43"
+      "sha256": "3178c7d7efc3f09ab4fa1814cbbf885e0e196ec9f89a6ce95a9272af8e519b32"
     },
     {
       "file": "producer.mjs",
-      "sha256": "200d5db39698695800ffe0e28939f24f710810b64553bce8e750648b112fc2b3"
+      "sha256": "1bc83d562d347ed70f9ff02ab27129069086c1c4559f618d09414d437e7c0496"
     },
     {
       "file": "producer.mjs.original.raw.b64",
-      "sha256": "602977ff2b947276279654dc9f0c4b8cbc8edb0e59ceb14d51ceac0f1ebd5a5d"
+      "sha256": "002d7a6e9a48f6999bbbb881113602a24cf698d1cd6ae5f3a9ad3a3bad26ce1c"
     },
     {
       "file": "README.md",
@@ -211,7 +214,7 @@
     },
     {
       "file": "rm-4.json",
-      "sha256": "6fd838ef611e1871a32e1df2a5020b1ad19f6d065b8b5085a082901a33d9af32"
+      "sha256": "8d11cb358669417fa9305a935be76da4a53992ebb63ac4c54d247a72de813834"
     },
     {
       "file": "roadmap-capture.json",
@@ -227,7 +230,7 @@
     },
     {
       "file": "setup-ready.json",
-      "sha256": "bedb0c480b7a7c61aa713db35e4c12683dc05fd854dea4864d53680b4d89ccd1"
+      "sha256": "438495057b523a39b6011641dd92ae40c85c1f72a32f4dbf8c6deb519c1255ab"
     },
     {
       "file": "SOURCE-LICENSE.txt",

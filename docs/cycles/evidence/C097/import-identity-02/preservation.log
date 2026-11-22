@@ -8,7 +8,7 @@ store: could not read agent-edits/receipt.json Expected property name or '}' in 
   "cases": [
     {
       "name": "valid",
-      "temp": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-import-identity-p7TdTn",
+      "temp": "C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-import-identity-p7TdTn",
       "manifestIdentity": "11111111-1111-4111-8111-111111111111",
       "restores": 1,
       "sourceDeletionReadable": true,
@@ -37,7 +37,7 @@ store: could not read agent-edits/receipt.json Expected property name or '}' in 
     },
     {
       "name": "empty",
-      "temp": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-import-identity-8LG3ak",
+      "temp": "C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-import-identity-8LG3ak",
       "manifestIdentity": "",
       "restores": 1,
       "sourceDeletionReadable": true,
@@ -55,7 +55,7 @@ store: could not read agent-edits/receipt.json Expected property name or '}' in 
     },
     {
       "name": "missing",
-      "temp": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-import-identity-pL6i4e",
+      "temp": "C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-import-identity-pL6i4e",
       "manifestIdentity": "(missing)",
       "restores": 1,
       "sourceDeletionReadable": true,
@@ -84,7 +84,7 @@ store: could not read agent-edits/receipt.json Expected property name or '}' in 
     },
     {
       "name": "short",
-      "temp": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-import-identity-O0Urka",
+      "temp": "C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-import-identity-O0Urka",
       "manifestIdentity": "note",
       "restores": 1,
       "sourceDeletionReadable": true,
@@ -118,7 +118,7 @@ node:internal/modules/run_main:122
     ^
 
 AssertionError [ERR_ASSERTION]: human text, paths and Undo before-content must survive import unchanged
-    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/docs/cycles/evidence/C097/import-identity-probe.mjs:71:10 {
+    at file:///C:/Users/<user>/Documents/GitHub/barkdown/docs/cycles/evidence/C097/import-identity-probe.mjs:71:10 {
   generatedMessage: false,
   code: 'ERR_ASSERTION',
   actual: false,

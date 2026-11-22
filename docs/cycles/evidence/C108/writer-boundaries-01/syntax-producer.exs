@@ -1,5 +1,5 @@
-source_root = "C:/Users/Frikk/Documents/GitHub/barkpark-windows-media-settlement"
-out = "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C109-writer-ast375"
+source_root = "C:/Users/<user>/Documents/GitHub/barkpark-windows-media-settlement"
+out = "C:/Users/<user>/Documents/GitHub/barkdown/.git/C109-writer-ast375"
 unless Code.ensure_loaded?(JSON), do: raise("Standard-library JSON unavailable")
 if File.exists?(out), do: raise("Output already exists; preserve it")
 File.mkdir!(out)

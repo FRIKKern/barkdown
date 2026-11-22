@@ -1,4 +1,7 @@
 {
+  "redaction": [
+    "Redacted copy: a user folder, name or email is replaced by <user>, <name> or <email> in text, or covered by a box in a picture; nothing else changed."
+  ],
   "at": "2026-10-16T19:50:51.292Z",
   "status": "Changed private renderer held cold refusal/cached serving author reviewed",
   "reviewer": "Codex author only; independent adoption remains",
@@ -16,14 +19,14 @@
   "candidateBindings": [
     {
       "module": "Barkpark.Media.ImageBackend.Magick",
-      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
+      "source": "C:/Users/<user>/Documents/GitHub/barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
       "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
-      "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863",
+      "binary_sha256": "f7e0b346aa252ba966c9bf17644d765e8bb994f06d60847fa39465801176b95a",
       "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
     },
     {
       "module": "Barkpark.Media.Renditions",
-      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-preflight1011/renditions-candidate.exs",
+      "source": "C:/Users/<user>/Documents/GitHub/barkdown/.git/C108-renderer-preflight1011/renditions-candidate.exs",
       "source_sha256": "f140b4a437061052a82f2af404d7d8cd841f896dfb5ed1e98ba638b62ec6965d",
       "binary_sha256": "a8189832be7f965bec036c68d58919c7a9174ae4eb11a73ea7ad3e499a768feb",
       "loaded_md5": "3e0004d3d9a98628f76a219b3a58f0f6"
@@ -31,8 +34,8 @@
   ],
   "successBarrier": {
     "status": "actual_cold_cached_contract_observed",
-    "destination": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-QKBobS/data/media/_renditions/1700d17f-5634-4146-89a9-66252c17c4d1/thumb.jpg",
-    "source": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-QKBobS/data/media/d/0facc676-221f-48d2-9fbb-66feb6dedc6e/2026/10/caller-7a40e7f4.png",
+    "destination": "c:/Users/<user>/AppData/Local/Temp/Barkdown-checkout-QKBobS/data/media/_renditions/1700d17f-5634-4146-89a9-66252c17c4d1/thumb.jpg",
+    "source": "c:/Users/<user>/AppData/Local/Temp/Barkdown-checkout-QKBobS/data/media/d/0facc676-221f-48d2-9fbb-66feb6dedc6e/2026/10/caller-7a40e7f4.png",
     "admission": {
       "pending": 0,
       "phase": "open",
@@ -44,7 +47,7 @@
     "native": {
       "request": {
         "version": 1,
-        "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-QKBobS\\data\\media",
+        "root": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-QKBobS\\data\\media",
         "rootIdentity": {
           "volume": "4238067767",
           "inode": "1125899918789326"
@@ -78,13 +81,13 @@
             "inode": "1407374895499997",
             "links": 1
           },
-          "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-QKBobS\\data\\media\\_renditions\\1700d17f-5634-4146-89a9-66252c17c4d1\\thumb.jpg"
+          "finalPath": "\\\\?\\C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-QKBobS\\data\\media\\_renditions\\1700d17f-5634-4146-89a9-66252c17c4d1\\thumb.jpg"
         },
         "rootDeclaration": {
           "volume": "4238067767",
           "inode": "1125899918789326"
         },
-        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation nRGwRD",
+        "executionRoot": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown file observation nRGwRD",
         "collectionComplete": false,
         "reconciled": false,
         "deletionAllowed": false,
@@ -174,11 +177,11 @@
     },
     {
       "file": "boot-parse.json",
-      "sha256": "8d72ab964af54dafc3c3e443da651ac4ac4a3d8393b5fdb05b04caa8515ccf9d"
+      "sha256": "6cc81d3fdb345eff88838720df890b8a124c9515704e133cb6a2fcc6f6b361c0"
     },
     {
       "file": "boot.exs",
-      "sha256": "e2b975a36944dd557982b702459a7557735c0da78a3de2afe6e30e0a6e2b694a"
+      "sha256": "f953ad506e868cad8d7f3b086ae1b5be5e2826d2a47b602b92fcabf2253ca017"
     },
     {
       "file": "caller-monitor-ready.json",
@@ -190,15 +193,15 @@
     },
     {
       "file": "caller-ready.json",
-      "sha256": "914081fbaa1321f42d57e4434c28c79d30f9da9b08df3c2ca059e917e9992b5c"
+      "sha256": "7d6510b72792f7d5c5830ec349acd85d6a0f6cc739c54da9c05b6f52035baa93"
     },
     {
       "file": "caller-result.json",
-      "sha256": "14fe15aa134b2e0eed1ce13ae5fb8fdb7fd6dac229e0aa471067c813c28f075b"
+      "sha256": "6bd2d2851bcabaffdfecb28587c1700c27840514771b2798f75498b723eae055"
     },
     {
       "file": "candidate-bindings.json",
-      "sha256": "208c010b6ec1aa63e018c0dcfb32dcd5426d7ba9b5f344f6e5baa2ca06b51fba"
+      "sha256": "79d9bbc5cf65eb04cd424112bdc95b07ea6e1d445adc87ce01f3d28e97d5f264"
     },
     {
       "file": "change.json",
@@ -218,15 +221,15 @@
     },
     {
       "file": "contract-success.json",
-      "sha256": "8f432048b47e0a4c8b5b609060a786491b28cec378bb157d2e02bd49496dea1a"
+      "sha256": "ba3305faa61bb55d96b6343ff299618383a2782280393259bb387688893f36ce"
     },
     {
       "file": "entry-producer.cjs",
-      "sha256": "106ec0c756afa4785ea645e5689991c56795d11aacd15c2bed41bfc59c09ece8"
+      "sha256": "ea44102d464835fffdf8d3b16c5dcce729ca74262a6ff8415bc04f5368f7ddbb"
     },
     {
       "file": "entry.json",
-      "sha256": "fc4f14aefc62f7f170b6a9a4e30febbf1a907e182a9f309ce37263b790b6b6f8"
+      "sha256": "8b8784912c356a2fd50fdc425873834327a53c3c63c4835726af27f7e08c4348"
     },
     {
       "file": "fixture-compile-process.json",
@@ -234,7 +237,7 @@
     },
     {
       "file": "fixture-compile.json",
-      "sha256": "a80b77c3be2c36cfd41bdbff66a00e2d0d503ab4ee12bbee1bc97718134a49ba"
+      "sha256": "74f5bea51aa76c92c7111e62339044dc75d6709d779bad583b7fe22e48e1ee48"
     },
     {
       "file": "fixture.exs",
@@ -242,7 +245,7 @@
     },
     {
       "file": "host.cjs",
-      "sha256": "a86ee2952bba1529e097a2cf9438223850c12de58e233f6920c6d8428039a58e"
+      "sha256": "91e9f43c4a98ba840d8d8bca071dff26ef8744cf5a69ee7bb4d4bf1841be6599"
     },
     {
       "file": "invocation-trace.json",
@@ -262,19 +265,19 @@
     },
     {
       "file": "plan.json",
-      "sha256": "7f6ae230fe185178164d549194c53ea88441f31382bba711094598f5fe2b0ded"
+      "sha256": "92ba3cf9e00a71886cadabc0b8a4cd2c9b003540a47698da0a7c714b3c1d5851"
     },
     {
       "file": "process.json",
-      "sha256": "ddf188e87d80d3445684713e7d279f245cb6d5f9ad23a01d4ffc95f4f71e6541"
+      "sha256": "60c00a0c749fef68f3949247a2a7da43dcc22c4a4ae1e53ed2aa34c73416e580"
     },
     {
       "file": "producer.mjs",
-      "sha256": "6e27cb75138a149e8ab2753b25dbb19cf32cc6ee5c4e2dbae943c32068ca3060"
+      "sha256": "5644ac0c24a79e4f4a4ce8d222d337ba27c61532033ae4740b27e1e4538bc4fd"
     },
     {
       "file": "readiness.json",
-      "sha256": "c3fed0ee5d1e35856e7d1da53e17960fe90e8be1e5582c75bfa67c4718b1acaf"
+      "sha256": "84f008252cb1ee5d2bde7523773799905aaca2af9f2cb3c12c78d4963994bcc6"
     },
     {
       "file": "README.md",
@@ -282,7 +285,7 @@
     },
     {
       "file": "release-compiler-reference.json",
-      "sha256": "65f23aa4f36b609b4d36b8e427f031076c9150362f92d51cb269249485b42408"
+      "sha256": "cfb6c9e7fb462c1fbb7f172032e72ca25ec3f421db31dcbdd5559dc48fcf814b"
     },
     {
       "file": "renditions-candidate.exs",
