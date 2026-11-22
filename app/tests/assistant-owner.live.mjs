@@ -48,6 +48,7 @@ try {
   persist(); app = await electron.launch({ executablePath: require('electron'), args: [appRoot, '--profiles', `--user-data=${userData}`], env: { ...process.env, ANTHROPIC_API_KEY: '', ANTHROPIC_AUTH_TOKEN: '' } });
   page = await app.firstWindow(); await page.waitForFunction(() => window.__barkdown?.state.loaded);
   await configure('A', servers[0]);
+  await page.evaluate(() => window.barkdown.settings.setApprovals('ask'));
   const ownerA = await page.evaluate(() => window.__barkdown.state.profileId);
   const chatA = await page.evaluate(() => window.__barkdown.state.current);
   const specA = await page.evaluate(id => window.barkdown.browser.bridge(id), chatA);
@@ -94,13 +95,18 @@ try {
   for (const client of [clientA, clientB]) { const old = await list(client); assert.equal(old.error, true); assert.match(old.text, /profile_changed/); }
   const fresh = await connect(await page.evaluate(() => window.barkdown.browser.bridge(window.__barkdown.state.current)));
   report.responses.freshA = await list(fresh); assert.equal(report.responses.freshA.error, false); assert.match(report.responses.freshA.text, /Profile A fixture note/);
+  const settingsA = await page.evaluate(() => window.barkdown.settings.get());
+  assert.equal(settingsA.approvals, 'ask');
+  assert.equal(settingsA.control.fullYolo, false);
+  const denied = await tool(fresh, 'app', { command: 'settings.set', args: { key: 'theme', value: 'dark' } });
+  assert.equal(denied.error, true); assert.match(denied.text, /full_yolo_required/);
   await page.locator('#bw-cloud-archive-toggle').click();
   await page.locator('#bw-cloud-archive', { hasText: 'Profile A fixture note' }).waitFor();
   await page.screenshot({ path: path.join(out, 'fresh-a.png') });
   await app.evaluate(({ BrowserWindow }) => BrowserWindow.getAllWindows()[0].setContentSize(720, 760));
   await page.waitForFunction(() => window.innerWidth === 720); await page.locator('#bw-pages-toggle').click();
   await page.screenshot({ path: path.join(out, 'narrow-a.png') });
-  report.checks.push('Old A main/catalog/browser routes refuse; No approvals lets B change settings and switch profiles; old generations stay refused on return and fresh A works');
+  report.checks.push('Old A routes refuse; B uses No approvals for settings and profiles; fresh A keeps Ask first and refuses administrative changes');
   let entered; const requested = new Promise(resolve => { entered = resolve; });
   const held = { owner: 'A', entered, release: null }; holdCatalog = held;
   const pendingRead = list(fresh); await requested;

@@ -231,7 +231,7 @@ Owner decision; it supersedes the Ghostty option in D-real-terminal. For one day
 
 ## D-no-approvals — One approval mode for assistant tools and app commands (updated 2026-11-22)
 
-Owner decision. A profile defaults to **No approvals**. Barkdown skips its prompts for assistant tool actions and makes administrative commands available. **Ask first** restores Barkdown’s tool approval prompts and reserves administrative app actions for the person. The chip under the composer and Settings › Assistant change the same saved preference. The setting applies to subsequent requests in runs already in progress. Sensitive browser actions follow [D-browser-pauses](#d-browser-pauses--the-browser-asks-before-five-kinds-of-action-in-the-window-for-every-agent-2026-10-02).
+Owner decision. A profile defaults to **No approvals**. Barkdown skips its prompts for assistant tool actions and makes administrative commands available. **Ask first** restores Barkdown’s tool approval prompts and reserves administrative app actions for the person. The chip under the composer and Settings › Assistant change the same saved preference. The setting applies to subsequent Barkdown requests in runs already in progress. Codex’s native tools use its own sandbox and approval policy. Sensitive browser actions follow [D-browser-pauses](#d-browser-pauses--the-browser-asks-before-five-kinds-of-action-in-the-window-for-every-agent-2026-10-02).
 
 ## D-one-assistant-chip — Provider, model and effort are one chip with one menu (2026-10-04)
 
@@ -251,7 +251,7 @@ Owner decision: everything a person can do in Barkdown should be reachable from 
 
 ## D-full-yolo — No approvals includes administrative control (updated 2026-11-22)
 
-The owner folded Full YOLO into **No approvals**. The command gate uses the active profile’s existing approval preference, including saved **Ask first** choices. The retired Full YOLO switch and its sealed value are no longer consulted. In No approvals, assistants and the CLI can change supported settings, manage profiles, delete items, manage the library and check for updates. Ordinary chat and note work is available in either mode. Changing the approval mode, starting or quitting Barkdown, restarting, installing updates, setting secrets and changing the local runtime source belong to the person. `settings.set providerBinary.codex` uses the same setting and absolute-path validation as Settings › Assistant. The local executable override is specific to the profile and machine.
+The owner folded Full YOLO into **No approvals**. The main process reads each profile’s saved choice when it opens the profile for the first time in a session. The dedicated window request updates the file and the running gate together. The retired Full YOLO switch and its sealed value are no longer consulted. In No approvals, assistants and the CLI can change supported settings, manage profiles, delete items, manage the library and check for updates. Ordinary chat and note work is available in either mode. Changing the approval mode, starting or quitting Barkdown, restarting, installing updates, setting secrets and changing the local runtime source belong to the person. `settings.set providerBinary.codex` uses the same setting and absolute-path validation as Settings › Assistant. The local executable override is specific to the profile and machine.
 
 ## D-wider-catalogue — The catalogue reaches notes, profiles, the switch, sign-in, goals and images (2026-10-05)
 

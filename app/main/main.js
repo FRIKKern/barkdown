@@ -115,8 +115,9 @@ const barkparkUntouched = b => !b || (!b.decided && !b.enabled && !b.server && !
 function readSettings(source = store) { const stored = source.readJson('settings.json', {}), carried = PROFILE_MODE && barkparkUntouched(stored.barkpark) ? (carriedRuntime() || rememberedRuntime()) : null,
   saved = carried ? { ...stored, barkpark: { enabled: true, writes: true, local: { ...DEFAULT_SETTINGS.barkpark.local, enabled: true, source: carried } } } : stored, appearance = appSettingsStore?.readJson('appearance.json', profileRegistry?.load()?.appSettings || {}) || {}; return { ...DEFAULT_SETTINGS, ...saved, ...appearance, barkpark: { ...DEFAULT_SETTINGS.barkpark, ...(saved.barkpark || {}) } }; }
 function writeSettings(settings) {
-  if (!appSettingsStore) return store.writeJson('settings.json', settings);
-  const owned = { ...settings }, appearance = {};
+  const owned = { ...settings, approvals: approvalMode() };
+  if (!appSettingsStore) return store.writeJson('settings.json', owned);
+  const appearance = {};
   for (const key of APPEARANCE_KEYS) { appearance[key] = owned[key]; delete owned[key]; }
   store.writeJson('settings.json', owned); appSettingsStore.writeJson('appearance.json', appearance);
 }
@@ -137,12 +138,20 @@ function ordinaryNoteOptions(config) {
     assertOwned: () => { authorityOwnership?.assertOwned(); if (profileService.view().profileId !== origin.profileId) throw new Error('The note’s profile is no longer active.'); },
   };
 }
-// One profile preference controls provider approvals and administrative commands, including during a run.
-function approvalMode(settings = readSettings()) { return settings.approvals === 'none' ? 'none' : 'ask'; }
+// Hold each opened profile's choice in main so a settings file edit cannot change live permissions.
+const approvalModes = new Map();
+function bindForegroundStore(directory) {
+  const root = store.init(directory);
+  if (!approvalModes.has(root)) {
+    const { approvals = DEFAULT_SETTINGS.approvals } = store.readJson('settings.json', {}) || {};
+    approvalModes.set(root, approvals === 'none' ? 'none' : 'ask');
+  }
+}
+function approvalMode() { return approvalModes.get(store.dir()) || 'ask'; }
 function skipsApprovals() { try { return approvalMode() === 'none'; } catch { return false; } }
 require('./providers/runs').setApprovalPolicy(skipsApprovals);
 function publicSettings() {
-  const s = readSettings(), approvals = approvalMode(s);
+  const s = readSettings(), approvals = approvalMode();
   if (profileConnection && s.barkpark.local?.enabled) s.barkpark.local = { ...s.barkpark.local, port: Number(new URL(profileConnection.server).port) };
   return { sidebarWidth: Number.isFinite(s.sidebarWidth) ? Math.min(420, Math.max(160, s.sidebarWidth)) : 200, chatWidth: s.chatWidth, theme: s.theme, approvals, model: s.model, provider: s.provider || defaultProvider(), providerChosen: Boolean(s.provider), browser: { ...DEFAULT_SETTINGS.browser, ...(s.browser || {}), sites: { ...DEFAULT_SETTINGS.browser.sites, ...((s.browser || {}).sites || {}) }, blocking: { ...DEFAULT_SETTINGS.browser.blocking, ...((s.browser || {}).blocking || {}) } }, providerBinary: { claude: s.providerBinary?.claude || '', codex: s.providerBinary?.codex || '' }, claudeModel: s.claudeModel, codexModel: s.codexModel, providers: providerStatus(), hasApiKey: Boolean(s.apiKeyEncrypted) || Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN), apiKeyFromEnv: Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN) && !s.apiKeyEncrypted, barkpark: { catalogKind: profileService && s.barkpark.local?.enabled ? 'local' : 'cloud', connectionIdentity: paperConnection.currentIdentity(), catalogGeneration, effectiveServer: s.barkpark.local?.enabled ? `http://127.0.0.1:${s.barkpark.local.port}` : s.barkpark.server, enabled: s.barkpark.enabled, server: s.barkpark.server, hasToken: Boolean(s.barkpark.tokenEncrypted), dataset: s.barkpark.dataset, writes: s.barkpark.writes, viaCli: s.barkpark.viaCli, local: s.barkpark.local || DEFAULT_SETTINGS.barkpark.local }, recentFolders: s.recentFolders, userData: store.dir(), control: { fullYolo: approvals === 'none', command: control?.command || '' } };
 }
@@ -326,7 +335,7 @@ const dotted = (value, key) => String(key).split('.').reduce((at, part) => (at &
 function startControl() {
   control = require('./control').createControl({ userDataDir: app.getPath('userData'), appVersion: app.getVersion(), fullYolo: skipsApprovals, cliLibrary: () => { const b = readSettings().barkpark || {}; return Boolean(b.viaCli) && !b.local?.enabled; }, toWindow, docChannel: require('./doc-channel'), log: line => console.error(line), mainHandlers: {
     status: async () => {
-      const settings = readSettings(), approvals = approvalMode(settings);
+      const settings = readSettings(), approvals = approvalMode();
       return { app: 'Barkdown', version: app.getVersion(), pid: process.pid, platform: process.platform, userData: app.getPath('userData'), fullYolo: approvals === 'none', approvals, provider: settings.provider || defaultProvider(), profile: profileService ? (profileRegistry.load().profiles.find(p => p.id === profileService.view().profileId)?.name || profileService.view().profileId) : null, library: localStatus().phase || 'unknown', window: await toWindow('window.summary', {}, 5000).catch(() => null) };
     },
     'settings.get': ({ key }) => { const { providers, userData, ...settings } = publicSettings(); if (!key) return settings; const value = dotted(settings, key); if (value === undefined) throw Object.assign(new Error(`There is no setting "${key}". Run "barkdown settings get" to see them.`), { code: 'usage' }); return value; },
@@ -475,7 +484,7 @@ function registerIpc() {
     if (portable?.isIncomplete(profileId)) throw Object.assign(new Error('This profile is an import that did not finish. Discard it or import again from Settings.'), { code: 'portable_incomplete' });
     return profileGate.select(owner, profileId, async () => {
       browserToolsInstance?.clearInventory();
-      store.init(profileRegistry.storeFor(profileId).storeDir);
+      bindForegroundStore(profileRegistry.storeFor(profileId).storeDir);
       documents.loadAll({ seed: false });
       await reconcileLocal();
     }, () => terminal.stopAll(owner.profileId));
@@ -484,6 +493,7 @@ function registerIpc() {
   handle('settings:setApprovals', mode => {
     if (mode !== 'none' && mode !== 'ask') throw new Error('Choose No approvals or Ask first.');
     store.writeJson('settings.json', { ...store.readJson('settings.json', {}), approvals: mode });
+    approvalModes.set(store.dir(), mode);
     return publicSettings();
   });
   handle('settings:set', async patch => {
@@ -994,11 +1004,11 @@ app.whenReady().then(async () => {
       connectionFor: s => ({ ...s.barkpark, token: decrypt(s.barkpark.tokenEncrypted), viaCli: false }), defaultProvider,
       sendEvent: event => { if (event.libraryChanged || event.type === 'library_changed') documents.loadAll({ seed: false }); win?.webContents.send('agent:event', event); } });
     profileGate = require('./profile-ipc').createProfileIpcGate(profileService);
-    store.init(profileRegistry.storeFor(profileService.view().profileId).storeDir);
+    bindForegroundStore(profileRegistry.storeFor(profileService.view().profileId).storeDir);
     goalService = require('./goal-service').createGoalService({ registry: profileRegistry, profiles: profileService,
       sendEvent: event => win?.webContents.send('goals:changed', event),
       sendProviderEvent: event => { if (event.libraryChanged || event.type === 'library_changed') documents.loadAll({ seed: false }); win?.webContents.send('agent:event', event); } });
-  } else store.init(path.join(app.getPath('userData'), 'barkdown'));
+  } else bindForegroundStore(path.join(app.getPath('userData'), 'barkdown'));
   try {
     if (!profileService && readSettings().barkpark.local?.enabled) await preparedLocalSecrets(store.createStore(store.dir()));
     syncBarkparkEnv();

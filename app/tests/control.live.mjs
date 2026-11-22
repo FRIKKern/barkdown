@@ -173,6 +173,11 @@ try {
   await settingsApprovals('ask');
   assert.deepEqual(await json('status').then(s => [s.approvals, s.fullYolo]), ['ask', false]);
   assert.equal(await page.locator('#bw-approvals-label').textContent(), 'Ask first');
+  const settingsFile = path.join(await state(() => window.__barkdown.state.settings.userData), 'settings.json');
+  const savedSettings = JSON.parse(fs.readFileSync(settingsFile, 'utf8'));
+  assert.equal(savedSettings.approvals, 'ask');
+  fs.writeFileSync(settingsFile, JSON.stringify({ ...savedSettings, approvals: 'none' }));
+  assert.equal(await json('settings', 'get', 'approvals'), 'ask');
   const denied = await tool('app', { command: 'settings.set', args: { key: 'theme', value: 'light' } });
   assert.equal(denied.error, true); assert.match(denied.text, /full_yolo_required/);
   assert.equal((await bd('settings', 'set', 'theme', 'light')).code, 4);
@@ -185,7 +190,7 @@ try {
   const log = await json('log', '--limit', '50');
   assert.ok(log.some(e => e.command === 'settings.set' && e.ok && e.origin === 'cli')); assert.ok(log.some(e => e.command === 'chat.new' && e.origin === 'assistant'));
   fs.writeFileSync(path.join(out, 'control-log.json'), JSON.stringify(log, null, 2) + '\n');
-  check('Ask first restores administrative restrictions; returning to No approvals restores access and the log names who did what');
+  check('Ask first restores administrative restrictions despite an on-disk settings edit; the composer restores access and the log names who did what');
   assert.deepEqual(transport.errors, []);
   report.status = 'passed';
 } catch (error) { report.status = 'failed'; report.failure = String(error.stack || error); console.error(error); try { await shot('failure'); } catch {} process.exitCode = 1; }
