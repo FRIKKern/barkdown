@@ -231,7 +231,7 @@ Owner decision; it supersedes the Ghostty option in D-real-terminal. For one day
 
 ## D-no-approvals — One approval mode for assistant tools and app commands (updated 2026-11-22)
 
-Owner decision. A profile defaults to **No approvals**. Barkdown skips its prompts for assistant tool actions and makes administrative commands available. **Ask first** restores Barkdown’s tool approval prompts and reserves administrative app actions for the person. The chip under the composer and Settings › Assistant change the same saved preference. The setting applies to subsequent Barkdown requests in runs already in progress. Codex’s native tools use its own sandbox and approval policy. Sensitive browser actions follow [D-browser-pauses](#d-browser-pauses--the-browser-asks-before-five-kinds-of-action-in-the-window-for-every-agent-2026-10-02).
+Owner decision. A profile defaults to **No approvals**. Barkdown skips its prompts for assistant tool actions and makes administrative commands available. **Ask first** restores Barkdown’s tool approval prompts and reserves administrative app actions for the person. The chip under the composer and Settings › Assistant change the same saved preference. Each request uses the run’s own profile, including after the person switches the window to another profile. Codex’s native tools use its own sandbox and approval policy. Sensitive browser actions follow [D-browser-pauses](#d-browser-pauses--the-browser-asks-before-five-kinds-of-action-in-the-window-for-every-agent-2026-10-02).
 
 ## D-one-assistant-chip — Provider, model and effort are one chip with one menu (2026-10-04)
 

@@ -149,7 +149,7 @@ function bindForegroundStore(directory) {
 }
 function approvalMode() { return approvalModes.get(store.dir()) || 'ask'; }
 function skipsApprovals() { try { return approvalMode() === 'none'; } catch { return false; } }
-require('./providers/runs').setApprovalPolicy(skipsApprovals);
+require('./providers/runs').setApprovalPolicy((_request, scope) => approvalModes.get(scope?.storeDir) === 'none');
 function publicSettings() {
   const s = readSettings(), approvals = approvalMode();
   if (profileConnection && s.barkpark.local?.enabled) s.barkpark.local = { ...s.barkpark.local, port: Number(new URL(profileConnection.server).port) };
