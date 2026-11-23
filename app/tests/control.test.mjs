@@ -20,7 +20,7 @@ function exec(file, argv, env = process.env) {
 }
 function setup() {
   const userDataDir = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-control-'))), pointerDir = path.join(userDataDir, 'pointers');
-  const seen = []; const state = { yolo: false };
+  const seen = []; const state = { yolo: true };
   const control = createControl({ userDataDir, pointerDir, appVersion: 'test', execPath: process.execPath, fullYolo: () => state.yolo,
     mainHandlers: { status: () => ({ app: 'Barkdown', fullYolo: state.yolo }), 'settings.get': ({ key }) => ({ theme: 'dark' })[key] ?? { theme: 'dark' }, 'profile.list': () => [], 'library.status': () => ({}), 'provider.status': () => ({}), 'updates.status': () => ({}) },
     toWindow: async (command, args, timeoutMs, context) => { seen.push({ command, args, context }); return { command, args }; } });
@@ -45,25 +45,23 @@ test('a client finds the app through its pointer and is refused without the toke
   assert.equal(fs.existsSync(path.join(t.userDataDir, 'control.json')), false, 'closing removes the pointer');
 });
 
-test('administrative commands run only while Full YOLO is on, and never reach the window before', async () => {
+test('administrative commands run by default and Ask first blocks them before they reach the window', async () => {
   const t = setup();
   try {
     const pointer = t.pointer(), admin = COMMANDS.filter(c => c.tier === 'admin');
     assert.ok(admin.some(c => c.name === 'settings.set') && admin.some(c => c.name === 'profile.switch') && admin.some(c => c.name === 'chat.delete'));
-    for (const command of admin) await refused(call(pointer, command.name, { _: ['a', 'b'] }), 'full_yolo_required');
-    assert.equal(t.seen.length, 0, 'nothing administrative reached the window');
     const listed = await call(pointer, 'commands');
-    assert.equal(listed.find(c => c.name === 'settings.set').available, false);
+    assert.equal(listed.find(c => c.name === 'settings.set').available, true);
     assert.equal(listed.find(c => c.name === 'chat.new').available, true);
-    t.state.yolo = true;
     assert.deepEqual((await call(pointer, 'settings.set', { _: ['theme', 'dark'] })).args, { key: 'theme', value: 'dark' });
-    assert.equal((await call(pointer, 'commands')).find(c => c.name === 'settings.set').available, true);
     t.state.yolo = false;
-    await refused(call(pointer, 'settings.set', { _: ['theme', 'light'] }), 'full_yolo_required');
+    for (const command of admin) await refused(call(pointer, command.name, { _: ['a', 'b'] }), 'full_yolo_required');
+    assert.equal(t.seen.length, 1, 'Ask first keeps every later administrative command out of the window');
+    assert.equal((await call(pointer, 'commands')).find(c => c.name === 'settings.set').available, false);
   } finally { t.control.close(); }
 });
 
-test('Full YOLO, quitting and restarting are never commands, Full YOLO on or not', async () => {
+test('approval policy, quitting and restarting are never commands, with either approval choice', async () => {
   const t = setup();
   try {
     const pointer = t.pointer();
@@ -72,10 +70,11 @@ test('Full YOLO, quitting and restarting are never commands, Full YOLO on or not
       for (const name of Object.keys(FORBIDDEN)) await refused(call(pointer, name, {}), 'forbidden');
       for (const name of ['FullYolo.On', 'APP.QUIT']) await refused(call(pointer, name, {}), 'forbidden');
     }
-    // Full YOLO is on here: the switch and the secrets still cannot be written as settings.
-    for (const key of ['control.fullYolo', 'control', 'apiKey', 'apiKeyEncrypted', 'barkpark.token', 'barkpark.tokenEncrypted', 'barkpark.local.source']) await refused(call(pointer, 'settings.set', { key, value: true }), 'forbidden');
+    // No approvals is active here: commands still cannot change the approval choice or write secrets.
+    t.state.yolo = true;
+    for (const key of ['approvals', 'control.fullYolo', 'control', 'apiKey', 'apiKeyEncrypted', 'barkpark.token', 'barkpark.tokenEncrypted', 'barkpark.local.source']) await refused(call(pointer, 'settings.set', { key, value: true }), 'forbidden');
     assert.equal(t.seen.length, 0);
-    assert.ok(!COMMANDS.some(c => /quit|relaunch|restart|install|yolo/i.test(c.name)), 'the catalogue holds no command that turns Barkdown or Full YOLO on or off');
+    assert.ok(!COMMANDS.some(c => /quit|relaunch|restart|install|yolo|approval/i.test(c.name)), 'the catalogue holds no command that changes Barkdown lifecycle or approval policy');
     await refused(t.control.invoke('fullyolo.on', {}, 'assistant', { chatId: 'c1' }), 'forbidden');
   } finally { t.control.close(); }
 });
@@ -111,13 +110,16 @@ test('the barkdown CLI: words to commands, flags, standard input, exit codes, he
     assert.equal(JSON.parse(r.out).result.args.folder, process.cwd());
     r = await t.run('status'); assert.equal(r.code, 0); assert.match(r.out, /app: Barkdown/);
     r = await t.run('commands', 'chat'); assert.equal(r.code, 0); assert.match(r.out, /chat\.send/); assert.doesNotMatch(r.out, /note\.new/);
+    r = await t.run('settings', 'set', 'theme', 'dark'); assert.equal(r.code, 0, r.err);
+    r = await t.run('settings', 'set', 'approvals', 'ask'); assert.equal(r.code, 4); assert.match(r.err, /only be changed in the Barkdown window/);
+    t.state.yolo = false;
     r = await t.run('settings', 'set', 'theme', 'dark'); assert.equal(r.code, 4); assert.match(r.err, /Full YOLO/);
-    r = await t.run('fullyolo', 'on'); assert.equal(r.code, 4); assert.match(r.err, /person/);
+    r = await t.run('fullyolo', 'on'); assert.equal(r.code, 4); assert.match(r.err, /approval mode.*Barkdown window/i);
     r = await t.run('app', 'quit'); assert.equal(r.code, 4); assert.match(r.err, /does not turn itself off/);
     r = await t.run('chat', 'send'); assert.equal(r.code, 2); assert.match(r.err, /needs message/);
     r = await t.run('help', 'chat', 'send'); assert.equal(r.code, 0); assert.match(r.out, /barkdown chat send <message>/); assert.match(r.out, /--wait/);
-    r = await t.run('help', 'settings', 'set'); assert.match(r.out, /Needs Full YOLO/);
-    r = await t.run(); assert.equal(r.code, 0); assert.match(r.out, /settings set .*\[needs Full YOLO\]/);
+    r = await t.run('help', 'settings', 'set'); assert.match(r.out, /Needs No approvals/);
+    r = await t.run(); assert.equal(r.code, 0); assert.match(r.out, /settings set .*\[needs No approvals\]/);
     // The launcher the app writes runs the same CLI on the app's own runtime.
     if (process.platform !== 'win32') { const launched = await exec(t.control.command, ['status', '--json'], { ...process.env, BARKDOWN_CONTROL: t.control.pointerFile }); assert.equal(launched.code, 0, launched.err); assert.equal(JSON.parse(launched.out).result.app, 'Barkdown'); }
   } finally { t.control.close(); }
@@ -136,14 +138,14 @@ test('every command in the catalogue has someone to carry it out', () => {
 });
 
 // C095: the wider catalogue rides the same gate.
-test('the wider catalogue: what needs Full YOLO, what stays a person\'s, and files given more than once', async () => {
+test('the wider catalogue: what needs No approvals, what stays a person\'s, and files given more than once', async () => {
   const t = setup();
   try {
     const pointer = t.pointer(), tier = name => COMMANDS.find(c => c.name === name)?.tier;
     for (const name of ['note.delete', 'profile.export', 'profile.import', 'profile.discard', 'paper.switch', 'paper.rollback', 'paper.reconcile', 'provider.login']) assert.equal(tier(name), 'admin', name);
     for (const name of ['note.edit', 'note.undo', 'note.recover', 'goal.new', 'goal.start', 'goal.pause', 'goal.cancel', 'goal.open', 'provider.cancel']) assert.equal(tier(name), 'act', name);
     for (const name of ['note.deleted', 'profile.portable', 'paper.status', 'paper.compare', 'provider.check', 'goal.list']) assert.equal(tier(name), 'read', name);
-    // A person's attestations and the restart after an export are never commands, Full YOLO or not.
+    // A person's attestations and the restart after an export are never commands, in either approval mode.
     t.state.yolo = true;
     for (const name of ['goal.review', 'goal.accept', 'goal.complete', 'goal.reconcile', 'profile.restart', 'provider.logout']) await refused(call(pointer, name, {}), 'forbidden');
     assert.ok(!COMMANDS.some(c => /review|accept|complete|logout|signout/i.test(c.name)), 'no command attests a worker\'s result or signs out');

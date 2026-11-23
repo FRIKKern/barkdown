@@ -34,6 +34,17 @@ let app, page; const clients = [];
 const connect = async spec => { const client = new Client({ name: 'profile-ownership-proof', version: '0' }); clients.push(client); await client.connect(new StdioClientTransport({ command: spec.command, args: spec.args, env: { ...process.env, ...spec.env }, stderr: 'pipe' })); return client; };
 const tool = async (client, name, args = {}) => { const r = await client.callTool({ name, arguments: args }); return { error: Boolean(r.isError), text: r.content.map(c => c.text || '').join('\n') }; };
 const list = client => tool(client, 'app', { command: 'note.list' });
+const approvalPrompted = storeDir => app.evaluate(async ({ app }, storeDir) => {
+  const { join } = process.mainModule.require('node:path');
+  const { requestApproval } = process.mainModule.require(join(app.getAppPath(), 'main', 'providers', 'runs'));
+  const approvals = new Map();
+  let prompted = false;
+  await requestApproval({ scope: { storeDir }, approvals, emit(event) {
+    prompted = event.type === 'approval';
+    approvals.get(event.approvalId)(false);
+  } }, { kind: 'write_file', path: 'fixture.md' });
+  return prompted;
+}, storeDir);
 async function configure(owner, server) {
   await page.evaluate(async ({ owner, server }) => {
     const api = window.barkdown;
@@ -48,6 +59,7 @@ try {
   persist(); app = await electron.launch({ executablePath: require('electron'), args: [appRoot, '--profiles', `--user-data=${userData}`], env: { ...process.env, ANTHROPIC_API_KEY: '', ANTHROPIC_AUTH_TOKEN: '' } });
   page = await app.firstWindow(); await page.waitForFunction(() => window.__barkdown?.state.loaded);
   await configure('A', servers[0]);
+  const { userData: storeA } = await page.evaluate(() => window.barkdown.settings.setApprovals('ask'));
   const ownerA = await page.evaluate(() => window.__barkdown.state.profileId);
   const chatA = await page.evaluate(() => window.__barkdown.state.current);
   const specA = await page.evaluate(id => window.barkdown.browser.bridge(id), chatA);
@@ -60,6 +72,9 @@ try {
   await page.locator('#profile-switch').click();
   await page.waitForFunction(id => window.__barkdown?.state.loaded && window.__barkdown.state.profileId !== id, ownerA);
   await configure('B', servers[1]);
+  const { userData: storeB } = await page.evaluate(() => window.barkdown.settings.get());
+  assert.equal(await approvalPrompted(storeA), true, 'a run owned by A still asks after the person selects B');
+  assert.equal(await approvalPrompted(storeB), false, 'a run owned by B uses No approvals');
   report.owners = { before: ownerA, after: await page.evaluate(() => window.__barkdown.state.profileId) };
   assert.notEqual(report.owners.before, report.owners.after);
   const chatB = await page.evaluate(() => window.__barkdown.state.current);
@@ -77,9 +92,9 @@ try {
   for (const [name, args] of [['app', { command: 'status' }], ['app_commands', {}], ['tabs_context', {}]]) {
     const answer = await tool(clientA, name, args); assert.equal(answer.error, true); report.responses['oldA-' + name] = answer;
   }
-  const refused = await tool(clientB, 'app', { command: 'settings.set', args: { key: 'theme', value: 'light' } });
-  assert.equal(refused.error, true); assert.match(refused.text, /full_yolo_required/);
-  report.responses.yoloOff = refused;
+  const changed = await tool(clientB, 'app', { command: 'settings.set', args: { key: 'theme', value: 'light' } });
+  assert.equal(changed.error, false, changed.text);
+  report.responses.noApprovals = changed;
   const launcher = path.join(userData, 'bin', process.platform === 'win32' ? 'barkdown.cmd' : 'barkdown');
   const cli = await new Promise((resolve, reject) => {
     const env = { ...process.env }; delete env.BARKDOWN_CONTROL;
@@ -88,24 +103,25 @@ try {
     child.once('close', code => resolve({ code, text: out || err })); child.stdin.end();
   });
   assert.equal(cli.code, 0, cli.text); assert.match(cli.text, /Profile B fixture note/); report.responses.cliB = cli;
-  await page.keyboard.press('Control+,');
-  await page.locator('.bw-settings button[data-pane="assistant"]').click();
-  const yolo = page.locator('.bw-settings label[for="full-yolo"]'); await yolo.scrollIntoViewIfNeeded(); await yolo.click();
-  await page.waitForFunction(() => document.querySelector('#full-yolo')?.checked && window.__barkdown.state.settings.control?.fullYolo === true);
-  await page.locator('.bw-settings [data-act="cancel"]').click();
   report.responses.switchBack = await tool(clientB, 'app', { command: 'PROFILE.SWITCH', args: { profile: ownerA } });
   assert.equal(report.responses.switchBack.error, false, report.responses.switchBack.text);
   await page.waitForFunction(id => window.__barkdown?.state.loaded && window.__barkdown.state.profileId === id, ownerA);
   for (const client of [clientA, clientB]) { const old = await list(client); assert.equal(old.error, true); assert.match(old.text, /profile_changed/); }
   const fresh = await connect(await page.evaluate(() => window.barkdown.browser.bridge(window.__barkdown.state.current)));
   report.responses.freshA = await list(fresh); assert.equal(report.responses.freshA.error, false); assert.match(report.responses.freshA.text, /Profile A fixture note/);
+  const settingsA = await page.evaluate(() => window.barkdown.settings.get());
+  assert.equal(settingsA.approvals, 'ask');
+  assert.equal(settingsA.control.fullYolo, false);
+  assert.equal(await approvalPrompted(storeB), false, 'a run owned by B keeps No approvals after the person selects A');
+  const denied = await tool(fresh, 'app', { command: 'settings.set', args: { key: 'theme', value: 'dark' } });
+  assert.equal(denied.error, true); assert.match(denied.text, /full_yolo_required/);
   await page.locator('#bw-cloud-archive-toggle').click();
   await page.locator('#bw-cloud-archive', { hasText: 'Profile A fixture note' }).waitFor();
   await page.screenshot({ path: path.join(out, 'fresh-a.png') });
   await app.evaluate(({ BrowserWindow }) => BrowserWindow.getAllWindows()[0].setContentSize(720, 760));
   await page.waitForFunction(() => window.innerWidth === 720); await page.locator('#bw-pages-toggle').click();
   await page.screenshot({ path: path.join(out, 'narrow-a.png') });
-  report.checks.push('Old A main/catalog/browser routes refuse; ordinary CLI and Full YOLO gate remain; explicit switch completes; old generations stay refused on return and fresh A works');
+  report.checks.push('Old A routes refuse; each run keeps its owner’s approval prompts across switches; fresh A keeps Ask first and refuses administrative changes');
   let entered; const requested = new Promise(resolve => { entered = resolve; });
   const held = { owner: 'A', entered, release: null }; holdCatalog = held;
   const pendingRead = list(fresh); await requested;

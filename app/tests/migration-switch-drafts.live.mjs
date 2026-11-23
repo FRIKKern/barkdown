@@ -1,6 +1,6 @@
 // The Paper switch with Paper notes already open (C096): a note made on the local runtime before the switch
 // is drafts.<id>, in a tab and in Pages. The switch must carry it through, and after a person's restart the
-// note is still open and readable. Driven through the `barkdown` launcher; Full YOLO is clicked in Settings.
+// note is still open and readable. Driven through the `barkdown` launcher with the default No approvals mode.
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -46,16 +46,10 @@ const launch = async () => {
   await page.waitForFunction(() => window.__barkdown?.state.loaded, null, { timeout: 180000 });
   await page.setViewportSize({ width: 1400, height: 900 });
 };
-const fullYolo = async on => {
-  await ok('ui', 'show', 'settings', 'assistant');
-  if (await page.locator('#full-yolo').isChecked() !== on) await page.locator('.bw-settings label[for="full-yolo"]').click();
-  await page.waitForFunction(on => window.__barkdown.state.settings.control?.fullYolo === on, on);
-  await page.locator('.bw-settings [data-act="cancel"]').click();
-};
 try {
   await launch();
   await page.evaluate(async source => { window.__barkdown.state.settings = await window.barkdown.settings.set({ theme: 'dark', provider: 'api', barkpark: { enabled: true, writes: true, viaCli: false, local: { enabled: true, source } } }); document.documentElement.dataset.theme = 'dark'; await window.__barkdown.refreshLibrary(); }, source);
-  await fullYolo(true);
+  assert.deepEqual(await json('status').then(s => [s.approvals, s.fullYolo]), ['none', true]);
   assert.equal((await json('paper', 'status')).status, 'none');
   await ok('agent', 'add', 'Desk', '--folder', folder);
   const note = await json('note', 'new', '# Field notes\n\nWritten before the switch.');

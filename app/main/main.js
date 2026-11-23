@@ -115,8 +115,9 @@ const barkparkUntouched = b => !b || (!b.decided && !b.enabled && !b.server && !
 function readSettings(source = store) { const stored = source.readJson('settings.json', {}), carried = PROFILE_MODE && barkparkUntouched(stored.barkpark) ? (carriedRuntime() || rememberedRuntime()) : null,
   saved = carried ? { ...stored, barkpark: { enabled: true, writes: true, local: { ...DEFAULT_SETTINGS.barkpark.local, enabled: true, source: carried } } } : stored, appearance = appSettingsStore?.readJson('appearance.json', profileRegistry?.load()?.appSettings || {}) || {}; return { ...DEFAULT_SETTINGS, ...saved, ...appearance, barkpark: { ...DEFAULT_SETTINGS.barkpark, ...(saved.barkpark || {}) } }; }
 function writeSettings(settings) {
-  if (!appSettingsStore) return store.writeJson('settings.json', settings);
-  const owned = { ...settings }, appearance = {};
+  const owned = { ...settings, approvals: approvalMode() };
+  if (!appSettingsStore) return store.writeJson('settings.json', owned);
+  const appearance = {};
   for (const key of APPEARANCE_KEYS) { appearance[key] = owned[key]; delete owned[key]; }
   store.writeJson('settings.json', owned); appSettingsStore.writeJson('appearance.json', appearance);
 }
@@ -137,13 +138,22 @@ function ordinaryNoteOptions(config) {
     assertOwned: () => { authorityOwnership?.assertOwned(); if (profileService.view().profileId !== origin.profileId) throw new Error('The note’s profile is no longer active.'); },
   };
 }
-// No approvals unless the person chose to be asked (D-no-approvals). Read each time, so the composer's toggle applies
-// to a run already in flight; if the settings cannot be read, the assistant asks.
-require('./providers/runs').setApprovalPolicy(() => { try { return readSettings().approvals !== 'ask'; } catch { return false; } });
+// Hold each opened profile's choice in main so a settings file edit cannot change live permissions.
+const approvalModes = new Map();
+function bindForegroundStore(directory) {
+  const root = store.init(directory);
+  if (!approvalModes.has(root)) {
+    const { approvals = DEFAULT_SETTINGS.approvals } = store.readJson('settings.json', {}) || {};
+    approvalModes.set(root, approvals === 'none' ? 'none' : 'ask');
+  }
+}
+function approvalMode() { return approvalModes.get(store.dir()) || 'ask'; }
+function skipsApprovals() { try { return approvalMode() === 'none'; } catch { return false; } }
+require('./providers/runs').setApprovalPolicy((_request, scope) => approvalModes.get(scope?.storeDir) === 'none');
 function publicSettings() {
-  const s = readSettings();
+  const s = readSettings(), approvals = approvalMode();
   if (profileConnection && s.barkpark.local?.enabled) s.barkpark.local = { ...s.barkpark.local, port: Number(new URL(profileConnection.server).port) };
-  return { sidebarWidth: Number.isFinite(s.sidebarWidth) ? Math.min(420, Math.max(160, s.sidebarWidth)) : 200, chatWidth: s.chatWidth, theme: s.theme, approvals: s.approvals === 'ask' ? 'ask' : 'none', model: s.model, provider: s.provider || defaultProvider(), providerChosen: Boolean(s.provider), browser: { ...DEFAULT_SETTINGS.browser, ...(s.browser || {}), sites: { ...DEFAULT_SETTINGS.browser.sites, ...((s.browser || {}).sites || {}) }, blocking: { ...DEFAULT_SETTINGS.browser.blocking, ...((s.browser || {}).blocking || {}) } }, providerBinary: { claude: s.providerBinary?.claude || '', codex: s.providerBinary?.codex || '' }, claudeModel: s.claudeModel, codexModel: s.codexModel, providers: providerStatus(), hasApiKey: Boolean(s.apiKeyEncrypted) || Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN), apiKeyFromEnv: Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN) && !s.apiKeyEncrypted, barkpark: { catalogKind: profileService && s.barkpark.local?.enabled ? 'local' : 'cloud', connectionIdentity: paperConnection.currentIdentity(), catalogGeneration, effectiveServer: s.barkpark.local?.enabled ? `http://127.0.0.1:${s.barkpark.local.port}` : s.barkpark.server, enabled: s.barkpark.enabled, server: s.barkpark.server, hasToken: Boolean(s.barkpark.tokenEncrypted), dataset: s.barkpark.dataset, writes: s.barkpark.writes, viaCli: s.barkpark.viaCli, local: s.barkpark.local || DEFAULT_SETTINGS.barkpark.local }, recentFolders: s.recentFolders, userData: store.dir(), control: { fullYolo: fullYoloOn, command: control?.command || '' } };
+  return { sidebarWidth: Number.isFinite(s.sidebarWidth) ? Math.min(420, Math.max(160, s.sidebarWidth)) : 200, chatWidth: s.chatWidth, theme: s.theme, approvals, model: s.model, provider: s.provider || defaultProvider(), providerChosen: Boolean(s.provider), browser: { ...DEFAULT_SETTINGS.browser, ...(s.browser || {}), sites: { ...DEFAULT_SETTINGS.browser.sites, ...((s.browser || {}).sites || {}) }, blocking: { ...DEFAULT_SETTINGS.browser.blocking, ...((s.browser || {}).blocking || {}) } }, providerBinary: { claude: s.providerBinary?.claude || '', codex: s.providerBinary?.codex || '' }, claudeModel: s.claudeModel, codexModel: s.codexModel, providers: providerStatus(), hasApiKey: Boolean(s.apiKeyEncrypted) || Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN), apiKeyFromEnv: Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN) && !s.apiKeyEncrypted, barkpark: { catalogKind: profileService && s.barkpark.local?.enabled ? 'local' : 'cloud', connectionIdentity: paperConnection.currentIdentity(), catalogGeneration, effectiveServer: s.barkpark.local?.enabled ? `http://127.0.0.1:${s.barkpark.local.port}` : s.barkpark.server, enabled: s.barkpark.enabled, server: s.barkpark.server, hasToken: Boolean(s.barkpark.tokenEncrypted), dataset: s.barkpark.dataset, writes: s.barkpark.writes, viaCli: s.barkpark.viaCli, local: s.barkpark.local || DEFAULT_SETTINGS.barkpark.local }, recentFolders: s.recentFolders, userData: store.dir(), control: { fullYolo: approvals === 'none', command: control?.command || '' } };
 }
 // What the MCP server and the context note need to know about Barkpark, refreshed on every save.
 function localSecrets(source = store) {
@@ -308,13 +318,8 @@ const assistantOwnership = require('./assistant-owner').createAssistantOwner({ s
 function browserBridge() { return browserBridgeInstance ||= require('./browser-tools').createBrowserBridge({ call: (tool, args) => tool === 'app' || tool === 'app_commands' ? appTool(tool, args) : browserTools().call(tool, args) }, { log: line => console.error(line), withOwner: assistantOwnership.run }); }
 function browserSpecFor(chatId, owner = assistantOwnership.capture()) { return browserBridge().serverSpec(chatId, owner); }
 // ---- Barkdown controlling itself (C094): the `barkdown` CLI and the assistant's `app` tool, one gate (control.js).
-// Full YOLO lives in this process's memory. It is read once at launch from a value sealed with the system keychain
-// and changed only by the Settings switch, so editing a file while the app runs changes nothing.
-let control = null, fullYoloOn = false;
-const controlWaiting = new Map(), YOLO_SEAL = 'barkdown-full-yolo:on';
-const controlSettingsFile = () => path.join(app.getPath('userData'), 'control-settings.json');
-function loadFullYolo() { try { const seal = JSON.parse(fs.readFileSync(controlSettingsFile(), 'utf8')).fullYoloSeal; return Boolean(seal && safeStorage.isEncryptionAvailable() && safeStorage.decryptString(Buffer.from(seal, 'base64')) === `${YOLO_SEAL}:${app.getPath('userData')}`); } catch { return false; } }
-function saveFullYolo(on) { try { const sealed = on && safeStorage.isEncryptionAvailable() ? safeStorage.encryptString(`${YOLO_SEAL}:${app.getPath('userData')}`).toString('base64') : null; fs.writeFileSync(controlSettingsFile(), JSON.stringify({ fullYoloSeal: sealed }, null, 2) + '\n', { mode: 0o600 }); return Boolean(sealed) || !on; } catch (error) { console.error('[control] ' + error.message); return false; } }
+let control = null;
+const controlWaiting = new Map();
 function toWindow(command, args, timeoutMs = 30000, context = {}) {
   return new Promise((resolve, reject) => {
     if (!win || win.isDestroyed() || win.webContents.isDestroyed()) return reject(Object.assign(new Error('Barkdown has no window open yet.'), { code: 'not_ready' }));
@@ -328,9 +333,11 @@ const ownedProfile = what => { if (!profileService || !portable || !migrationSwi
 const signInProvider = provider => { if (!['claude', 'codex'].includes(provider)) throw Object.assign(new Error('provider is claude or codex: the API key is set in Settings › Assistant, by a person'), { code: 'usage' }); return provider; };
 const dotted = (value, key) => String(key).split('.').reduce((at, part) => (at && typeof at === 'object' ? at[part] : undefined), value);
 function startControl() {
-  fullYoloOn = loadFullYolo();
-  control = require('./control').createControl({ userDataDir: app.getPath('userData'), appVersion: app.getVersion(), fullYolo: () => fullYoloOn, cliLibrary: () => { const b = readSettings().barkpark || {}; return Boolean(b.viaCli) && !b.local?.enabled; }, toWindow, docChannel: require('./doc-channel'), log: line => console.error(line), mainHandlers: {
-    status: async () => ({ app: 'Barkdown', version: app.getVersion(), pid: process.pid, platform: process.platform, userData: app.getPath('userData'), fullYolo: fullYoloOn, approvals: readSettings().approvals === 'ask' ? 'ask' : 'none', provider: readSettings().provider || defaultProvider(), profile: profileService ? (profileRegistry.load().profiles.find(p => p.id === profileService.view().profileId)?.name || profileService.view().profileId) : null, library: localStatus().phase || 'unknown', window: await toWindow('window.summary', {}, 5000).catch(() => null) }),
+  control = require('./control').createControl({ userDataDir: app.getPath('userData'), appVersion: app.getVersion(), fullYolo: skipsApprovals, cliLibrary: () => { const b = readSettings().barkpark || {}; return Boolean(b.viaCli) && !b.local?.enabled; }, toWindow, docChannel: require('./doc-channel'), log: line => console.error(line), mainHandlers: {
+    status: async () => {
+      const settings = readSettings(), approvals = approvalMode();
+      return { app: 'Barkdown', version: app.getVersion(), pid: process.pid, platform: process.platform, userData: app.getPath('userData'), fullYolo: approvals === 'none', approvals, provider: settings.provider || defaultProvider(), profile: profileService ? (profileRegistry.load().profiles.find(p => p.id === profileService.view().profileId)?.name || profileService.view().profileId) : null, library: localStatus().phase || 'unknown', window: await toWindow('window.summary', {}, 5000).catch(() => null) };
+    },
     'settings.get': ({ key }) => { const { providers, userData, ...settings } = publicSettings(); if (!key) return settings; const value = dotted(settings, key); if (value === undefined) throw Object.assign(new Error(`There is no setting "${key}". Run "barkdown settings get" to see them.`), { code: 'usage' }); return value; },
     'profile.list': () => profileService ? profileRegistry.load().profiles.map(p => ({ id: p.id, name: p.name, selected: p.id === profileService.view().profileId })) : [],
     'library.status': () => { const b = readSettings().barkpark, status = localStatus(); return { enabled: Boolean(b.enabled), kind: b.local?.enabled ? 'local' : b.viaCli ? 'cli' : b.server ? 'server' : 'none', phase: status.phase || null, error: status.error || null, ...(b.enabled ? {} : { reason: barkparkReason(readSettings()) }) }; },
@@ -477,20 +484,26 @@ function registerIpc() {
     if (portable?.isIncomplete(profileId)) throw Object.assign(new Error('This profile is an import that did not finish. Discard it or import again from Settings.'), { code: 'portable_incomplete' });
     return profileGate.select(owner, profileId, async () => {
       browserToolsInstance?.clearInventory();
-      store.init(profileRegistry.storeFor(profileId).storeDir);
+      bindForegroundStore(profileRegistry.storeFor(profileId).storeDir);
       documents.loadAll({ seed: false });
       await reconcileLocal();
     }, () => terminal.stopAll(owner.profileId));
   }, true);
   handle('settings:get', async () => { await providerDiscovery.initialize(); return publicSettings(); });
+  handle('settings:setApprovals', mode => {
+    if (mode !== 'none' && mode !== 'ask') throw new Error('Choose No approvals or Ask first.');
+    store.writeJson('settings.json', { ...store.readJson('settings.json', {}), approvals: mode });
+    approvalModes.set(store.dir(), mode);
+    return publicSettings();
+  });
   handle('settings:set', async patch => {
+    if (Object.hasOwn(patch, 'approvals')) throw new Error('The approval mode can only be changed in the Barkdown window.');
     if (patch.apiKey || patch.barkpark?.token || patch.barkpark?.local?.enabled) await credentialDurability.prepare();
     const s = readSettings();
     const previousCatalog = catalogSettingsKey(s.barkpark);
     if (Number.isFinite(patch.sidebarWidth)) s.sidebarWidth = Math.min(420, Math.max(160, Math.round(patch.sidebarWidth)));
     if (patch.chatWidth != null) s.chatWidth = patch.chatWidth;
     if (patch.theme) s.theme = patch.theme;
-    if (['none', 'ask'].includes(patch.approvals)) s.approvals = patch.approvals;
     if (patch.browser && typeof patch.browser === 'object') { s.browser = { ...DEFAULT_SETTINGS.browser, ...(s.browser || {}), ...patch.browser, sites: { ...DEFAULT_SETTINGS.browser.sites, ...((s.browser || {}).sites || {}), ...(patch.browser.sites || {}) }, blocking: { ...DEFAULT_SETTINGS.browser.blocking, ...((s.browser || {}).blocking || {}), ...(patch.browser.blocking || {}) } }; setImmediate(() => applyBlocking().catch(error => console.error('[browser] blocking: ' + error.message))); }
     if (patch.model) s.model = patch.model;
     if (patch.provider !== undefined) s.provider = patch.provider || null;
@@ -682,9 +695,8 @@ function registerIpc() {
   handle('browser:download-open', id => { const d = downloadsSeen.get(id); if (d?.state === 'completed') shell.openPath(d.path); return Boolean(d); });
   handle('browser:download-show', id => { const d = downloadsSeen.get(id); if (d) shell.showItemInFolder(d.path); return Boolean(d); });
   handle('browser:bridge', chatId => browserSpecFor(chatId));
-  // The window answers a control command; only the Settings switch changes Full YOLO (never `settings:set`).
+  // The window answers a control command after it has been admitted in main.
   handle('control:result', ({ id, ...answer }) => { controlWaiting.get(id)?.(answer); return true; }, true);
-  handle('control:setFullYolo', on => { fullYoloOn = Boolean(on); const kept = saveFullYolo(fullYoloOn); console.error(`[control] Full YOLO ${fullYoloOn ? 'on' : 'off'} (set in Settings)`); return { fullYolo: fullYoloOn, kept }; }, true);
   handle('app:settled', ({ id, result }) => { return quitSettlement.reply(id, result); }, true);
   handle('app:info', () => ({ version: app.getVersion(), electron: process.versions.electron, chrome: process.versions.chrome, node: process.versions.node, platform: process.platform, arch: process.arch, userData: store.dir() }));
 
@@ -992,11 +1004,11 @@ app.whenReady().then(async () => {
       connectionFor: s => ({ ...s.barkpark, token: decrypt(s.barkpark.tokenEncrypted), viaCli: false }), defaultProvider,
       sendEvent: event => { if (event.libraryChanged || event.type === 'library_changed') documents.loadAll({ seed: false }); win?.webContents.send('agent:event', event); } });
     profileGate = require('./profile-ipc').createProfileIpcGate(profileService);
-    store.init(profileRegistry.storeFor(profileService.view().profileId).storeDir);
+    bindForegroundStore(profileRegistry.storeFor(profileService.view().profileId).storeDir);
     goalService = require('./goal-service').createGoalService({ registry: profileRegistry, profiles: profileService,
       sendEvent: event => win?.webContents.send('goals:changed', event),
       sendProviderEvent: event => { if (event.libraryChanged || event.type === 'library_changed') documents.loadAll({ seed: false }); win?.webContents.send('agent:event', event); } });
-  } else store.init(path.join(app.getPath('userData'), 'barkdown'));
+  } else bindForegroundStore(path.join(app.getPath('userData'), 'barkdown'));
   try {
     if (!profileService && readSettings().barkpark.local?.enabled) await preparedLocalSecrets(store.createStore(store.dir()));
     syncBarkparkEnv();

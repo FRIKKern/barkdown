@@ -1,7 +1,7 @@
 // Barkdown controlling itself (C094), in real Electron with an owned local library: the `barkdown` command
 // the app writes at start drives the window the way a person does, and the assistant's `app` tool goes
 // through the same gate. Model replies are scripted (the API SDK over a local fixture); nothing here is a
-// claim about a real model. The Full YOLO switch is clicked in Settings, as a person does: no command can.
+// claim about a real model. The approval choice is changed in Settings, as a person does: no command can.
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -22,6 +22,9 @@ const out = process.env.BARKDOWN_CONTROL_OUT || path.resolve(appRoot, '../docs/c
 fs.mkdirSync(out, { recursive: true });
 const userData = fs.realpathSync(fixtureFolder('bd-control-live-'));
 const folder = path.join(userData, 'work'); fs.mkdirSync(folder); fs.writeFileSync(path.join(folder, 'README.md'), '# Work\n');
+const codexFixture = path.join(userData, process.platform === 'win32' ? 'codex-fixture.cmd' : 'codex-fixture');
+fs.writeFileSync(codexFixture, process.platform === 'win32' ? '@echo off\r\necho codex-cli fixture\r\n' : '#!/bin/sh\necho codex-cli fixture\n');
+if (process.platform !== 'win32') fs.chmodSync(codexFixture, 0o700);
 const report = { source: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), dirty: execFileSync('git', ['status', '--porcelain', '--', '.'], { cwd: appRoot, encoding: 'utf8' }).trim() !== '', host: `${process.platform} ${os.release()} ${process.arch}`, model: 'Scripted replies through the API SDK; not a real model', status: 'running', checks: [], screenshots: [], transcript: [] };
 const persist = () => fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n'); persist();
 const check = name => { report.checks.push(name); persist(); console.log('ok  ' + name); };
@@ -44,6 +47,12 @@ const bd = (...argv) => new Promise(resolve => {
 const ok = async (...argv) => { const r = await bd(...argv); assert.equal(r.code, 0, `barkdown ${argv.join(' ')}: ${r.err || r.out}`); return r.out; };
 const json = async (...argv) => JSON.parse(await ok(...argv, '--json')).result;
 const state = fn => page.evaluate(fn);
+const settingsApprovals = async value => {
+  await ok('ui', 'show', 'settings', 'assistant');
+  await page.locator(`#approvals [data-value="${value}"]`).click();
+  await page.locator('.bw-settings [data-act="save"]').click();
+  await page.waitForFunction(expected => window.__barkdown.state.settings.approvals === expected, value);
+};
 try {
   app = await electron.launch({ executablePath: require('electron'), args: [appRoot, '--profiles', `--user-data=${userData}`], timeout: 180000,
     env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: 'fixture-key', ANTHROPIC_AUTH_TOKEN: '', ANTHROPIC_BASE_URL: transport.url } });
@@ -54,12 +63,12 @@ try {
 
   // ---- looking
   const status = await json('status');
-  assert.equal(status.app, 'Barkdown'); assert.equal(status.fullYolo, false); assert.equal(status.pid, app.process().pid);
-  check('status: the command finds the running app and Full YOLO is off at first');
+  assert.equal(status.app, 'Barkdown'); assert.equal(status.fullYolo, true); assert.equal(status.approvals, 'none'); assert.equal(status.pid, app.process().pid);
+  check('status: the command finds the running app and No approvals includes administrative access by default');
   const overview = await ok();
-  assert.match(overview, /chat new/); assert.match(overview, /settings set .*\[needs Full YOLO\]/);
+  assert.match(overview, /chat new/); assert.match(overview, /settings set .*\[No approvals\]/);
   fs.writeFileSync(path.join(out, 'barkdown-help.txt'), overview);
-  check('the overview lists every command and marks what needs Full YOLO');
+  check('the overview lists every command and marks administrative access as included by No approvals');
 
   // ---- an agent is a chat: add one, with a folder and a first message, and wait for its reply
   const added = await json('agent', 'add', 'Helper', '--folder', folder, '--message', 'Say hello to the desk', '--wait');
@@ -113,39 +122,28 @@ try {
   assert.match(inside, /found-1/);
   assert.match(await ok('terminal', 'read', '--lines', '30'), /ctl-42/);
   check('terminal run / read: the terminal tab runs a command, and `barkdown` works inside it');
-  await shot('03-terminal');
+  await ok('tab', 'activate', '1');
+  await shot('03-after-terminal');
 
-  // ---- what needs Full YOLO is refused, and what is never a command stays refused
-  for (const argv of [['settings', 'set', 'theme', 'light'], ['profile', 'create', 'Second desk'], ['chat', 'delete', 'Desk helper']]) { const r = await bd(...argv); assert.equal(r.code, 4, argv.join(' ')); assert.match(r.err, /Full YOLO/); }
-  assert.equal(await json('settings', 'get', 'theme'), 'dark');
-  for (const argv of [['fullyolo', 'on'], ['app', 'quit'], ['app', 'relaunch'], ['updates', 'install']]) { const r = await bd(...argv); assert.equal(r.code, 4, argv.join(' ')); }
-  assert.equal((await json('status')).fullYolo, false);
-  check('without Full YOLO: settings, profiles and deletions are refused; the switch, quit and restart are never commands');
-
-  // ---- a person switches Full YOLO on, in Settings
-  await ok('ui', 'show', 'settings', 'assistant');
-  const yolo = page.locator('.bw-settings label[for="full-yolo"]');
-  await yolo.scrollIntoViewIfNeeded(); await shot('04-settings-full-yolo-off');
-  await yolo.click();
-  await page.waitForFunction(() => document.querySelector('#full-yolo')?.checked && window.__barkdown.state.settings.control?.fullYolo === true);
-  assert.equal((await json('status')).fullYolo, true);
-  await shot('05-settings-full-yolo-on');
-  await page.locator('.bw-settings [data-act="cancel"]').click();
-  check('a person turns Full YOLO on with the switch in Settings › Assistant');
+  // ---- No approvals includes administrative access by default
   await ok('settings', 'set', 'theme', 'light');
   await page.waitForFunction(() => document.documentElement.dataset.theme === 'light');
   await ok('settings', 'set', 'theme', 'dark');
   await page.waitForFunction(() => document.documentElement.dataset.theme === 'dark');
-  await ok('settings', 'set', 'approvals', 'ask'); assert.equal(await json('settings', 'get', 'approvals'), 'ask'); await ok('settings', 'set', 'approvals', 'none');
+  await ok('settings', 'set', 'providerBinary.codex', codexFixture);
+  assert.equal(await json('settings', 'get', 'providerBinary.codex'), codexFixture);
+  const relativeCodex = await bd('settings', 'set', 'providerBinary.codex', 'codex-fixture');
+  assert.notEqual(relativeCodex.code, 0); assert.match(relativeCodex.err, /absolute/i);
+  assert.equal(await json('settings', 'get', 'providerBinary.codex'), codexFixture);
   const second = await json('profile', 'create', 'Second desk');
   assert.ok((await json('profile', 'list')).some(p => p.id === second.id && !p.selected));
   await ok('chat', 'new', 'Scratch'); await ok('chat', 'delete', 'Scratch');
   assert.ok(!(await json('chat', 'list')).some(c => c.title === 'Scratch'));
-  check('with Full YOLO: settings change live, a profile is created, a chat is deleted');
-  for (const argv of [['settings', 'set', 'control.fullYolo', 'false'], ['fullyolo', 'off'], ['app', 'quit'], ['settings', 'set', 'apiKey', 'x']]) { const r = await bd(...argv); assert.equal(r.code, 4, argv.join(' ')); }
+  check('No approvals: settings and the absolute Codex executable change live, a relative path is refused, a profile is created and a chat is deleted');
+  for (const argv of [['settings', 'set', 'approvals', 'ask'], ['settings', 'set', 'control.fullYolo', 'false'], ['fullyolo', 'off'], ['app', 'quit'], ['settings', 'set', 'apiKey', 'x']]) { const r = await bd(...argv); assert.equal(r.code, 4, argv.join(' ')); }
   assert.equal((await json('status')).fullYolo, true);
   assert.equal(app.process().exitCode, null);
-  check('with Full YOLO on, Barkdown still cannot switch Full YOLO, quit, or write a secret');
+  check('commands cannot change the approval choice, quit Barkdown or write a secret');
 
   // ---- the assistant's own way in: the `app` tool on the bridge each run is given
   const chatId = await state(() => window.__barkdown.state.current);
@@ -164,21 +162,35 @@ try {
   assert.equal(own.error, false); assert.match(own.text, /Notes from the command line/, 'a command without a chat means the assistant\'s own chat, not the one in view');
   for (const command of ['fullyolo.off', 'app.quit']) { const r = await tool('app', { command }); assert.equal(r.error, true); assert.match(r.text, /\[forbidden\]/); }
   const selfSend = await tool('app', { command: 'chat.send', args: { message: 'to myself' } }); assert.equal(selfSend.error, true);
-  check('the assistant\'s app tool: starts a helper chat and reads its reply; its own chat is the default; the switch and quit are refused');
+  const assistantAdmin = await tool('app', { command: 'settings.set', args: { key: 'theme', value: 'light' } });
+  assert.equal(assistantAdmin.error, false, assistantAdmin.text);
+  await page.waitForFunction(() => document.documentElement.dataset.theme === 'light');
+  await ok('settings', 'set', 'theme', 'dark');
+  check('with No approvals the assistant starts a helper chat and changes an ordinary setting; lifecycle commands stay refused');
   await shot('06-assistant-started-a-chat');
 
-  // ---- the person switches it off again; the assistant and the command are back to everyday work
-  await ok('ui', 'show', 'settings', 'assistant');
-  await page.locator('.bw-settings label[for="full-yolo"]').click();
-  await page.waitForFunction(() => window.__barkdown.state.settings.control?.fullYolo === false);
-  await page.locator('.bw-settings [data-act="cancel"]').click();
+  // ---- Ask first restores administrative restrictions for the command and assistant
+  await settingsApprovals('ask');
+  assert.deepEqual(await json('status').then(s => [s.approvals, s.fullYolo]), ['ask', false]);
+  assert.equal(await page.locator('#bw-approvals-label').textContent(), 'Ask first');
+  const settingsFile = path.join(await state(() => window.__barkdown.state.settings.userData), 'settings.json');
+  const savedSettings = JSON.parse(fs.readFileSync(settingsFile, 'utf8'));
+  assert.equal(savedSettings.approvals, 'ask');
+  fs.writeFileSync(settingsFile, JSON.stringify({ ...savedSettings, approvals: 'none' }));
+  assert.equal(await json('settings', 'get', 'approvals'), 'ask');
   const denied = await tool('app', { command: 'settings.set', args: { key: 'theme', value: 'light' } });
   assert.equal(denied.error, true); assert.match(denied.text, /full_yolo_required/);
   assert.equal((await bd('settings', 'set', 'theme', 'light')).code, 4);
+  await shot('07-settings-ask-first');
+  await page.locator('#bw-approvals').click();
+  await page.waitForFunction(() => window.__barkdown.state.settings.approvals === 'none');
+  assert.deepEqual(await json('status').then(s => [s.approvals, s.fullYolo]), ['none', true]);
+  await ok('settings', 'set', 'theme', 'light');
+  await page.waitForFunction(() => document.documentElement.dataset.theme === 'light');
   const log = await json('log', '--limit', '50');
   assert.ok(log.some(e => e.command === 'settings.set' && e.ok && e.origin === 'cli')); assert.ok(log.some(e => e.command === 'chat.new' && e.origin === 'assistant'));
   fs.writeFileSync(path.join(out, 'control-log.json'), JSON.stringify(log, null, 2) + '\n');
-  check('Full YOLO off again: administrative commands are refused for both callers; the log names who did what');
+  check('Ask first restores administrative restrictions despite an on-disk settings edit; the composer restores access and the log names who did what');
   assert.deepEqual(transport.errors, []);
   report.status = 'passed';
 } catch (error) { report.status = 'failed'; report.failure = String(error.stack || error); console.error(error); try { await shot('failure'); } catch {} process.exitCode = 1; }

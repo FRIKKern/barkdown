@@ -7,20 +7,20 @@
 //   app tool ─────┘   (this file)            └─ the window: the same functions a person's click reaches
 //
 // Rules the gate holds, whatever the caller:
-//   - an admin command (settings, profiles, deletions) runs only while Full YOLO is on;
-//   - Full YOLO itself, quitting and restarting are never commands: a person does those;
-//   - a setting that is a secret, or the switch itself, is never written from here.
+//   - an admin command (settings, profiles, deletions) runs in No approvals mode;
+//   - approval mode changes, quitting and restarting belong to the person;
+//   - secrets and the local runtime source are managed in the window.
 const net = require('node:net');
 const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const crypto = require('node:crypto');
-const { COMMANDS, FORBIDDEN, SETTINGS_NEVER, find } = require('../shared/control-commands');
+const { COMMANDS, FORBIDDEN, APPROVAL_SETTINGS, SETTINGS_NEVER, find } = require('../shared/control-commands');
 const { controlRefusal } = require('./cli-spawn');
 
 const POINTER_DIR = path.join(os.homedir(), '.barkdown', 'control');
 const fail = (code, message) => Object.assign(new Error(message), { code });
-const FULL_YOLO_NEEDED = 'This is an administrative command. A person must switch on Full YOLO in Settings › Assistant first; Barkdown cannot switch it on for itself.';
+const FULL_YOLO_NEEDED = 'This command needs No approvals (Full YOLO). A person can change the approval mode in the composer or Settings › Assistant.';
 
 function createControl({ userDataDir, appVersion = '', fullYolo, cliLibrary = () => true, mainHandlers = {}, toWindow, docChannel = null, cliScript = path.join(__dirname, 'cli', 'barkdown.js'), execPath = process.execPath, pointerDir = POINTER_DIR, log = () => {} }) {
   const token = crypto.randomBytes(24).toString('hex');
@@ -31,7 +31,7 @@ function createControl({ userDataDir, appVersion = '', fullYolo, cliLibrary = ()
   const audit = entry => { try { fs.appendFileSync(auditFile, JSON.stringify({ at: new Date().toISOString(), ...entry }) + '\n'); } catch {} };
 
   function describe(command, yolo) {
-    return { name: command.name, ...(command.aliases ? { aliases: command.aliases } : {}), tier: command.tier, summary: command.summary, args: command.args, example: command.example, available: command.tier !== 'admin' || yolo, ...(command.tier === 'admin' && !yolo ? { needs: 'Full YOLO (Settings › Assistant)' } : {}) };
+    return { name: command.name, ...(command.aliases ? { aliases: command.aliases } : {}), tier: command.tier, summary: command.summary, args: command.args, example: command.example, available: command.tier !== 'admin' || yolo, ...(command.tier === 'admin' && !yolo ? { needs: 'No approvals (Settings › Assistant)' } : {}) };
   }
   // Fill positionals, check what is required, and coerce the simple types.
   function prepare(command, raw = {}) {
@@ -60,7 +60,11 @@ function createControl({ userDataDir, appVersion = '', fullYolo, cliLibrary = ()
     const yolo = Boolean(fullYolo());
     if (command.tier === 'admin' && !yolo) throw fail('full_yolo_required', FULL_YOLO_NEEDED);
     const args = prepare(command, rawArgs);
-    if (command.name === 'settings.set') { const settingKey = String(args.key); if (SETTINGS_NEVER.some(rule => rule.test(settingKey))) throw fail('forbidden', settingKey.startsWith('control') ? FORBIDDEN['fullyolo.set'] : `The setting "${settingKey}" holds a secret or a machine path and is not written from here.`); }
+    if (command.name === 'settings.set') {
+      const settingKey = String(args.key);
+      if (APPROVAL_SETTINGS.test(settingKey)) throw fail('forbidden', FORBIDDEN['fullyolo.set']);
+      if (SETTINGS_NEVER.some(rule => rule.test(settingKey))) throw fail('forbidden', `Change the protected setting "${settingKey}" in the Barkdown window.`);
+    }
     if (command.name === 'commands') return COMMANDS.filter(c => !args.group || c.name.startsWith(String(args.group).toLowerCase() + '.') || c.name === String(args.group).toLowerCase()).map(c => describe(c, yolo));
     if (command.name === 'log') { let lines = []; try { lines = fs.readFileSync(auditFile, 'utf8').trim().split('\n').filter(Boolean); } catch {} return lines.slice(-(args.limit || 20)).map(line => { try { return JSON.parse(line); } catch { return { raw: line }; } }); }
     const started = Date.now();

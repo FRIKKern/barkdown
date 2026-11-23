@@ -61,9 +61,16 @@ try{
   ['interrupted',async()=>{await selection({version:1,profileId:'fixture',operationId:'00000000-0000-4000-8000-000000000000',phase:'replacing',retained:true,seal:{generation:1},reportHash:'fixture',workspaceBefore:'fixture',workspaceAfter:'fixture'});await p.locator('.bw-switch-notice').waitFor();}]
  ]);
  await selection(null);
- await tour('settings','Real Settings navigation. No server connection or credential is configured.',[
-  ['general',()=>p.locator('#bw-settings').click()],['assistant',()=>p.locator('.bw-settings-nav [data-pane="assistant"]').click()],['barkpark',()=>p.locator('.bw-settings-nav [data-pane="barkpark"]').click()],['library-switch',async()=>{await p.locator('[data-act="switch-paper"]').scrollIntoViewIfNeeded();await p.locator('#bp-switch-status').waitFor();}],['shortcuts',()=>p.locator('.bw-settings-nav [data-pane="shortcuts"]').click()]
+ await tour('settings','Real Settings navigation and the approval choice at a narrow width. No server connection or credential is configured.',[
+  ['general',()=>p.locator('#bw-settings').click()],['assistant',()=>p.locator('.bw-settings-nav [data-pane="assistant"]').click()],['barkpark',()=>p.locator('.bw-settings-nav [data-pane="barkpark"]').click()],['library-switch',async()=>{await p.locator('[data-act="switch-paper"]').scrollIntoViewIfNeeded();await p.locator('#bp-switch-status').waitFor();}],['shortcuts',()=>p.locator('.bw-settings-nav [data-pane="shortcuts"]').click()],
+  ['approvals-narrow',async()=>{
+   await p.setViewportSize({width:390,height:740});
+   await p.locator('.bw-settings-nav [data-pane="assistant"]').click();
+   await p.locator('#approvals [data-value="ask"]').click();
+   await p.locator('#approvals [data-value="ask"][aria-checked="true"]').waitFor();
+  }]
  ]);
+ await p.setViewportSize({width:1100,height:740});
  await p.keyboard.press('Escape');
  await tour('goals','Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.',[
   ['new-goal',async()=>{await p.evaluate(()=>window.__barkdown.openGoalView({owner:{profileId:'11111111-1111-4111-8111-111111111111',chatId:window.__barkdown.state.current,generation:1},service:{list:async()=>[],create:async()=>{throw Error('Visual fixture creation disabled');}},openChat:()=>{}}));await p.locator('[data-create]').waitFor();await p.locator('[name="objective"]').fill('Fixture: inspect three independent inputs and review their evidence.');}],

@@ -1,7 +1,7 @@
 // The wider catalogue (C095), in real Electron with an owned local library: the `barkdown` command the app
 // writes edits, undoes, deletes and recovers notes, sends images, gives a chat a goal, exports and imports
 // the profile, reads the Paper switch and asks a provider whether it is signed in. Model replies are
-// scripted (the API SDK over a local fixture). Full YOLO is clicked in Settings, as a person does.
+// scripted (the API SDK over a local fixture). No approvals includes administrative commands by default.
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -51,21 +51,13 @@ const launch = async () => {
   await page.waitForFunction(() => window.__barkdown?.state.loaded, null, { timeout: 180000 });
   await page.setViewportSize({ width: 1400, height: 900 });
 };
-const fullYolo = async on => {
-  await ok('ui', 'show', 'settings', 'assistant');
-  if (await page.locator('#full-yolo').isChecked() !== on) await page.locator('.bw-settings label[for="full-yolo"]').click();
-  await page.waitForFunction(on => window.__barkdown.state.settings.control?.fullYolo === on, on);
-  await page.locator('.bw-settings [data-act="cancel"]').click();
-};
 try {
   await launch();
   await page.evaluate(async source => { window.__barkdown.state.settings = await window.barkdown.settings.set({ theme: 'dark', provider: 'api', barkpark: { enabled: true, writes: true, viaCli: false, local: { enabled: true, source } } }); document.documentElement.dataset.theme = 'dark'; await window.__barkdown.refreshLibrary(); }, source);
 
-  // ---- administrative: refused until a person switches Full YOLO on
-  for (const argv of [['note', 'delete', 'Anything'], ['profile', 'export', exports], ['profile', 'import', exports], ['paper', 'switch'], ['paper', 'rollback'], ['paper', 'reconcile', 'drafts.x', 'keep'], ['provider', 'login', 'codex'], ['profile', 'discard', 'x']]) await refused(4, /Full YOLO/, ...argv);
-  check('without Full YOLO: deleting notes, export, import, the switch and sign-in are refused');
-  await fullYolo(true);
-  check('a person turns Full YOLO on in Settings › Assistant');
+  const initialStatus = await json('status');
+  assert.deepEqual([initialStatus.approvals, initialStatus.fullYolo], ['none', true]);
+  check('No approvals includes the wider administrative catalogue by default');
 
   // ---- the Paper switch, first, as a library that has not switched would meet it
   const paper = await json('paper', 'status'); report.paperStatus = paper; persist();
@@ -80,7 +72,7 @@ try {
     const notice = page.locator('.bw-preparation-notice', { hasText: 'The library switch completed' });
     await notice.waitFor({ timeout: 60000 }); await notice.locator('[data-dismiss]').click();
     assert.equal((await json('paper', 'status')).status, 'selected');
-    await fullYolo(true); // kept across the restart only where the keychain seals it
+    assert.deepEqual(await json('status').then(s => [s.approvals, s.fullYolo]), ['none', true]);
     check('paper switch moves the library to Paper; after a person\'s restart the library is on Paper');
   } else { report.paperSwitch = `not run: the library is already ${paper.status}`; check(`paper status reads the switch (${paper.status})`); }
   await ok('agent', 'add', 'Desk', '--folder', folder);

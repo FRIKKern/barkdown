@@ -74,12 +74,6 @@ const pick = folder => app.evaluate(({ dialog }, chosen) => { dialog.showOpenDia
 const openSettings = async () => { await page.evaluate(() => document.querySelector('#bw-settings').click()); await page.locator('#profile-export').scrollIntoViewIfNeeded(); };
 const closeSettings = () => page.locator('.bw-settings [data-act="cancel"]').click();
 const dismissAll = async () => { for (const notice of await page.locator('.bw-preparation-notice [data-dismiss]').all()) await notice.click().catch(() => {}); };
-const fullYolo = async () => {
-  await json('ui', 'show', 'settings', 'assistant');
-  if (!await page.locator('#full-yolo').isChecked()) await page.locator('.bw-settings label[for="full-yolo"]').click();
-  await page.waitForFunction(() => window.__barkdown.state.settings.control?.fullYolo === true);
-  await closeSettings();
-};
 const useLocalLibrary = () => page.evaluate(async source => { window.__barkdown.state.settings = await window.barkdown.settings.set({ theme: 'dark', provider: 'api', barkpark: { enabled: true, writes: true, viaCli: false, local: { enabled: true, source } } }); document.documentElement.dataset.theme = 'dark'; await window.__barkdown.refreshLibrary(); }, source);
 // What the person is about to type into: every open editor of the note, its text and its save state.
 const editors = () => page.evaluate(() => [...document.querySelectorAll('.bw-paper-pane')].map(p => ({ hidden: p.hidden, shown: Boolean(p.offsetParent), save: p.querySelector('#save-state')?.textContent || '', paragraphs: [...p.querySelectorAll('.ProseMirror p')].map(x => x.textContent.slice(0, 40)) })));
@@ -131,7 +125,7 @@ try {
   await page.waitForFunction(id => window.__barkdown?.state.loaded && window.__barkdown.state.profileId !== id, initial);
   const desk = await page.evaluate(() => window.__barkdown.state.profileId);
   await useLocalLibrary(); await runtimeReady();
-  await fullYolo();
+  assert.deepEqual(await json('status').then(s => [s.approvals, s.fullYolo]), ['none', true]);
   const paper = await json('paper', 'status');
   if (paper.status !== 'selected') {
     await json('paper', 'switch');
@@ -203,7 +197,7 @@ try {
   await runtimeReady(); await closeSettings().catch(() => {});
   check('the profile is exported from Settings and imported on the other installation', await verify('after the move'));
   await shot('03-moved');
-  await fullYolo();
+  assert.deepEqual(await json('status').then(s => [s.approvals, s.fullYolo]), ['none', true]);
   ledger.lines.push('Written by the agent on the other installation.');
   await json('note', 'edit', ledger.note, ledger.lines.at(-1));
   await pane().filter({ hasText: ledger.lines.at(-1) }).waitFor();

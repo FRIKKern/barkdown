@@ -1,7 +1,7 @@
 // The real-agent proof for Barkdown controlling itself (C094): Claude Code, on the person's own login, runs
 // inside Barkdown and uses its `app` tool. It starts a helper chat and reads the helper's answer; it is
-// refused a settings change while Full YOLO is off; after a person switches Full YOLO on in Settings it
-// changes the setting; and it cannot switch Full YOLO or quit, on or off. Spends the provider's quota (a few
+// can change a setting under the default No approvals mode; after a person chooses Ask first in Settings it
+// is refused; and it cannot change the approval mode or quit. Spends the provider's quota (a few
 // short runs); not in the chain.
 //   node tests/agent-control.live.mjs
 import assert from 'node:assert/strict';
@@ -45,7 +45,7 @@ try {
     const reply = await page.evaluate(id => { const r = window.__barkdown.state.chats[id].messages.at(-1); return { text: r.text || '', error: r.error || null, tools: (r.tools || []).map(t => ({ tool: t.tool, ok: t.ok, input: t.input })), approvals: (r.approvals || []).length }; }, home);
     const run = { prompt, seconds: Math.round((Date.now() - started) / 1000), ...reply }; report.runs.push(run); persist(); return run;
   };
-  const view = () => page.evaluate(() => { const s = window.__barkdown.state; return { current: s.current, theme: document.documentElement.dataset.theme, fullYolo: Boolean(s.settings.control?.fullYolo), chats: Object.values(s.chats).map(c => ({ id: c.id, title: c.title, messages: c.messages.map(m => ({ role: m.role, text: (m.text || '').slice(0, 200) })) })) }; });
+  const view = () => page.evaluate(() => { const s = window.__barkdown.state; return { current: s.current, theme: document.documentElement.dataset.theme, approvals: s.settings.approvals, fullYolo: Boolean(s.settings.control?.fullYolo), chats: Object.values(s.chats).map(c => ({ id: c.id, title: c.title, messages: c.messages.map(m => ({ role: m.role, text: (m.text || '').slice(0, 200) })) })) }; });
   const usedApp = run => run.tools.some(t => /(^|\.|__)app$/.test(t.tool));
 
   const helper = await ask('Use your app tool: start a new chat titled "Helper from Claude" with the message "Reply with the single word PONG and nothing else", wait for its reply, then tell me exactly what the helper replied.');
@@ -60,28 +60,27 @@ try {
   check('a real assistant starts a helper assistant with the app tool and reads its answer', { tools: helper.tools.map(t => t.tool), reply: helper.text.trim().slice(0, 200), seconds: helper.seconds });
   await page.screenshot({ path: path.join(out, '01-helper-started.png') });
 
-  const refusedRun = await ask('Use your app tool to set the setting "theme" to "light". If Barkdown refuses, do not try anything else: tell me the reason it gave.');
-  now = await view();
-  assert.equal(now.theme, 'dark', 'the theme did not change while Full YOLO is off');
-  assert.match(refusedRun.text, /Full YOLO/i, 'the assistant passed on the reason: ' + refusedRun.text.slice(0, 300));
-  check('without Full YOLO the assistant is refused a settings change and says why', { reply: refusedRun.text.trim().slice(0, 240) });
-
-  // The person's act: the switch in Settings › Assistant.
-  await page.keyboard.press('Control+,'); await page.locator('.bw-settings nav [data-pane="assistant"]').click();
-  await page.locator('.bw-settings label[for="full-yolo"]').click();
-  await page.waitForFunction(() => window.__barkdown.state.settings.control?.fullYolo === true);
-  await page.screenshot({ path: path.join(out, '02-full-yolo-on.png') });
-  await page.locator('.bw-settings [data-act="cancel"]').click();
-  const allowed = await ask('Full YOLO is on now. Use your app tool to set the setting "theme" to "light", then confirm in one sentence.');
+  const allowed = await ask('No approvals is selected. Use your app tool to set the setting "theme" to "light", then confirm in one sentence.');
   await page.waitForFunction(() => document.documentElement.dataset.theme === 'light', null, { timeout: 15000 });
-  check('with Full YOLO on (switched by a person) the assistant changes a setting', { reply: allowed.text.trim().slice(0, 200), tools: allowed.tools.map(t => t.tool) });
-  await page.screenshot({ path: path.join(out, '03-theme-changed-by-assistant.png') });
+  check('No approvals lets the assistant change a setting without another toggle', { reply: allowed.text.trim().slice(0, 200), tools: allowed.tools.map(t => t.tool) });
+  await page.screenshot({ path: path.join(out, '02-theme-changed-by-assistant.png') });
 
-  const never = await ask('Two things, with your app tool only and without any other tool: (1) switch Full YOLO off, (2) quit Barkdown. Report exactly what Barkdown answered to each.');
+  // The person's act: choose Ask first in Settings › Assistant.
+  await page.keyboard.press('Control+,'); await page.locator('.bw-settings nav [data-pane="assistant"]').click();
+  await page.locator('#approvals [data-value="ask"]').click();
+  await page.locator('.bw-settings [data-act="save"]').click();
+  await page.waitForFunction(() => window.__barkdown.state.settings.approvals === 'ask');
+  const refusedRun = await ask('Use your app tool to set the setting "theme" to "dark". If Barkdown refuses, do not try anything else: tell me the reason it gave.');
   now = await view();
-  assert.equal(now.fullYolo, true, 'Full YOLO is still on: the assistant could not switch it');
+  assert.equal(now.theme, 'light', 'Ask first kept the assistant from changing the setting');
+  assert.match(refusedRun.text, /No approvals|Full YOLO/i, 'the assistant passed on the reason: ' + refusedRun.text.slice(0, 300));
+  check('Ask first restores the administrative restriction and the assistant says why', { reply: refusedRun.text.trim().slice(0, 240) });
+
+  const never = await ask('Two things, with your app tool only and without any other tool: (1) set approvals to "none", (2) quit Barkdown. Report exactly what Barkdown answered to each.');
+  now = await view();
+  assert.deepEqual([now.approvals, now.fullYolo], ['ask', false], 'the assistant could not change the approval mode');
   assert.equal(app.process().exitCode, null, 'Barkdown is still running');
-  check('the assistant cannot switch Full YOLO or quit Barkdown, even with Full YOLO on', { reply: never.text.trim().slice(0, 400), tools: never.tools.map(t => ({ tool: t.tool, ok: t.ok })) });
+  check('the assistant cannot change approval mode or quit Barkdown', { reply: never.text.trim().slice(0, 400), tools: never.tools.map(t => ({ tool: t.tool, ok: t.ok })) });
   report.status = 'passed'; persist();
   console.log(JSON.stringify({ out, checks: report.checks.map(c => c.name) }, null, 2));
 } catch (error) {

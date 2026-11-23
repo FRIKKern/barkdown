@@ -56,10 +56,10 @@ export function mountComposer(form, getChat, hooks, main = false) {
   // repaints its chip when the setting changes, wherever it was changed.
   function paintApprovals() {
     const asks = state.settings?.approvals === 'ask';
-    q('#bw-approvals-label').textContent = asks ? 'Asks first' : 'No approvals';
+    q('#bw-approvals-label').textContent = asks ? 'Ask first' : 'No approvals';
     q('#bw-approvals').setAttribute('aria-pressed', String(!asks));
     q('#bw-approvals').querySelector('svg, i')?.replaceWith(el(iconHtml(asks ? 'lock' : 'circle-check', 15)));
-    q('#bw-approvals').title = asks ? 'The assistant asks before it writes files, runs commands or uses a tool that changes something. Click to stop asking.' : 'The assistant writes files, runs commands and uses tools without asking. Click to be asked first. The browser still pauses on purchases, passwords and similar (Settings › Browser).';
+    q('#bw-approvals').title = asks ? 'Barkdown approval prompts are on. Settings, profile changes and deletions are reserved for you. Click for No approvals.' : 'No approvals includes Full YOLO. Assistants can change settings, manage profiles and delete items. Click for Ask first. Codex tool permissions and browser pauses follow their own rules.';
   }
   window.addEventListener('barkdown:approvals', paintApprovals);
   const renderChat = () => hooks.render();
@@ -196,9 +196,9 @@ function renderProjectMenu() {
   // Turning approvals off answers the cards that are already waiting, in every chat.
   q('#bw-approvals').onclick = async () => {
     const next = state.settings?.approvals === 'ask' ? 'none' : 'ask';
-    try { state.settings = await api.settings.set({ approvals: next }); } catch (error) { toast(errorMessage(error), 'error'); return; }
+    try { state.settings = await api.settings.setApprovals(next); } catch (error) { toast(errorMessage(error), 'error'); return; }
     if (next === 'none') for (const chat of Object.values(state.chats)) for (const message of chat.messages || []) for (const approval of (message.approvals || []).filter(a => a.status === 'pending')) await respondApproval(chat, approval.approvalId, true);
-    window.dispatchEvent(new Event('barkdown:approvals')); renderChat(); toast(next === 'none' ? 'No approvals: the assistant acts without asking' : 'The assistant asks before it writes or runs');
+    window.dispatchEvent(new Event('barkdown:approvals')); renderChat(); toast(next === 'none' ? 'No approvals includes administrative commands' : 'Ask first restores Barkdown prompts and administrative restrictions');
   };
   q('#bw-stop').onclick = () => cancelRun(currentChat());
   q('#bw-compose').onsubmit = e => { e.preventDefault(); const chat = currentChat(); const text = q('#bw-prompt').value; const images = chat.draftImages || []; if ((!text.trim() && !images.length) || isSubmitting(chat)) return; if (chat.interruption) { toast('Review the interrupted turn before sending a new message.', 'error'); return; } if (chat.runId) { toast('Wait for the current run to finish, or stop it.'); return; } const mentions = mentionsFor(chat, text); resetComposerHistory(chat); chat.draft = text; sendMessage(chat, text, { render: () => { renderChat(); renderSidebar(); }, runChanged: () => { renderChat(); renderSidebar(); } }, images, mentions); };

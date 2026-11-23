@@ -58,7 +58,7 @@ function helpFor(command) {
   const lines = [usageOf(command), '', '  ' + command.summary, ''];
   for (const [name, spec] of Object.entries(command.args)) lines.push(`  ${(spec.positional ? `<${name}>` : `--${name.replace(/[A-Z]/g, c => '-' + c.toLowerCase())}`).padEnd(14)} ${spec.help}${spec.required ? ' (required)' : ''}`);
   if (command.aliases) lines.push('', '  Also: ' + command.aliases.map(a => 'barkdown ' + a.replace('.', ' ')).join(', '));
-  if (command.tier === 'admin') lines.push('', '  Needs Full YOLO, which a person switches on in Settings › Assistant.');
+  if (command.tier === 'admin') lines.push('', '  Needs No approvals (Full YOLO). Change the approval mode in the composer or Settings › Assistant.');
   lines.push('', '  Example: ' + command.example);
   return lines.join('\n');
 }
@@ -68,9 +68,9 @@ function overview(list = COMMANDS.map(c => ({ ...c, available: true }))) {
   for (const command of list) {
     const head = command.name.includes('.') ? command.name.split('.')[0] : 'app';
     if (head !== group) { group = head; lines.push(group); }
-    lines.push(`  ${command.name.replace('.', ' ').padEnd(20)} ${command.summary}${command.tier === 'admin' ? (command.available ? '  [Full YOLO]' : '  [needs Full YOLO]') : ''}`);
+    lines.push(`  ${command.name.replace('.', ' ').padEnd(20)} ${command.summary}${command.tier === 'admin' ? (command.available ? '  [No approvals]' : '  [needs No approvals]') : ''}`);
   }
-  lines.push('', 'Everywhere: --json for the raw answer, --instance <pid> or --user-data <dir> to pick an app, --timeout <seconds>.', 'Text arguments take "-" for standard input and "@file" for a file.', 'Full YOLO, quitting and restarting are a person\'s: no command does them.');
+  lines.push('', 'Everywhere: --json for the raw answer, --instance <pid> or --user-data <dir> to pick an app, --timeout <seconds>.', 'Text arguments take "-" for standard input and "@file" for a file.', 'Approval mode changes, quitting and restarting belong to the person.');
   return lines.join('\n');
 }
 

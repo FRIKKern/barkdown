@@ -1,86 +1,54 @@
 {
-  "capturedAt": "2026-11-19T19:14:40.169Z",
-  "barkdownCommit": "41349a702f207c5be31db44a0465acc107f8d4e5",
+  "capturedAt": "2026-11-22T21:53:07.128Z",
+  "barkdownCommit": "6b0ec9758347ec57ddd648284ac7ec4255bd9cfa",
   "barkdownTreeDirty": false,
   "barkparkCommit": "1482fb675d14b7cce477100a6baf705ca14a9214",
   "barkparkTreeDirty": false,
   "isolatedRuntime": true,
   "server": {
-    "url": "http://127.0.0.1:63982",
+    "url": "http://127.0.0.1:52015",
     "version": "0.2.27.806"
   },
   "chat": {
-    "real": true,
-    "provider": "claude"
+    "real": false,
+    "seeded": true,
+    "provider": "claude",
+    "providersAttempted": false,
+    "reason": "The previous isolated visual run hit Claude’s rate limit and Codex timed out. The configured Codex reply was verified separately in the installed app."
   },
   "split": "36fr",
   "rows": {},
   "shots": [
     {
-      "file": "paper-dark.dfeb0b7c.png",
-      "caption": "Dark-mode Paper edited live beside a real Claude Code turn on it: quote, checklist, table, callout and code, saved as ops to an isolated local Barkpark."
+      "file": "paper-dark.4fa88c49.png",
+      "caption": "Dark-mode Paper edited live beside a labeled sample transcript (providers unavailable): quote, checklist, table, callout and code, saved as ops to an isolated local Barkpark."
     },
     {
-      "file": "paper-light.b43a3422.png",
+      "file": "paper-light.9ca3ef67.png",
       "caption": "Light-theme contrast comparison of the same live Paper and conversation; other capture frames use dark mode."
     },
     {
-      "file": "slash-menu.a9353b0a.png",
+      "file": "slash-menu.d3d1ef64.png",
       "caption": "Dark-mode slash menu showing paragraph and heading choices; more block choices continue below the visible menu."
     },
     {
-      "file": "quick-open.d9075841.png",
+      "file": "quick-open.17e8c479.png",
       "caption": "Quick open (Ctrl+K) over tabs, papers, chats and actions."
     },
     {
-      "file": "settings-barkpark.3b05f424.png",
+      "file": "settings-barkpark.ab1b28c9.png",
       "caption": "Settings › Barkpark: the connection Barkdown edits through — here the local server."
     },
     {
-      "file": "editing.297f38cc.gif",
+      "file": "editing.163397b3.gif",
       "caption": "An editing loop in the canvas: slash menu → Quote, typing, Tab through the table, quick open."
     }
   ],
   "uiExemptions": [
     {
-      "commit": "e31cf338",
-      "reason": "Main-process refactor only: the CLI's spawn options move into one shared helper (cliSpawn) that the test runner also uses. Same options, nothing on screen changes.",
-      "date": "2026-11-19"
-    },
-    {
-      "commit": "5a9546b6",
-      "reason": "Main-process only: every CLI start moves into app/main/cli-spawn.js, which refuses outside a packaged build unless the run recorded the server; the CLI's error texts drop the command name. Nothing on screen changes; a refused import shows the existing error line.",
-      "date": "2026-11-19"
-    },
-    {
-      "commit": "f3e897d5",
-      "reason": "Main-process only: the CLI fence decides packaged from the app.asar location, reads the dev opt-in from the main process command line, and allows only Barkdown's own CLI verbs. Nothing on screen changes.",
-      "date": "2026-11-19"
-    },
-    {
-      "commit": "0a1d6bdd",
-      "reason": "Main-process only: a dev-app relaunch keeps the CLI opt-in, and the dev app's document server refuses the CLI in plain words. Nothing on screen changes.",
-      "date": "2026-11-20"
-    },
-    {
-      "commit": "77984ecc",
-      "reason": "Main-process only: the control socket refuses, in the dev app, commands that can change the library setting and, while the library is the CLI, commands that reach it. Nothing on screen changes.",
-      "date": "2026-11-20"
-    },
-    {
-      "commit": "40809c2a",
-      "reason": "Main-process only: in the dev app with the CLI library, the control socket runs only the commands it answers itself. Nothing on screen changes.",
-      "date": "2026-11-20"
-    },
-    {
-      "commit": "06131fe5",
-      "reason": "Main-process only: in the dev app with the CLI library, the agents' document server reads through the main process over the control socket. Nothing on screen changes.",
-      "date": "2026-11-20"
-    },
-    {
-      "commit": "1dbaf177",
-      "reason": "Main-process only: the dev app's document-read channel requires the run's own server first. Nothing on screen changes.",
-      "date": "2026-11-20"
+      "commit": "1e9a291da67538a67876c608e47ac566640ad1ba",
+      "reason": "Background approval requests use the run’s captured profile. The Paper views retain their reviewed renderer, and the current macOS tour checks the approval controls.",
+      "date": "2026-11-22"
     }
   ]
 }
