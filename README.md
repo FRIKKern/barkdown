@@ -9,13 +9,11 @@ We're building a desktop app for notes, agent conversations and browsing, inspir
 ## News
 
 <!-- news:start -->
+**Monday 23 November.** One pull request merged. Barkdown's approval choice is now two modes: No approvals, the default, lets an assistant also change settings, manage profiles and delete items, and Ask first brings back the approval prompts and keeps those actions for the person. Each profile keeps its own choice, also for runs in the background. It is in a downloadable build: the Mac nightly of Monday morning was built from this merge. [The full day](docs/news/2026-11-23.md)
+- **Approvals:** No approvals now includes settings, profiles and deletions; Ask first keeps them for the person; one choice per profile, background runs included ([#177](https://github.com/FRIKKern/barkdown/pull/177))
+
 **Friday 20 November.** Nine pull requests merged. Agents in Barkdown run from source with the Barkpark CLI library can read documents, but not edit them; the installed app is unchanged. Most of the rest change how test runs and screenshot scripts work. The Mac nightly of Friday afternoon holds the first seven merges; the last two are merged, not yet in a build. [The full day](docs/news/2026-11-20.md)
 - **Agents:** in Barkdown run from source with the Barkpark CLI library, Claude Code and Codex can read documents, not edit them ([#160](https://github.com/FRIKKern/barkdown/pull/160))
-
-**Thursday 19 November.** Twelve pull requests merged, mostly fixes to notes, imports and chats. All are in a downloadable build: the Mac nightly of Thursday evening was built after the last merge. [The full day](docs/news/2026-11-19.md)
-- **Notes:** words a save conflict kept at quit can be put back; Save as a note says why it was refused, or offers Retry and Discard ([#149](https://github.com/FRIKKern/barkdown/pull/149), [#147](https://github.com/FRIKKern/barkdown/pull/147))
-- **Chats:** a search hit opens its own message; @ sends only notes picked in the draft ([#152](https://github.com/FRIKKern/barkdown/pull/152), [#155](https://github.com/FRIKKern/barkdown/pull/155))
-- **Import:** imported Markdown keeps only links the reader allows ([#148](https://github.com/FRIKKern/barkdown/pull/148))
 <!-- news:end -->
 
 ## Where we are · October 16, 2026
