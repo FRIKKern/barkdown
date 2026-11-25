@@ -41,11 +41,12 @@ jobs:
           node-version: '22'
       - name: npm 11 (the lockfiles are written by npm 11)
         run: npm install -g npm@11
-      - name: Electron's shared libraries and Xvfb (Linux only)
+      - name: Electron's shared libraries, Xvfb and Secret Service (Linux only)
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update -q
           sudo apt-get install -y -q xvfb libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libasound2t64 libpango-1.0-0 libcairo2 libgtk-3-0 || sudo apt-get install -y -q xvfb libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libasound2 libpango-1.0-0 libcairo2 libgtk-3-0
+          sudo apt-get install -y -q dbus-daemon gnome-keyring libsecret-tools
       - name: Install (root holds playwright; app holds electron and the app's deps)
         shell: bash
         # Some chain segments drive a Playwright Chromium beside Electron; the runner has none.
@@ -78,14 +79,30 @@ jobs:
         if: runner.os == 'Linux'
         env:
           ELECTRON_DISABLE_SANDBOX: '1'
-        run: xvfb-run -a --server-args="-screen 0 1600x1000x24" npm run test:desktop
+          XDG_CURRENT_DESKTOP: GNOME
+        run: |
+          # The synthetic credentials must survive Electron crashes in a real Secret Service session.
+          keyring_root=$(mktemp -d "$RUNNER_TEMP/barkdown-keyring.XXXXXXXX")
+          export XDG_DATA_HOME="$keyring_root/data" XDG_RUNTIME_DIR="$keyring_root/run"
+          install -d -m 700 "$XDG_DATA_HOME" "$XDG_RUNTIME_DIR"
+          unset GNOME_KEYRING_CONTROL
+          xvfb-run -a --server-args="-screen 0 1600x1000x24" dbus-run-session -- bash -euo pipefail -s <<'BARKDOWN_CI'
+            printf %s barkdown-ci-fixture | timeout 15s gnome-keyring-daemon --unlock --components=secrets
+            printf %s barkdown-ci-probe | timeout 15s secret-tool store --label="Barkdown CI probe" barkdown-ci probe
+            test "$(timeout 15s secret-tool lookup barkdown-ci probe)" = barkdown-ci-probe
+            echo "Disposable Secret Service round trip passed"
+            exec npm run test:desktop </dev/null
+          BARKDOWN_CI
       - name: Build and test
         if: runner.os != 'Linux'
         shell: bash
         # macOS runners hand out a symlinked temp dir (/var -> /private/var); the app's store
         # refuses to traverse links, so tests get the real path (same rule as CYCLES hosts notes).
         run: |
-          if [ "$RUNNER_OS" = macOS ]; then export TMPDIR="$(node -e 'console.log(require("fs").realpathSync(require("os").tmpdir()))')"; fi
+          if [ "$RUNNER_OS" = macOS ]; then
+            resolved_tmpdir=$(node -e 'console.log(require("fs").realpathSync(require("os").tmpdir()))')
+            export TMPDIR="$resolved_tmpdir"
+          fi
           npm run test:desktop
       - name: Packaged build keeps the CLI fence (Windows)
         if: runner.os == 'Windows'

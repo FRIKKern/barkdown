@@ -4,6 +4,8 @@ The owner requested one approval mode and the local Codex executable fix on 22 N
 - The approval and command checks passed in disposable Electron profiles. The background-run regression confirmed that switching profiles could change an active run’s approval rules, then verified the fix in both directions. Delivery requires green hosted checks, a merge commit, and a packaged launch. [Validation ledger](VALIDATION.md)
 - Temporary fourth active lane owned by Codex for this request. Retire it after integration and a branch-tip check. The checkout has 7 registered worktrees and other local branch refs. Classify those against their unique commits and open PRs at the next branch inventory. The C108 acceptance route and migration estimate stay current.
 
+The 23 November release freshness check reproduced the Ubuntu Desktop credential-store failure on `f745731e`. Codex owns the temporary `codex/linux-desktop-keyring` lane. Retire it after integration and a branch-tip check. The change is limited to the disposable Linux runner session. Check workflow syntax and require a native Linux full-suite run to pass the existing credential persistence journey and the rest of the suite. Leave C108 acceptance and the public release lanes under their existing gates. [Linux baseline](https://github.com/FRIKKern/barkdown/actions/runs/45122470400)
+
 Owner-authorized integration: PR80 is merged346d1389. PR79 is refreshed from main in its existing installer worktree; combined check chains retain packaging and custody tests, active C108 route takes precedence over historical C106. Full combined verification passes127741ms; refreshed PR79 commit/push/hosted/merge next. No app/pin/package execution or stage acceptance.
 
 # Current handoff — 17 October 2026 UTC
